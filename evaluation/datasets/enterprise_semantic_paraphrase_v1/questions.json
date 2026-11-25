@@ -1,0 +1,1389 @@
+{
+  "schema_version": 1,
+  "dataset_id": "enterprise_semantic_paraphrase_v1",
+  "status": "frozen",
+  "purpose": "定向语义改写与措辞鲁棒性诊断，不是随机生产问题分布或新的独立业务留出",
+  "provenance": "AI 在已知原题和结果后设计的成对改写；新问法在查看其检索排名前统一固定，全部24对保留",
+  "repository": "pingcap/docs-cn",
+  "commit": "d99710dea88eac5f7437ec27acfa63aaa535b436",
+  "source_manifest": "evaluation/corpus/enterprise_tidb_v2/source_manifest.json",
+  "source_manifest_sha256": "0f265fcb7201ea854dc584e751f3f40af1ffa9d1a454516e168fa57191b7e93f",
+  "counts": {
+    "test": 24
+  },
+  "question_count": 24,
+  "source_documents_in_index_plan": 20,
+  "source_documents_with_questions": 14,
+  "topic_counts": {
+    "内存故障": 5,
+    "事务与锁": 6,
+    "慢查询": 4,
+    "写入热点": 2,
+    "连接与启动": 5,
+    "容量与流控": 2,
+    "部署与配置": 3,
+    "SQL 与业务迁移": 3,
+    "备份与迁移": 2
+  },
+  "kind_counts": {
+    "现象与精确标识": 19,
+    "口语现象": 12,
+    "准确报错": 1
+  },
+  "split_policy": {
+    "unit": "answer_family",
+    "answer_family_overlap": [],
+    "qualification": "同一领域语料中的问题留出；共享部分源文档，不是独立文档或真实生产流量留出",
+    "dev": "用于连通性、评分标签、检索策略及参数开发；保留全部开发结果",
+    "test": "24 道候选题待复核、建立等价依据和冻结；冻结前不运行检索"
+  },
+  "scoring_plan": {
+    "primary": "Hit Rate@5：前五条中是否有包含足够回答依据的片段；等价原文必须纳入标签",
+    "incomplete_evidence": "先记录需跨块组合的题；不把只含报错名的片段当完整依据，也不按结果事后删题",
+    "mapping": "入库后按原文锚点与语义复核映射真实 chunk ID；本草稿不伪造 ID 或沿用旧库 ID",
+    "comparison": "相同语料、解析与切分、题目、候选数和 Top K；保留向量、BM25、RRF 全部结果"
+  },
+  "paid_model_calls": 0,
+  "retrieval_executed": false,
+  "questions": [
+    {
+      "id": "EV01",
+      "split": "test",
+      "topic": "内存故障",
+      "answer_family": "hashagg_memory_alternative",
+      "kind": "现象与精确标识",
+      "question": "报表按组汇总时，执行步骤里那个用散列表并行归并结果的环节特别吃工作空间。除了扩大机器资源，聚合方式上能试哪一种替代实现？",
+      "reference_answer": "可以尝试使用 STREAM_AGG() 替代；文档指出 HashAgg 多线程执行较快，但会消耗较多内存。",
+      "filename": "troubleshoot-tidb-oom.md",
+      "exact_signals": [
+        "HashAgg"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "afe47f50941456a84ad8b1bd7e2e7c94e545af68271cb282b98baea5a422507b",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-oom.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "quote": "HashAgg 是多线程并发执行",
+          "start_char": 3356,
+          "end_char": 3372,
+          "line_start": 98,
+          "line_end": 98
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "quote": "可以尝试使用 `STREAM_AGG()` 替代。",
+          "start_char": 3391,
+          "end_char": 3416,
+          "line_start": 98,
+          "line_end": 98
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "269e95ee-82fa-4d3c-bbad-bc33daa174f2"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV01",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "269e95ee-82fa-4d3c-bbad-bc33daa174f2"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "269e95ee-82fa-4d3c-bbad-bc33daa174f2"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "内存排查发现执行计划中的 HashAgg 占用很高，在聚合执行方式上可以尝试什么替代方案？",
+      "variant_id": "SP01",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV02",
+      "split": "test",
+      "topic": "内存故障",
+      "answer_family": "large_transaction_amplification",
+      "kind": "口语现象",
+      "question": "应用一次攒了很多条更新，准备最后统一提交。预留工作区时，能按准备提交的数据体积等量估算吗，还是需要额外余量？一次攒得太多应怎样改？",
+      "reference_answer": "文档指出事务执行内存相对提交事务大小有放大，最大可能达到 2 到 3 倍以上；单个大事务可拆分以调小事务大小。",
+      "filename": "troubleshoot-tidb-oom.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "afe47f50941456a84ad8b1bd7e2e7c94e545af68271cb282b98baea5a422507b",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-oom.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "quote": "最大可能达到提交事务大小的 2 到 3 倍以上。",
+          "start_char": 3781,
+          "end_char": 3805,
+          "line_start": 108,
+          "line_end": 108
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "quote": "通过拆分的方式调小事务大小。",
+          "start_char": 3817,
+          "end_char": 3831,
+          "line_start": 110,
+          "line_end": 110
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "852a2657-ef4f-43ca-84d7-70002800cdbe"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV02",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "852a2657-ef4f-43ca-84d7-70002800cdbe"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "852a2657-ef4f-43ca-84d7-70002800cdbe"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "批量写入时，进程需要的内存明显大于准备提交的数据大小。容量规划应考虑什么放大现象，单个事务太大时怎样缓解？",
+      "variant_id": "SP02",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV03",
+      "split": "test",
+      "topic": "内存故障",
+      "answer_family": "client_result_buffering",
+      "kind": "口语现象",
+      "question": "业务程序取一份很大的结果时自己先撑爆了，数据库机器却没异常。应该排查连接驱动的什么取数设置，防止把整份数据囤在本地？",
+      "reference_answer": "检查 JDBC 流式读取相关配置，例如 defaultFetchSize 配置错误可能导致数据在客户端大量缓存；结合 Client Data Traffic 观察是否存在网络阻塞。",
+      "filename": "troubleshoot-tidb-oom.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "afe47f50941456a84ad8b1bd7e2e7c94e545af68271cb282b98baea5a422507b",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-oom.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "quote": "流式读取的相关参数 `defaultFetchSize` 配置有误，会造成数据在客户端大量缓存。",
+          "start_char": 5175,
+          "end_char": 5223,
+          "line_start": 143,
+          "line_end": 143
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "6b90287a-4590-4498-8792-68116c734bd1"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV03",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "6b90287a-4590-4498-8792-68116c734bd1"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "6b90287a-4590-4498-8792-68116c734bd1"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "应用拉取查询结果时，内存爆掉的是客户端，而不是数据库进程。除了看数据流量，驱动的哪类读取设置值得检查？",
+      "variant_id": "SP03",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV04",
+      "split": "test",
+      "topic": "事务与锁",
+      "answer_family": "lock_view_sql_visibility",
+      "kind": "现象与精确标识",
+      "question": "数据库内置那组专门展示事务互相阻塞关系的观测表，能覆盖所有并发控制方式吗？里面展示的请求文本，还能还原成带着当时真实入参和排版的原样吗？",
+      "reference_answer": "不成立。文档说明 Lock View 目前只提供悲观锁冲突和等待信息；SQL 由 Digest 获得，是去掉格式和参数的归一化语句，不能恢复含原始格式和参数的完整 SQL。",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "exact_signals": [
+        "Lock View"
+      ],
+      "applicability": "该固定版本文档描述的 Lock View 范围",
+      "source_sha256": "a3ce7f4e7d607a1ab55d10248531607d0c00086094b5ef077f2a538e5fc8e0eb",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-lock-conflicts.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "Lock View 功能目前仅提供悲观锁的冲突和等待信息。",
+          "start_char": 371,
+          "end_char": 400,
+          "line_start": 16,
+          "line_end": 16
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "因而无法获取包括格式和参数在内的完整语句。",
+          "start_char": 1014,
+          "end_char": 1035,
+          "line_start": 26,
+          "line_end": 26
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "2a13b1bf-6345-4678-ae5b-529ada697873",
+        "f204f072-a451-4510-9371-3ee4008c6624"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV04",
+        "required_unit_gold_chunk_ids": {
+          "mode_scope": [
+            "f204f072-a451-4510-9371-3ee4008c6624"
+          ],
+          "sql_visibility": [
+            "2a13b1bf-6345-4678-ae5b-529ada697873"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [],
+        "missing_required_units": []
+      },
+      "original_question": "排障同事想用 Lock View 查看所有事务模式的锁冲突，并还原带原始参数的完整 SQL。这两个预期都成立吗？",
+      "variant_id": "SP04",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV05",
+      "split": "test",
+      "topic": "事务与锁",
+      "answer_family": "fair_locking_tradeoff",
+      "kind": "现象与精确标识",
+      "question": "同一条业务记录被大量请求争着修改，先占住它再更新的模式下，反复尝试占用的次数已经耗尽。有没有让争抢更公平的开关，开启后处理速度可能付出什么代价？",
+      "reference_answer": "先从业务逻辑调整；同一 key 高并发冲突时可考虑 tidb_pessimistic_txn_fair_locking，但可能降低冲突事务吞吐、增加平均延迟。",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "exact_signals": [
+        "pessimistic lock retry limit reached"
+      ],
+      "applicability": "悲观事务同一 key 高并发；该变量自 v7.0.0 引入",
+      "source_sha256": "a3ce7f4e7d607a1ab55d10248531607d0c00086094b5ef077f2a538e5fc8e0eb",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-lock-conflicts.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "tidb_pessimistic_txn_fair_locking",
+          "start_char": 13809,
+          "end_char": 13842,
+          "line_start": 317,
+          "line_end": 317
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "吞吐下降（平均延迟上升）的代价。",
+          "start_char": 13942,
+          "end_char": 13958,
+          "line_start": 317,
+          "line_end": 317
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "455a7702-ed37-47b8-9e7d-04f35d5493e4"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV05",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "455a7702-ed37-47b8-9e7d-04f35d5493e4"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "455a7702-ed37-47b8-9e7d-04f35d5493e4"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "业务大量并发争抢同一行，频繁出现 pessimistic lock retry limit reached。可以考虑哪个公平加锁选项，代价是什么？",
+      "variant_id": "SP05",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV06",
+      "split": "test",
+      "topic": "事务与锁",
+      "answer_family": "pessimistic_ttl_timeout",
+      "kind": "现象与精确标识",
+      "question": "一个先占住待改行、到结束才释放的更新任务运行很久，后台维持这些占用有效性的管理器提示已超时、保护可能失效。应核对哪个最长存活设置，业务流程可以怎样改？",
+      "reference_answer": "检查悲观锁 TTL 上限及 performance.max-txn-ttl；文档默认上限为 1 小时，超时可能提交失败。可优化业务、拆分大事务，并评估相关参数。",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "exact_signals": [
+        "TTL manager has timed out"
+      ],
+      "applicability": "悲观事务；实际 TTL 取决于配置并受 GC 时间等条件约束",
+      "source_sha256": "a3ce7f4e7d607a1ab55d10248531607d0c00086094b5ef077f2a538e5fc8e0eb",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-lock-conflicts.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "悲观锁的 TTL 有上限，默认为 1 小时",
+          "start_char": 14442,
+          "end_char": 14463,
+          "line_start": 337,
+          "line_end": 337
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "performance.max-txn-ttl",
+          "start_char": 14508,
+          "end_char": 14531,
+          "line_start": 337,
+          "line_end": 337
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "quote": "如将大事务拆分为小事务。",
+          "start_char": 14819,
+          "end_char": 14831,
+          "line_start": 349,
+          "line_end": 349
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "22052e13-ffe9-4ea7-9762-47c90cf8c854",
+        "852a2657-ef4f-43ca-84d7-70002800cdbe",
+        "b77b71e7-edaa-4be8-bb00-70f55d332214",
+        "ef56e348-7ae7-450c-b6a2-e62bb82e3ec5"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV06",
+        "required_unit_gold_chunk_ids": {
+          "ttl_limit": [
+            "b77b71e7-edaa-4be8-bb00-70f55d332214",
+            "ef56e348-7ae7-450c-b6a2-e62bb82e3ec5"
+          ],
+          "business_action": [
+            "22052e13-ffe9-4ea7-9762-47c90cf8c854",
+            "852a2657-ef4f-43ca-84d7-70002800cdbe"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [],
+        "missing_required_units": []
+      },
+      "original_question": "后台长事务运行很久后提示 TTL manager has timed out, pessimistic locks may expire。应检查什么时间限制，业务上优先考虑怎样调整？",
+      "variant_id": "SP06",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV07",
+      "split": "test",
+      "topic": "慢查询",
+      "answer_family": "timestamp_wait_bottleneck",
+      "kind": "现象与精确标识",
+      "question": "一条读写请求总共用了三十毫秒，其中二十五毫秒都在等领到本次操作的全局版本号。这个占比是否值得警惕，应该优先检查哪个准备阶段？",
+      "reference_answer": "值得重点检查取时间戳阶段；比较 Wait_TS 与 Query_time，文档指出时间戳通常有预取，Wait_TS 应较低，而这里占了大部分查询时间。",
+      "filename": "analyze-slow-queries.md",
+      "exact_signals": [
+        "Query_time",
+        "Wait_TS"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "76665aadf369529755a05ced4f76773d0977bb09799816d447ba28063679dbae",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/analyze-slow-queries.md",
+      "anchors": [
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "因为 TS 有预取操作，通常来说 `Wait_TS` 应该很低。",
+          "start_char": 4499,
+          "end_char": 4531,
+          "line_start": 117,
+          "line_end": 117
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "# Query_time: 0.0300000",
+          "start_char": 4537,
+          "end_char": 4560,
+          "line_start": 120,
+          "line_end": 120
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "# Wait_TS: 0.02500000",
+          "start_char": 4565,
+          "end_char": 4586,
+          "line_start": 122,
+          "line_end": 122
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "67961549-6d69-4518-80b1-f13d4112b952",
+        "befe86d1-8572-4074-8013-6fe8fccd3e2c"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV07",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "67961549-6d69-4518-80b1-f13d4112b952",
+            "befe86d1-8572-4074-8013-6fe8fccd3e2c"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "67961549-6d69-4518-80b1-f13d4112b952",
+          "befe86d1-8572-4074-8013-6fe8fccd3e2c"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "一条查询 Query_time 为 0.030 秒，其中 Wait_TS 为 0.025 秒。这一阶段的等待是否值得重点检查，为什么？",
+      "variant_id": "SP07",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV08",
+      "split": "test",
+      "topic": "慢查询",
+      "answer_family": "preexecuted_subquery_latency",
+      "kind": "现象与精确标识",
+      "question": "接口等了将近八秒，执行明细却只记了几毫秒。日志里开跑前改写请求的准备环节很慢，嵌在请求里的独立取数也在那时花掉了大部分时间。这种耗时没进执行明细的情况怎样解释？",
+      "reference_answer": "可能是非关联子查询在优化阶段提前执行，执行算子耗时无法直接反映这段时间；文档同类例子有一个提前执行的子查询耗时约 7.76 秒。",
+      "filename": "analyze-slow-queries.md",
+      "exact_signals": [
+        "Rewrite_time",
+        "Preproc_subqueries_time"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "76665aadf369529755a05ced4f76773d0977bb09799816d447ba28063679dbae",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/analyze-slow-queries.md",
+      "anchors": [
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "子查询部分可能被提前执行",
+          "start_char": 5216,
+          "end_char": 5228,
+          "line_start": 136,
+          "line_end": 136
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "这种查询用 `explain analyze` 看不到对应的耗时",
+          "start_char": 5323,
+          "end_char": 5355,
+          "line_start": 136,
+          "line_end": 136
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "# Rewrite_time: 7.765673663 Preproc_subqueries: 1 Preproc_subqueries_time: 7.765231874",
+          "start_char": 7023,
+          "end_char": 7109,
+          "line_start": 157,
+          "line_end": 157
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "a4996f5e-1937-49b8-addb-561a0744f646"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV08",
+        "required_unit_gold_chunk_ids": {
+          "preexecution_explanation": [
+            "a4996f5e-1937-49b8-addb-561a0744f646"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {
+          "numeric_example": [
+            "4b2df758-db03-4172-8bd1-e08399db551d"
+          ]
+        },
+        "single_chunk_full_evidence_ids": [
+          "a4996f5e-1937-49b8-addb-561a0744f646"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "SQL 总耗时约 7.77 秒，但 explain analyze 里的执行算子只有几毫秒；慢日志里 Rewrite_time 和 Preproc_subqueries_time 接近 7.76 秒。时间可能花在哪里？",
+      "variant_id": "SP08",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV09",
+      "split": "test",
+      "topic": "慢查询",
+      "answer_family": "cop_wait_outlier_instance",
+      "kind": "现象与精确标识",
+      "question": "任务分发到好几台存储机器后，大多数只排队一两毫秒，有一台却等了大约十分之一秒。记录里给了等待最久的那台地址，应该优先朝什么方向排查，而不是只看平均数？",
+      "reference_answer": "可能是该地址对应 TiKV 实例当时繁忙，一个 cop-task 排队等待约 110ms；应结合当时该实例 CPU 监控判断，而不能只看平均等待。",
+      "filename": "analyze-slow-queries.md",
+      "exact_signals": [
+        "Cop_wait",
+        "Max_time",
+        "Max_Addr"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "76665aadf369529755a05ced4f76773d0977bb09799816d447ba28063679dbae",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/analyze-slow-queries.md",
+      "anchors": [
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "# Cop_wait: Avg_time: 1ms P90_time: 2ms Max_time: 110ms",
+          "start_char": 3948,
+          "end_char": 4003,
+          "line_start": 94,
+          "line_end": 94
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "quote": "此时可以打开当时的 CPU 监控辅助判断。",
+          "start_char": 4094,
+          "end_char": 4115,
+          "line_start": 97,
+          "line_end": 97
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "287bbd4a-414f-419d-b389-051fb6201160",
+        "dc9412a7-2d0d-4cf1-858d-ab732e180c51"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV09",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "287bbd4a-414f-419d-b389-051fb6201160",
+            "dc9412a7-2d0d-4cf1-858d-ab732e180c51"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "287bbd4a-414f-419d-b389-051fb6201160",
+          "dc9412a7-2d0d-4cf1-858d-ab732e180c51"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "慢日志 Cop_wait 平均只有 1ms、P90 为 2ms，但 Max_time 达到 110ms，并给出一个 Max_Addr。这说明应优先排查什么？",
+      "variant_id": "SP09",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV10",
+      "split": "test",
+      "topic": "连接与启动",
+      "answer_family": "kv_grpc_network_gap",
+      "kind": "现象与精确标识",
+      "question": "数据库接入层测到从发出访问到收到回复隔了很久，存储进程自己测到的处理过程却很快。两边计时差这么多，除了计算能力，还应该怀疑哪一段？",
+      "reference_answer": "TiDB 与 TiKV 之间可能网络延迟较高，或网卡带宽被占满；可通过客户端观察的 KV duration 与服务端 gRPC duration 差异定位。",
+      "filename": "troubleshoot-cpu-issues.md",
+      "exact_signals": [
+        "KV Cmd Duration",
+        "gRPC duration"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "d6bc3d0e1f7cdd7e59cd207a9cf14bae8b8b2fee199062961e06a424dcce37b6",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-cpu-issues.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-cpu-issues.md",
+          "quote": "gRPC duration 很短但是 TiDB 的 KV duration 显示很长",
+          "start_char": 3444,
+          "end_char": 3486,
+          "line_start": 77,
+          "line_end": 77
+        },
+        {
+          "filename": "troubleshoot-cpu-issues.md",
+          "quote": "TiDB 和 TiKV 之间网络延迟可能很高，或者 TiDB 和 TiKV 之间的网卡带宽被占满。",
+          "start_char": 3490,
+          "end_char": 3539,
+          "line_start": 77,
+          "line_end": 77
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "93baf7b0-70a5-4345-9a2c-e558cd87e88a"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV10",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "93baf7b0-70a5-4345-9a2c-e558cd87e88a"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "93baf7b0-70a5-4345-9a2c-e558cd87e88a"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "监控显示 TiDB 的 KV Cmd Duration 很长，可 TiKV 的 gRPC duration 很短。除了服务端计算慢，还应怀疑哪一段？",
+      "variant_id": "SP10",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV11",
+      "split": "test",
+      "topic": "连接与启动",
+      "answer_family": "file_descriptor_limit",
+      "kind": "准确报错",
+      "question": "组件起不来，系统提示能同时持有的文件句柄名额用完了。启动前该查看哪一项操作系统额度？",
+      "reference_answer": "检查 ulimit -n 的文件描述符数量限制；文档建议足够大，给出的建议值是 unlimited 或大于 1000000。",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "exact_signals": [
+        "Too many open files"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "6a8e9f2dd24c159a63fb5c640c036acd9e37601f74940d705b6e2acdf0ccf1ac",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-cluster.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "quote": "`ulimit -n` 的结果足够大，推荐设为 unlimited 或者是大于 1000000。",
+          "start_char": 3002,
+          "end_char": 3050,
+          "line_start": 124,
+          "line_end": 124
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "e97f0daa-395f-455c-ae06-7ba1d4075705"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV11",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "e97f0daa-395f-455c-ae06-7ba1d4075705"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "e97f0daa-395f-455c-ae06-7ba1d4075705"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "组件启动时报 Too many open files，启动前应检查哪项操作系统限制？",
+      "variant_id": "SP11",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV12",
+      "split": "test",
+      "topic": "连接与启动",
+      "answer_family": "shared_tikv_database_directory",
+      "kind": "口语现象",
+      "question": "第二个存储副本进程准备启动时，沿用了第一个实例正在使用的持久化路径，提示文件已被占住。能让两套进程共用那一套数据库文件吗？",
+      "reference_answer": "不能；文档明确不要在同一个数据库文件目录上打开两个 tikv，应核对实例的数据目录是否冲突。",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "6a8e9f2dd24c159a63fb5c640c036acd9e37601f74940d705b6e2acdf0ccf1ac",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-cluster.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "quote": "不要在一个数据库文件目录上打开两个 tikv。",
+          "start_char": 2265,
+          "end_char": 2288,
+          "line_start": 78,
+          "line_end": 78
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "f56541f1-d5fc-4a7e-85b4-10f809056175"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV12",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "f56541f1-d5fc-4a7e-85b4-10f809056175"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "f56541f1-d5fc-4a7e-85b4-10f809056175"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "新增存储进程启动失败，提示数据库文件被占用。能否让两个存储实例直接打开同一个数据库文件目录？",
+      "variant_id": "SP12",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV13",
+      "split": "test",
+      "topic": "部署与配置",
+      "answer_family": "binary_config_loading",
+      "kind": "现象与精确标识",
+      "question": "直接运行可执行文件部署时，保存数据和负责调度的两个组件改了磁盘上的参数清单，重启却没按新值工作。应检查有没有把清单位置传给程序？调度组件以后每次重启都会重读吗？",
+      "reference_answer": "先检查是否用 --config 指定文件；TiKV 修改配置后可重启服务，PD 只在首次启动读取文件，后续可通过 pd-ctl 修改配置。",
+      "filename": "faq/deploy-and-maintain-faq.md",
+      "exact_signals": [
+        "toml",
+        "TiKV",
+        "PD"
+      ],
+      "applicability": "文档说明的 binary 部署场景；不套用于 TiUP 配置管理",
+      "source_sha256": "35237b0a6866b7dceb86f1013ba6d4857784d4c994a922a525fc111fb3411af0",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/deploy-and-maintain-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "quote": "没有使用 `--config` 参数来指定配置文件",
+          "start_char": 1020,
+          "end_char": 1045,
+          "line_start": 42,
+          "line_end": 42
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "quote": "对于 PD 组件，只会在第一次启动时读取配置文件",
+          "start_char": 1146,
+          "end_char": 1170,
+          "line_start": 42,
+          "line_end": 42
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "f24335b8-9eb7-4591-b6e2-9c78e0102b5a"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV13",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "f24335b8-9eb7-4591-b6e2-9c78e0102b5a"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "f24335b8-9eb7-4591-b6e2-9c78e0102b5a"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "二进制部署的 TiKV/PD 改了 toml 却不生效，应先检查哪个启动参数？两个组件后续读取配置的方式有什么区别？",
+      "variant_id": "SP13",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV14",
+      "split": "test",
+      "topic": "部署与配置",
+      "answer_family": "direct_io_cache_bypass",
+      "kind": "现象与精确标识",
+      "question": "用拷贝工具测盘时，担心漂亮的速度其实只是数据进了操作系统缓冲区。要求写入直接送到设备的那个选项，为什么更适合测物理盘的本事？",
+      "reference_answer": "Direct 模式将写入请求直接发给磁盘，绕开文件系统缓存，减少缓存对磁盘 I/O 能力测量的影响。",
+      "filename": "faq/deploy-and-maintain-faq.md",
+      "exact_signals": [
+        "dd",
+        "oflag=direct"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "35237b0a6866b7dceb86f1013ba6d4857784d4c994a922a525fc111fb3411af0",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/deploy-and-maintain-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "quote": "这样是为了绕开文件系统的缓存，可以直接测试磁盘的真实的 I/O 读写能力。",
+          "start_char": 2135,
+          "end_char": 2172,
+          "line_start": 68,
+          "line_end": 68
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "be3556f2-3bb3-405f-b22e-e1dd4f41b6a6"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV14",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "be3556f2-3bb3-405f-b22e-e1dd4f41b6a6"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "be3556f2-3bb3-405f-b22e-e1dd4f41b6a6"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "磁盘压测结果怀疑测到的是操作系统缓存。dd 的 oflag=direct 为什么有助于测实际磁盘读写能力？",
+      "variant_id": "SP14",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV15",
+      "split": "test",
+      "topic": "部署与配置",
+      "answer_family": "monitoring_clock_skew",
+      "kind": "口语现象",
+      "question": "同事说采集还在正常上报，我用自己的电脑打开仪表盘，却缺了部分曲线。除了采集链路，有没有与两边钟表没对齐有关的检查项？",
+      "reference_answer": "检查访问监控的机器与集群机器的时间差；文档指出时间差较大时，更正时间可以恢复显示。",
+      "filename": "faq/deploy-and-maintain-faq.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "35237b0a6866b7dceb86f1013ba6d4857784d4c994a922a525fc111fb3411af0",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/deploy-and-maintain-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "quote": "查看访问监控的机器时间跟集群内机器的时间差，如果比较大，更正时间后即可显示正常。",
+          "start_char": 1380,
+          "end_char": 1420,
+          "line_start": 50,
+          "line_end": 50
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "33480c7a-f74e-4887-852b-f9e8af683902"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV15",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "33480c7a-f74e-4887-852b-f9e8af683902"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "33480c7a-f74e-4887-852b-f9e8af683902"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "服务在运行，但监控页面只有部分数据能显示。除了查采集服务，有什么与机器时间有关的检查值得先做？",
+      "variant_id": "SP15",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV16",
+      "split": "test",
+      "topic": "SQL 与业务迁移",
+      "answer_family": "unordered_result_contract",
+      "kind": "口语现象",
+      "question": "应用换到分布式数据库后，一次没指定先后规则的取数，行的出场次序和以前不一样。能靠原来单机上碰巧稳定的次序继续用吗？怎样把先后变成明确约定？",
+      "reference_answer": "不能。没有 ORDER BY 时行顺序不保证一致；应用依赖固定顺序时应显式使用 ORDER BY。",
+      "filename": "faq/sql-faq.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "37e38cdbbe5c2ec78abe0b0f525cd7afe5887d52c71c9c5a17f047d36dc2831b",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/sql-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/sql-faq.md",
+          "quote": "返回结果的顺序视不同情况而定，不保证顺序统一。",
+          "start_char": 2167,
+          "end_char": 2190,
+          "line_start": 65,
+          "line_end": 65
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "quote": "都推荐使用 `ORDER BY` 条件。",
+          "start_char": 2260,
+          "end_char": 2280,
+          "line_start": 67,
+          "line_end": 67
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "9ed0ca69-a05c-4987-90d0-fbfe388c3785"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV16",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "9ed0ca69-a05c-4987-90d0-fbfe388c3785"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "9ed0ca69-a05c-4987-90d0-fbfe388c3785"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "迁移后同一条查询没写排序条件，返回行的先后顺序和原数据库不同。能否据此认定结果错误，应用该怎样保证顺序？",
+      "variant_id": "SP16",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV17",
+      "split": "test",
+      "topic": "SQL 与业务迁移",
+      "answer_family": "delete_space_compaction",
+      "kind": "口语现象",
+      "question": "批量清掉旧记录后，盘占用没跟着立刻缩小。回收器处理过期版本后，底层还得做哪一步整理，才能把这部分存储重新利用起来？",
+      "reference_answer": "DELETE 不会立即释放空间；GC 删除数据后，还要等待后续 compaction 才释放空间，不能把数据删除等同于磁盘立即回收。",
+      "filename": "faq/sql-faq.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "37e38cdbbe5c2ec78abe0b0f525cd7afe5887d52c71c9c5a17f047d36dc2831b",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/sql-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/sql-faq.md",
+          "quote": "对于 DELETE 操作，TiDB 的 GC 机制会删除数据，但不会立即释放空间，而是等到后续进行 compaction 时释放空间。",
+          "start_char": 5837,
+          "end_char": 5904,
+          "line_start": 183,
+          "line_end": 183
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "d8d0846e-a067-4feb-99ea-0903c853b5b0",
+        "f526b375-0f14-4573-ba0f-4cb169ad96f7"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV17",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "d8d0846e-a067-4feb-99ea-0903c853b5b0",
+            "f526b375-0f14-4573-ba0f-4cb169ad96f7"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "d8d0846e-a067-4feb-99ea-0903c853b5b0",
+          "f526b375-0f14-4573-ba0f-4cb169ad96f7"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "业务删除大量行后，为什么不能期待磁盘空间马上下降？对普通行删除，清理旧数据之后还要等待什么过程？",
+      "variant_id": "SP17",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV18",
+      "split": "test",
+      "topic": "SQL 与业务迁移",
+      "answer_family": "online_index_backfill",
+      "kind": "口语现象",
+      "question": "线上大表想给现有记录补建一套用于快速查找的目录，团队怕这段时间读写全部停住。这个后台过程为什么会慢，会不会额外抢资源，是否等于必须停服？",
+      "reference_answer": "TiDB 支持在线 DDL，文档说明不阻塞 DML；添加索引需要 backfill，耗时取决于表大小并消耗额外资源，对业务影响可调节，不能理解成零开销。",
+      "filename": "faq/sql-faq.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "37e38cdbbe5c2ec78abe0b0f525cd7afe5887d52c71c9c5a17f047d36dc2831b",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/sql-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/sql-faq.md",
+          "quote": "这些 DDL 操作不会阻塞 DML 操作。",
+          "start_char": 322,
+          "end_char": 343,
+          "line_start": 16,
+          "line_end": 16
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "quote": "TiDB 需要进行回填 (backfill) 操作",
+          "start_char": 401,
+          "end_char": 426,
+          "line_start": 20,
+          "line_end": 20
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "quote": "额外的资源消耗。对在线业务的影响可调节。",
+          "start_char": 448,
+          "end_char": 468,
+          "line_start": 20,
+          "line_end": 20
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "188fa1a8-5588-49f3-bcdc-c7d1a61380d4"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV18",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "188fa1a8-5588-49f3-bcdc-c7d1a61380d4"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "188fa1a8-5588-49f3-bcdc-c7d1a61380d4"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "大表加索引耗时很长，团队担心线上读写完全被阻塞。文档怎样解释在线建索引的耗时与资源影响？",
+      "variant_id": "SP18",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV19",
+      "split": "test",
+      "topic": "连接与启动",
+      "answer_family": "cluster_id_mismatch",
+      "kind": "现象与精确标识",
+      "question": "只把存放集群元信息的调度服务重建了，保存业务记录的进程还拿着旧目录重启。为什么它会因新旧集群身份对不上而拒绝加入？",
+      "reference_answer": "TiKV 本地保存的 cluster ID 与新 PD 的 cluster ID 不一致。新 PD 会生成新的 ID，原 TiKV 初始化时存下的是旧 ID，启动检查不一致会退出。",
+      "filename": "faq/manage-cluster-faq.md",
+      "exact_signals": [
+        "cluster ID mismatch"
+      ],
+      "applicability": "只解释原因；不建议或执行删除生产数据",
+      "source_sha256": "3b933b2257c178a67f736d9aa40dbae40ba4d2e9054d9133e1f6439b34f924ee",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/manage-cluster-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "quote": "TiKV 本地存储的 cluster ID 和指定的 PD 的 cluster ID 不一致。",
+          "start_char": 10776,
+          "end_char": 10823,
+          "line_start": 283,
+          "line_end": 283
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "quote": "PD 会随机生成一个 cluster ID",
+          "start_char": 10838,
+          "end_char": 10859,
+          "line_start": 283,
+          "line_end": 283
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "1ad63a98-df6e-4fd0-ab8a-4c6db7d47bfa"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV19",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "1ad63a98-df6e-4fd0-ab8a-4c6db7d47bfa"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "1ad63a98-df6e-4fd0-ab8a-4c6db7d47bfa"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "重建 PD 后仍用原来的 TiKV 数据目录启动，报 cluster ID mismatch。这个错误体现了什么元信息不一致？",
+      "variant_id": "SP19",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV20",
+      "split": "test",
+      "topic": "备份与迁移",
+      "answer_family": "large_backup_tool_choice",
+      "kind": "口语现象",
+      "question": "公司要为两千 GB 的库留一份备份，现有资料优先推荐哪个原生工具？拿通用的 MySQL 逻辑导出程序搬这么多数据，有什么效率问题？",
+      "reference_answer": "文档对大于 1 TB 的场景推荐 Backup & Restore（BR）；并指出 mysqldump 的性能低于 Dumpling，备份恢复大量数据耗时更长。该建议来自固定资料，不代替生产方案评审。",
+      "filename": "faq/manage-cluster-faq.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "3b933b2257c178a67f736d9aa40dbae40ba4d2e9054d9133e1f6439b34f924ee",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/manage-cluster-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "quote": "大于 1 TB）推荐使用 [Backup & Restore (BR)]",
+          "start_char": 16151,
+          "end_char": 16187,
+          "line_start": 411,
+          "line_end": 411
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "quote": "`mysqldump` 备份和恢复大量数据的耗费更长。",
+          "start_char": 16370,
+          "end_char": 16397,
+          "line_start": 413,
+          "line_end": 413
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "b67b87b1-c143-4fb7-a917-b7a984431212"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV20",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "b67b87b1-c143-4fb7-a917-b7a984431212"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "b67b87b1-c143-4fb7-a917-b7a984431212"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "团队要给超过 1 TB 的库做备份，现有资料优先推荐哪个工具？为什么不优先选通用的逻辑导出工具？",
+      "variant_id": "SP20",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV21",
+      "split": "test",
+      "topic": "备份与迁移",
+      "answer_family": "staged_mysql_migration",
+      "kind": "口语现象",
+      "question": "原先跑在 MySQL 上的业务要搬进 TiDB，希望先迁数据，再一批批把读和写切过去，前面放个固定入口少改应用。搬数据的工具和接入层应该怎样配合？",
+      "reference_answer": "用 TiDB Data Migration 进行 MySQL 到 TiDB 数据迁移；业务读写可按需分阶段通过网络配置切换，在数据库上层放稳定的 LB 作为入口。",
+      "filename": "faq/migration-tidb-faq.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "79847beeb170794cb316937f53ba08056f800a031a38deb507222bbcb7df0bcf",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/migration-tidb-faq.md",
+      "anchors": [
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "quote": "进行 MySQL -> TiDB 的业务数据的迁移",
+          "start_char": 3755,
+          "end_char": 3780,
+          "line_start": 136,
+          "line_end": 136
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "quote": "业务读写可以按照需求分阶段通过修改网络配置进行流量迁移",
+          "start_char": 3781,
+          "end_char": 3808,
+          "line_start": 136,
+          "line_end": 136
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "quote": "建议 DB 上层部署一个稳定的网络 LB",
+          "start_char": 3809,
+          "end_char": 3829,
+          "line_start": 136,
+          "line_end": 136
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "dab7ebb0-593a-45f7-b025-675f791cb318"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV21",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "dab7ebb0-593a-45f7-b025-675f791cb318"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "dab7ebb0-593a-45f7-b025-675f791cb318"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "MySQL 业务要迁入 TiDB，希望数据迁移和读写流量切换分开推进。资料建议怎样组织迁移工具和网络入口？",
+      "variant_id": "SP21",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV22",
+      "split": "test",
+      "topic": "容量与流控",
+      "answer_family": "io_hotspot_vs_global_load",
+      "kind": "口语现象",
+      "question": "观察各台机器忙着读写盘的程度时，一种情况是少数主机显著高于同伴，另一种是几乎所有主机都很忙。这两种分布下，排查范围应有什么区别？",
+      "reference_answer": "只有一台机器 I/O 高时可辅助判断读写热点；大部分机器都高时提示集群整体 I/O 负载高，需进一步用磁盘延迟、负载等监控验证。",
+      "filename": "troubleshoot-high-disk-io.md",
+      "exact_signals": [],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "5527e7a96882bacc01b80790c44be4ae4d84f6fb8ff102c14d5ed85155277bb1",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-high-disk-io.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "quote": "只有一台机器的 I/O 高，那么可以辅助判断当前有读写热点。",
+          "start_char": 513,
+          "end_char": 543,
+          "line_start": 22,
+          "line_end": 22
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "quote": "大部分机器的 I/O 都高，那么集群现在有高 I/O 负载存在。",
+          "start_char": 551,
+          "end_char": 583,
+          "line_start": 23,
+          "line_end": 23
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "1d391633-6886-4f4c-88bb-f4cc8c7010d0"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV22",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "1d391633-6886-4f4c-88bb-f4cc8c7010d0"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "1d391633-6886-4f4c-88bb-f4cc8c7010d0"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "监控里一台机器的磁盘占用率很高，与大部分机器都很高，这两种分布分别提示什么排查方向？",
+      "variant_id": "SP22",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV23",
+      "split": "test",
+      "topic": "写入热点",
+      "answer_family": "auto_random_business_id_boundary",
+      "kind": "现象与精确标识",
+      "question": "有人建议为新增记录采用服务端分配、随机打散的唯一编号，减轻都写向同一处的压力。业务还靠编号大小判断谁先创建，这能继续成立吗？写入后用什么方式取回刚分配的编号？",
+      "reference_answer": "不满足递增要求。AUTO_RANDOM 主键不再自增，适合只要求唯一、没有业务含义的主键；可用 LAST_INSERT_ID() 取得上次分配值。",
+      "filename": "troubleshoot-hot-spot-issues.md",
+      "exact_signals": [
+        "AUTO_RANDOM"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "40e50d70fae9d3dc51c99de925e12118f45221ae64e5a02b52e79e13c6cec1d8",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-hot-spot-issues.md",
+      "anchors": [
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "quote": "TiDB 生成的主键不再是自增的主键",
+          "start_char": 3820,
+          "end_char": 3838,
+          "line_start": 120,
+          "line_end": 120
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "quote": "`LAST_INSERT_ID()` 获取上次分配的主键值。",
+          "start_char": 3843,
+          "end_char": 3873,
+          "line_start": 120,
+          "line_end": 120
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "quote": "适用于主键只需要保证唯一，不包含业务意义的场景。",
+          "start_char": 3925,
+          "end_char": 3949,
+          "line_start": 122,
+          "line_end": 122
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "d9863f2b-c40c-4542-ba10-634e923454a1"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV23",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "d9863f2b-c40c-4542-ba10-634e923454a1"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "d9863f2b-c40c-4542-ba10-634e923454a1"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "团队打算用 AUTO_RANDOM 缓解自增主键热点，但业务还依赖主键按生成顺序递增。这个改法满足要求吗，怎样取得刚分配的主键？",
+      "variant_id": "SP23",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    },
+    {
+      "id": "EV24",
+      "split": "test",
+      "topic": "事务与锁",
+      "answer_family": "explicit_transaction_mode_override",
+      "kind": "现象与精确标识",
+      "question": "我已经给会话设好了默认的事务控制方式，但开启某次操作时又明确声明用另一种锁策略。数据库最终听默认参数，还是听这次开头那句显式声明？",
+      "reference_answer": "这两个显式 BEGIN 语句优先级高于 tidb_txn_mode，开启的事务忽略系统变量，因此支持乐观与悲观模式混用。",
+      "filename": "pessimistic-transaction.md",
+      "exact_signals": [
+        "tidb_txn_mode",
+        "BEGIN PESSIMISTIC",
+        "BEGIN OPTIMISTIC"
+      ],
+      "applicability": "固定语料版本中的排查说明",
+      "source_sha256": "fc8a2108a0ec24d88f3b2e90dac156c687a84e8afe951750a3b618f9079685f1",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/pessimistic-transaction.md",
+      "anchors": [
+        {
+          "filename": "pessimistic-transaction.md",
+          "quote": "`BEGIN PESSIMISTIC;` 和 `BEGIN OPTIMISTIC;` 等语句的优先级高于 `tidb_txn_mode` 系统变量。",
+          "start_char": 670,
+          "end_char": 744,
+          "line_start": 38,
+          "line_end": 38
+        }
+      ],
+      "review_status": "AI source-anchored draft; user semantic review pending",
+      "gold_chunk_ids": [
+        "dfe456e3-ce0f-4c49-b92f-96ffd6974ecb"
+      ],
+      "gold_mapping_status": "fixed_actual_index_ids_before_ranked_retrieval",
+      "evidence_mapping": {
+        "id": "EV24",
+        "required_unit_gold_chunk_ids": {
+          "answer": [
+            "dfe456e3-ce0f-4c49-b92f-96ffd6974ecb"
+          ]
+        },
+        "optional_unit_gold_chunk_ids": {},
+        "single_chunk_full_evidence_ids": [
+          "dfe456e3-ce0f-4c49-b92f-96ffd6974ecb"
+        ],
+        "missing_required_units": []
+      },
+      "original_question": "会话的 tidb_txn_mode 已有设置，但某次业务要显式启动另一种事务模式。BEGIN PESSIMISTIC 或 BEGIN OPTIMISTIC 与变量设置谁优先？",
+      "variant_id": "SP24",
+      "query_style": "口语化业务现象／术语释义；部分必要产品名保留"
+    }
+  ],
+  "frozen_at": "2026-11-23T17:25:44.209019+08:00",
+  "scoring_contract": "evaluation/datasets/enterprise_tidb_v2_review2/scoring_contract_v2.json",
+  "scoring_contract_sha256": "418f7464d0c0dbd7a054e06e33268ed2f4ee800e1f69953d962422efde764b33",
+  "ingestion_snapshot": "evaluation/artifacts/enterprise_ingest_20261123_172523_934488/snapshot.json",
+  "ingestion_snapshot_sha256": "d1be871cf47c2cf0b60b3dd1a08db5e6811000c4a704a6b6f55b90351cade212",
+  "metrics": {
+    "primary": "CompleteEvidence@5：每题的全部必要依据单元均被前五条覆盖才记 1，可由多条合起来覆盖。",
+    "secondary": "AnyEvidenceHit@5：前五条至少覆盖一个必要单元，不能等同完整命中。",
+    "diagnostic": "SingleChunkCompleteHit@5：前五条内存在一条独自覆盖全部必要单元的片段。",
+    "aggregation": "分别对开发 8 题、正式 24 题求平均；保留所有题，失败留在分母，未映射金标先阻止评分。",
+    "optional": "可选佐证单独记录，不影响主指标或部分命中；各检索方案共用同一标签和 Top K。",
+    "comparison_limit": "原 40 题采用单条完整依据的 Hit Rate@5；新主指标允许多块组合，不能将两组成绩当作同口径前后优化。"
+  },
+  "parent_frozen_dataset": "evaluation/datasets/enterprise_tidb_v2_frozen/questions.json",
+  "parent_frozen_dataset_sha256": "1c1f063b0056c5246adbfeed04f5ad7f388f9088de1163dd4f3d59da497709eb",
+  "selection_policy": "同一24题只改问法，不替换语料、答案、金标、检索参数或删除失败题；回避可替换的报错原文和参数拼写，保留问题成立的条件"
+}

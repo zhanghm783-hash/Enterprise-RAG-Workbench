@@ -1,0 +1,73 @@
+﻿题号,用途,主题,题型,问题,参考答案,来源文件,原文行号,原文依据,当前完整依据块,待复核项,本人复核意见
+D01,开发,错误码,精确标识,TiDB 报错 8001，想增大单条 SQL 的内存上限，应调整哪个变量？,调整 tidb_mem_quota_query。,error-codes.md,22-22; 22-22,"请求使用的内存超过 TiDB 内存使用的阈值限制。
+tidb_mem_quota_query",#2,核对问题与答案是否相符,
+D02,开发,错误码,精确标识,"TiDB 报错 8005：Write Conflict, txnStartTS is stale，文档建议怎么处理？",发生写入冲突；检查业务逻辑并重试写入操作。,error-codes.md,40-40,事务在 TiDB 中遇到了写入冲突。请检查业务逻辑，重试写入操作。,#4,核对问题与答案是否相符,
+D03,开发,错误码,数值与边界,TiDB 报错 8025 时，单个键值对默认大小上限是多少，放宽上限用哪个配置？,默认最大 6MB；可适当调整 txn-entry-size-limit。,error-codes.md,72-72; 72-72,"TiDB 默认支持最大 6MB 的单个键值对
+txn-entry-size-limit",#5,核对问题与答案是否相符,
+D04,开发,内存控制,语义场景,希望 SQL 超过内存限额后只记日志、继续运行，tidb_mem_oom_action 应设成什么？,设为 LOG。,configure-memory-usage.md,10-10; 10-10,"如果变量值为 `LOG`
+这条 SQL 会继续执行，但 TiDB 会在 log 文件中打印一条 LOG。",#1,核对问题与答案是否相符,
+D05,开发,内存控制,精确标识,tidb_mem_oom_action=CANCEL 时，SQL 超过内存阈值会发生什么？,TiDB 立即中断该 SQL，并向客户端返回含各物理执行算子内存使用情况的错误。,configure-memory-usage.md,11-11; 11-11; 11-11,"如果变量值为 `CANCEL`
+TiDB 会立即中断这条 SQL 的执行
+各个物理执行算子的内存使用情况",#1,核对问题与答案是否相符,
+D06,开发,内存控制,数值与边界,文档中把单条 SQL 的内存阈值设成 8MB 的 SQL 是什么？,SET tidb_mem_quota_query = 8 << 20;,configure-memory-usage.md,30-30,SET tidb_mem_quota_query = 8 << 20;,#2,核对问题与答案是否相符,
+D07,开发,事务隔离,精确标识,如何用 SQL 将当前会话的事务隔离级别改为 READ-COMMITTED？,SET SESSION transaction_isolation = 'READ-COMMITTED';,transaction-isolation-levels.md,97-97,SET SESSION transaction_isolation = 'READ-COMMITTED';,#15,核对问题与答案是否相符,
+D08,开发,事务隔离,数值与边界,这份文档列出的 SQL-92 标准隔离级别共有几种？,四种。,transaction-isolation-levels.md,10-10,SQL-92 标准定义了 4 种隔离级别,#1,核对问题与答案是否相符,
+E01,正式候选,错误码,精确标识,第三方框架设置了 TiDB 不支持的隔离级别，出现 8048 且不便改代码，可用哪个变量绕过检查？,可考虑 tidb_skip_isolation_level_check；文档示例将其设为 1。,error-codes.md,126-126; 126-126,"tidb_skip_isolation_level_check
+来绕过这一检查",#8,核对问题与答案是否相符,
+E02,正式候选,错误码,精确标识,TiDB 报错 8055，快照过旧可能被 GC，文档建议调大哪个系统变量？,调大 tidb_gc_life_time。,error-codes.md,148-148; 148-148,"当前快照过旧，数据可能已经被 GC。
+tidb_gc_life_time",#9,核对问题与答案是否相符,
+E03,正式候选,错误码,数值与边界,AUTO_RANDOM 次数耗尽报错 8059 后，文档是否提供了恢复方法？,没有，文档明确称当前没有恢复这类错误的方法。,error-codes.md,154-154,当前没有恢复这类错误的方法。,#10,核对问题与答案是否相符,
+E04,正式候选,错误码,精确标识,错误 8060 表示自增列偏移量非法，需要检查哪两个变量？,auto_increment_increment 和 auto_increment_offset。,error-codes.md,158-158; 158-158,"auto_increment_increment
+auto_increment_offset",#10,核对问题与答案是否相符,
+E05,正式候选,错误码,精确标识,TiDB 报错 8110 不能进行笛卡尔积运算，文档要求修改哪个配置及其值？,将配置文件中的 cross-join 设为 true。,error-codes.md,222-222; 222-222,"不能进行笛卡尔积运算
+`cross-join` 设置为 `true`",#12,核对问题与答案是否相符,
+E06,正式候选,错误码,精确标识,TiDB 的 8120 错误获取不到事务 start tso，文档要求检查哪个服务及哪段网络？,检查 PD Server 的状态、监控、日志及 TiDB Server 与 PD Server 之间的网络。,error-codes.md,246-246,获取不到事务的 start tso，请检查 PD Server 状态/监控/日志以及 TiDB Server 与 PD Server 之间的网络。,#13,核对问题与答案是否相符,
+E07,正式候选,错误码,精确标识,带聚合函数的 SQL 返回非聚合列并报错 8123，是违反了哪种模式？,only_full_group_by 模式。,error-codes.md,258-258,违反了 `only_full_group_by` 模式,#13,核对问题与答案是否相符,
+E08,正式候选,错误码,语义场景,升级 TiDB 后出现 8130、同一次 COM_QUERY 不能执行多个查询，文档说默认禁止这样做的安全原因是什么？,为了减少 SQL 注入攻击的影响。,error-codes.md,268-268; 268-268,"为了减少 SQL 注入攻击的影响
+同一 `COM_QUERY` 调用中执行多个查询",#14,核对问题与答案是否相符,
+E09,正式候选,错误码,精确标识,LOAD DATA 报错 8154、不支持从 TiDB 服务器本地导入时，可怎样更换数据来源？,指定 LOCAL 从客户端导入，或将数据上传至 S3/GCS 后导入。,error-codes.md,298-298,可以指定 `LOCAL` 从客户端导入，或者将数据上传到 S3/GCS 再进行导入。,#16,核对问题与答案是否相符,
+E10,正式候选,错误码,精确标识,TiDB 导入时遇到错误 8156，需要修正什么？,文件路径不能为空，需要设置正确的路径再导入。,error-codes.md,302-302,传入的文件路径不能为空。需要设置正确的路径再进行导入。,#16,核对问题与答案是否相符,
+E11,正式候选,错误码,语义场景,一个事务存活过久导致 TiDB 返回 8229，文档给出的处理方式是什么？,提交或回滚当前事务，然后开启新事务。,error-codes.md,394-394,事务超过存活时间，遇到该问题可以提交或者回滚当前事务，开启一个新事务。,#20,核对问题与答案是否相符,
+E12,正式候选,错误码,精确标识,TiDB 错误 8249 对应资源组不存在还是资源组已存在？,资源组不存在，修改或绑定不存在的资源组会报该错。,error-codes.md,406-406,资源组不存在。在修改或绑定不存在的资源组时返回该错误。,#21,核对问题与答案是否相符,
+E13,正式候选,错误码,精确标识,使用资源管控时报错 8250，应该打开哪个全局变量？,打开 tidb_enable_resource_control。,error-codes.md,412-412; 414-414,"tidb_enable_resource_control
+启用资源管控
+或者
+SET GLOBAL tidb_enable_resource_control='on'","#21, #22",核对问题与答案是否相符,
+E14,正式候选,错误码,语义场景,资源组配额超限报错 8252，文档建议从事务规模和客户端并发两个方面怎样调整？,调整事务大小或减少客户端并发数。,error-codes.md,426-426,需调整事务大小或减少客户端并发数。,#22,核对问题与答案是否相符,
+E15,正式候选,错误码,精确标识,TiDB 错误 9002 是请求哪个服务超时，应检查哪两个服务之间的网络？,请求 TiKV 超时，检查 TiDB Server 与 TiKV Server 之间的网络，并检查 TiKV 状态、监控和日志。,error-codes.md,462-462,请求 TiKV 超时，请检查 TiKV Server 状态/监控/日志以及 TiDB Server 与 TiKV Server 之间的网络。,#24,核对问题与答案是否相符,
+E16,正式候选,错误码,精确标识,TiDB 错误 9012 是哪个服务请求超时，应检查哪段网络？,请求 TiFlash 超时，检查 TiDB Server 与 TiFlash Server 之间的网络，并检查 TiFlash 状态、监控和日志。,error-codes.md,510-510,请求 TiFlash 超时。请检查 TiFlash Server 状态/监控/日志以及 TiDB Server 与 TiFlash Server 之间的网络。,#27,核对问题与答案是否相符,
+M01,正式候选,内存控制,语义场景,tidb-server 实例触及内存总量上限时，会优先终止正在执行的哪类 SQL？,优先依次终止内存用量最大的 SQL，直到实例内存下降到阈值以下。,configure-memory-usage.md,53-53,TiDB 会依次终止正在执行的 SQL 操作中内存用量最大的 SQL 操作,#3,核对问题与答案是否相符,
+M02,正式候选,内存控制,数值与边界,tidb_server_memory_limit 的内存限制会不会终止 DDL 操作？,不会；DDL 在文档列出的不终止操作中。,configure-memory-usage.md,55-55; 57-57,"当前 `tidb_server_memory_limit` 所设的内存限制**不终止**以下 SQL 操作：
+- DDL 操作",#4,核对问题与答案是否相符,
+M03,正式候选,内存控制,语义场景,同一台机器混合部署多个实例时，TiDB 的实例内存限制约束单个实例还是整台机器？,约束单个 tidb-server 实例，不是整台物理机的总内存。,configure-memory-usage.md,70-70,为单个 tidb-server 实例的内存使用阈值，而不是整个物理机的总内存阈值。,#6,核对问题与答案是否相符,
+M04,正式候选,内存控制,数值与边界,为缓解实例内存压力主动触发的 Golang GC，文档限制其每分钟最多触发几次？,每分钟最多一次。,configure-memory-usage.md,66-66,该 GC 方式 1 分钟最多只会触发 1 次。,#6,核对问题与答案是否相符,
+M05,正式候选,内存控制,语义场景,想查看当前实例或整个集群的内存使用情况，应查询哪个 INFORMATION_SCHEMA 系统表？,INFORMATION_SCHEMA.(CLUSTER_)MEMORY_USAGE。,configure-memory-usage.md,74-74; 74-74,"要查看当前实例或集群的内存使用情况
+INFORMATION_SCHEMA.(CLUSTER_)MEMORY_USAGE`",#7,核对问题与答案是否相符,
+M06,正式候选,内存控制,数值与边界,MEMORY_USAGE_OPS_HISTORY 对每个实例保留多少条最近的内存操作记录？,最近 50 条记录。,configure-memory-usage.md,76-76; 76-76,"INFORMATION_SCHEMA.(CLUSTER_)MEMORY_USAGE_OPS_HISTORY
+对于每个实例，该表保留最近 50 条记录。",#7,核对问题与答案是否相符,
+M07,正式候选,内存控制,数值与边界,tidb-server 内存占用过高报警的默认比例阈值是多少？,总内存量的 70%；实际报警还要满足文档列出的触发条件之一。,configure-memory-usage.md,80-80; 80-80,"默认为总内存量的 70%
+且满足以下任一条件时",#8,核对问题与答案是否相符,
+M08,正式候选,内存控制,数值与边界,TiDB 默认保留最近几次内存报警产生的状态文件？,最近 5 次。,configure-memory-usage.md,104-104,目前 TiDB 默认只保留最近 5 次报警时所生成的状态文件。,#11,核对问题与答案是否相符,
+M09,正式候选,内存控制,语义场景,想从日志中定位 tidb-server 内存过高的风险报警，应搜索什么英文关键词？,tidb-server has the risk of OOM。,configure-memory-usage.md,96-96,TiDB 将输出一条包含关键字 `tidb-server has the risk of OOM`,#9,核对问题与答案是否相符,
+M10,正式候选,内存控制,数值与边界,内存报警时记录 SQL 状态，内存用量最高和运行时间最长的语句各记录多少条？,各 10 条。,configure-memory-usage.md,92-92,当前正在执行的所有 SQL 语句中内存使用最高的 10 条语句和运行时间最长的 10 条语句的相关信息,#9,核对问题与答案是否相符,
+M11,正式候选,内存控制,语义场景,为什么向 TiDB 写入一个很大的事务，内存可能成为瓶颈？,事务模型要求所有待提交的事务写入操作先在内存中缓存。,configure-memory-usage.md,139-139,所有待提交的事务写入操作需先在内存中进行缓存。,#16,核对问题与答案是否相符,
+M12,正式候选,内存控制,精确标识,文档建议在满足限制条件的前提下，把 tidb_dml_type 调成什么值来减少大事务内存使用？,调成 bulk。,configure-memory-usage.md,139-139; 139-139; 139-139,"tidb_dml_type
+为 `""bulk""`
+在满足各项限制条件的前提下",#16,核对问题与答案是否相符,
+M13,正式候选,内存控制,语义场景,读数据算子的流量控制被触发时，单条 SQL 内存每超过一次配额，会怎样减少读取并发？,读数据的算子会停止一个线程。,configure-memory-usage.md,145-145; 145-145,"当单条 SQL 语句的内存使用每超过
+读数据的算子就会停止一个线程。",#18,核对问题与答案是否相符,
+M14,正式候选,内存控制,精确标识,"日志出现 memory exceeds quota, destroy one token now，说明触发了哪种内存控制行为？",触发了流量控制。,configure-memory-usage.md,147-147,"当流控被触发时，会在日志中打印一条包含关键字 `memory exceeds quota, destroy one token now` 的日志。",#18,核对问题与答案是否相符,
+M15,正式候选,内存控制,数值与边界,HashAgg 在使用 distinct 聚合函数且内存过大时，能否通过落盘缓解？,不能；文档指出 HashAgg 落盘目前不支持 distinct 聚合函数。,configure-memory-usage.md,161-161,HashAgg 落盘功能目前不支持 distinct 聚合函数。使用 distinct 函数且内存占用过大时，无法进行落盘。,#21,核对问题与答案是否相符,
+M16,正式候选,内存控制,数值与边界,并行 HashAgg 落盘从哪个版本开始成为正式功能 GA？,v8.2.0。,configure-memory-usage.md,155-155,并行 HashAgg 的落盘在 v8.0.0 版本以实验特性引入，在 v8.2.0 版本成为正式功能 (GA)。,#20,核对问题与答案是否相符,
+T01,正式候选,事务隔离,精确标识,TiDB 为兼容 MySQL 而称为 REPEATABLE READ 的一致性，实际实现的隔离机制是什么？,快照隔离 Snapshot Isolation，简称 SI。,transaction-isolation-levels.md,19-19; 19-19,"TiDB 实现了快照隔离 (Snapshot Isolation, SI) 级别的一致性。
+又称其为“可重复读” (REPEATABLE READ)",#3,核对问题与答案是否相符,
+T02,正式候选,事务隔离,数值与边界,在 TiDB 乐观事务模式下设置 Read Committed 会生效吗，实际仍用什么隔离级别？,不会生效，仍使用可重复读；Read Committed 仅在悲观事务模式下生效。,transaction-isolation-levels.md,60-60,在[乐观事务模式](/optimistic-transaction.md)下设置事务隔离级别为 Read Committed 将不会生效，事务将仍旧使用可重复读隔离级别。,#9,核对问题与答案是否相符,
+T03,正式候选,事务隔离,精确标识,开启 tidb_rc_read_check_ts 后，SELECT 尝试复用的有效时间戳初始值是什么？,当前事务的 start_ts。,transaction-isolation-levels.md,62-62; 62-62,"tidb_rc_read_check_ts
+初始值为事务的 `start_ts`",#10,核对问题与答案是否相符,
+T04,正式候选,事务隔离,精确标识,tidb_rc_write_check_ts 当前适用哪三种类型的点写语句？,UPDATE、DELETE、SELECT ... FOR UPDATE。,transaction-isolation-levels.md,71-71; 71-71,"tidb_rc_write_check_ts
+目前该变量适用的点写语句包括 `UPDATE`、`DELETE`、`SELECT ...... FOR UPDATE` 三种类型。",#12,核对问题与答案是否相符,
+T05,正式候选,事务隔离,语义场景,MySQL 读已提交中的半一致性读特例，TiDB 是否兼容？,不兼容该特殊行为。,transaction-isolation-levels.md,82-82; 82-82,"半一致性读
+TiDB 没有兼容这个特殊行为。",#14,核对问题与答案是否相符,
+T06,正式候选,事务隔离,数值与边界,TiDB 的快照隔离 SI 能否避免写偏斜？,不能，SI 仍会出现写偏斜。,transaction-isolation-levels.md,48-48,SI 还会出现写偏斜,#7,核对问题与答案是否相符,
+T07,正式候选,事务隔离,语义场景,在可重复读的快照读语义下，别的事务在当前事务启动后才提交的数据，当前事务是否可见？,不可见；这里只讨论文档该段描述的快照读语义，不包含悲观事务当前读。,transaction-isolation-levels.md,29-29,未提交的数据或在事务启动后其他事务提交的数据是不可见的。,#5,核对问题与答案是否相符,
+T08,正式候选,事务隔离,精确标识,查看当前会话事务隔离级别的 SQL 是什么？,SHOW VARIABLES LIKE 'transaction_isolation';,transaction-isolation-levels.md,91-91,SHOW VARIABLES LIKE 'transaction_isolation';,#15,核对问题与答案是否相符,

@@ -1,0 +1,143 @@
+{
+  "repository": "pingcap/docs-cn",
+  "commit": "d99710dea88eac5f7437ec27acfa63aaa535b436",
+  "branch_context": "release-8.5",
+  "intended_business": "企业运维与技术支持知识库",
+  "status": "source_materials_only_not_indexed",
+  "files": [
+    {
+      "path": "error-codes.md",
+      "category": "基础与对照",
+      "expected_bytes": 23743,
+      "expected_git_blob_sha1": "989b8518d6edd871be474296dbe686b381d1e284"
+    },
+    {
+      "path": "configure-memory-usage.md",
+      "category": "基础与对照",
+      "expected_bytes": 18866,
+      "expected_git_blob_sha1": "14dda46a8405b0a93152641ae85c3068b1bee2d8"
+    },
+    {
+      "path": "transaction-isolation-levels.md",
+      "category": "基础与对照",
+      "expected_bytes": 8719,
+      "expected_git_blob_sha1": "806a088de17705bdc4cb80f5690b36420a88cefd"
+    },
+    {
+      "path": "troubleshoot-tidb-oom.md",
+      "category": "故障诊断",
+      "expected_bytes": 10994,
+      "expected_git_blob_sha1": "538eb086a82005ba8d238596669a968190230d42"
+    },
+    {
+      "path": "troubleshoot-write-conflicts.md",
+      "category": "故障诊断",
+      "expected_bytes": 5694,
+      "expected_git_blob_sha1": "6bf7fdfe5dc2fe2525a1df39b75203b8f2885034"
+    },
+    {
+      "path": "troubleshoot-lock-conflicts.md",
+      "category": "故障诊断",
+      "expected_bytes": 22529,
+      "expected_git_blob_sha1": "a21f79f6fccd52a0157dd9e4c3239036c1b205a6"
+    },
+    {
+      "path": "troubleshoot-hot-spot-issues.md",
+      "category": "故障诊断",
+      "expected_bytes": 10875,
+      "expected_git_blob_sha1": "5ba7985d04d3363e550e469203165b1488a6cc79"
+    },
+    {
+      "path": "troubleshoot-high-disk-io.md",
+      "category": "故障诊断",
+      "expected_bytes": 6912,
+      "expected_git_blob_sha1": "2c60d916ca4db5d401540f955ae2dfeffd117fb3"
+    },
+    {
+      "path": "troubleshoot-cpu-issues.md",
+      "category": "故障诊断",
+      "expected_bytes": 10641,
+      "expected_git_blob_sha1": "78ef2460868e325b37270bc0496cbe49ca88ed71"
+    },
+    {
+      "path": "troubleshoot-tidb-cluster.md",
+      "category": "故障诊断",
+      "expected_bytes": 6382,
+      "expected_git_blob_sha1": "af0b255677f37fe5c3ecdba2b4c8c281a741633e"
+    },
+    {
+      "path": "tidb-troubleshooting-map.md",
+      "category": "故障诊断",
+      "expected_bytes": 42834,
+      "expected_git_blob_sha1": "e8676179692ee6c8ad34f8bdca74b1463f8bf6cc"
+    },
+    {
+      "path": "identify-slow-queries.md",
+      "category": "性能与事务",
+      "expected_bytes": 44401,
+      "expected_git_blob_sha1": "deaf3a370f0c4b0b5809ffd5b0cb61b02e032603"
+    },
+    {
+      "path": "analyze-slow-queries.md",
+      "category": "性能与事务",
+      "expected_bytes": 18885,
+      "expected_git_blob_sha1": "8005c593560e87bd55850be33ece6f3264656669"
+    },
+    {
+      "path": "tune-tikv-memory-performance.md",
+      "category": "性能与事务",
+      "expected_bytes": 14126,
+      "expected_git_blob_sha1": "090085450ecbf5223baab4fecee33c11c6c024a0"
+    },
+    {
+      "path": "optimistic-transaction.md",
+      "category": "性能与事务",
+      "expected_bytes": 9128,
+      "expected_git_blob_sha1": "b5a523689cc751ca9d510c175905ebd9deb6d1e9"
+    },
+    {
+      "path": "pessimistic-transaction.md",
+      "category": "性能与事务",
+      "expected_bytes": 15386,
+      "expected_git_blob_sha1": "19c383ce3f1d7abeb5569eb0106f778280e281b8"
+    },
+    {
+      "path": "faq/manage-cluster-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 30540,
+      "expected_git_blob_sha1": "bb104ac9d29a8ba40a6e744f6c38f281cd1bc8d8"
+    },
+    {
+      "path": "faq/sql-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 33598,
+      "expected_git_blob_sha1": "6ace394faf6f66983b407298f20435a28c6d6b56"
+    },
+    {
+      "path": "faq/migration-tidb-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 9848,
+      "expected_git_blob_sha1": "30971df34867a66017bbfb0b247fc8726acc5480"
+    },
+    {
+      "path": "faq/deploy-and-maintain-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 5819,
+      "expected_git_blob_sha1": "45d3f8249ac598faa96d1309ae4784bbcacb5c6d"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "README.md",
+      "category": "出处与许可",
+      "expected_bytes": 6134,
+      "expected_git_blob_sha1": "f5ee9bd345a07d880bc7872e4fad5954cb810e43"
+    },
+    {
+      "path": "LICENSE",
+      "category": "出处与许可",
+      "expected_bytes": 22201,
+      "expected_git_blob_sha1": "fd767ba662aff7168348ac125cdcdfd5092d2e3f"
+    }
+  ]
+}

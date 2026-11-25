@@ -1,0 +1,1269 @@
+{
+  "repository": "pingcap/docs-cn",
+  "commit": "d99710dea88eac5f7437ec27acfa63aaa535b436",
+  "branch_context": "release-8.5",
+  "intended_business": "企业运维与技术支持知识库",
+  "status": "source_bytes_verified_not_indexed",
+  "files": [
+    {
+      "path": "error-codes.md",
+      "category": "基础与对照",
+      "expected_bytes": 23743,
+      "expected_git_blob_sha1": "989b8518d6edd871be474296dbe686b381d1e284",
+      "local_path": "error-codes.md",
+      "bytes": 23743,
+      "characters": 14179,
+      "sha256": "616a9b316d96c21ced5f1a29108e7cfdb9c79d7c21bfd475c5821156ca713b62",
+      "git_blob_verified": true,
+      "title": "错误码与故障诊断",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/error-codes.md"
+    },
+    {
+      "path": "configure-memory-usage.md",
+      "category": "基础与对照",
+      "expected_bytes": 18866,
+      "expected_git_blob_sha1": "14dda46a8405b0a93152641ae85c3068b1bee2d8",
+      "local_path": "configure-memory-usage.md",
+      "bytes": 18866,
+      "characters": 13655,
+      "sha256": "f023111c0a5b708d73484927bdb1dae7733dd474d6e86693429c06f3ccb750de",
+      "git_blob_verified": true,
+      "title": "TiDB 内存控制文档",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/configure-memory-usage.md"
+    },
+    {
+      "path": "transaction-isolation-levels.md",
+      "category": "基础与对照",
+      "expected_bytes": 8719,
+      "expected_git_blob_sha1": "806a088de17705bdc4cb80f5690b36420a88cefd",
+      "local_path": "transaction-isolation-levels.md",
+      "bytes": 8719,
+      "characters": 5029,
+      "sha256": "b883c31a07e5d0906cf2cb0c042ef31eba41eba5a6a7f8e5d48da8dbf1e5c0bc",
+      "git_blob_verified": true,
+      "title": "TiDB 事务隔离级别",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/transaction-isolation-levels.md"
+    },
+    {
+      "path": "troubleshoot-tidb-oom.md",
+      "category": "故障诊断",
+      "expected_bytes": 10994,
+      "expected_git_blob_sha1": "538eb086a82005ba8d238596669a968190230d42",
+      "local_path": "troubleshoot-tidb-oom.md",
+      "bytes": 10994,
+      "characters": 6996,
+      "sha256": "afe47f50941456a84ad8b1bd7e2e7c94e545af68271cb282b98baea5a422507b",
+      "git_blob_verified": true,
+      "title": "TiDB OOM 故障排查",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-oom.md"
+    },
+    {
+      "path": "troubleshoot-write-conflicts.md",
+      "category": "故障诊断",
+      "expected_bytes": 5694,
+      "expected_git_blob_sha1": "6bf7fdfe5dc2fe2525a1df39b75203b8f2885034",
+      "local_path": "troubleshoot-write-conflicts.md",
+      "bytes": 5694,
+      "characters": 3414,
+      "sha256": "79784e645a3e13543517b016f010b1a00aaa125a85267517e71085c36c08e5df",
+      "git_blob_verified": true,
+      "title": "乐观事务模型下写写冲突问题排查",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-write-conflicts.md"
+    },
+    {
+      "path": "troubleshoot-lock-conflicts.md",
+      "category": "故障诊断",
+      "expected_bytes": 22529,
+      "expected_git_blob_sha1": "a21f79f6fccd52a0157dd9e4c3239036c1b205a6",
+      "local_path": "troubleshoot-lock-conflicts.md",
+      "bytes": 22529,
+      "characters": 15529,
+      "sha256": "a3ce7f4e7d607a1ab55d10248531607d0c00086094b5ef077f2a538e5fc8e0eb",
+      "git_blob_verified": true,
+      "title": "TiDB 锁冲突问题处理",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-lock-conflicts.md"
+    },
+    {
+      "path": "troubleshoot-hot-spot-issues.md",
+      "category": "故障诊断",
+      "expected_bytes": 10875,
+      "expected_git_blob_sha1": "5ba7985d04d3363e550e469203165b1488a6cc79",
+      "local_path": "troubleshoot-hot-spot-issues.md",
+      "bytes": 10875,
+      "characters": 6095,
+      "sha256": "40e50d70fae9d3dc51c99de925e12118f45221ae64e5a02b52e79e13c6cec1d8",
+      "git_blob_verified": true,
+      "title": "TiDB 热点问题处理",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-hot-spot-issues.md"
+    },
+    {
+      "path": "troubleshoot-high-disk-io.md",
+      "category": "故障诊断",
+      "expected_bytes": 6912,
+      "expected_git_blob_sha1": "2c60d916ca4db5d401540f955ae2dfeffd117fb3",
+      "local_path": "troubleshoot-high-disk-io.md",
+      "bytes": 6912,
+      "characters": 3976,
+      "sha256": "5527e7a96882bacc01b80790c44be4ae4d84f6fb8ff102c14d5ed85155277bb1",
+      "git_blob_verified": true,
+      "title": "TiDB 磁盘 I/O 过高的处理办法",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-high-disk-io.md"
+    },
+    {
+      "path": "troubleshoot-cpu-issues.md",
+      "category": "故障诊断",
+      "expected_bytes": 10641,
+      "expected_git_blob_sha1": "78ef2460868e325b37270bc0496cbe49ca88ed71",
+      "local_path": "troubleshoot-cpu-issues.md",
+      "bytes": 10641,
+      "characters": 6389,
+      "sha256": "d6bc3d0e1f7cdd7e59cd207a9cf14bae8b8b2fee199062961e06a424dcce37b6",
+      "git_blob_verified": true,
+      "title": "读写延迟增加",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-cpu-issues.md"
+    },
+    {
+      "path": "troubleshoot-tidb-cluster.md",
+      "category": "故障诊断",
+      "expected_bytes": 6382,
+      "expected_git_blob_sha1": "af0b255677f37fe5c3ecdba2b4c8c281a741633e",
+      "local_path": "troubleshoot-tidb-cluster.md",
+      "bytes": 6382,
+      "characters": 3434,
+      "sha256": "6a8e9f2dd24c159a63fb5c640c036acd9e37601f74940d705b6e2acdf0ccf1ac",
+      "git_blob_verified": true,
+      "title": "TiDB 集群故障诊断",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/troubleshoot-tidb-cluster.md"
+    },
+    {
+      "path": "tidb-troubleshooting-map.md",
+      "category": "故障诊断",
+      "expected_bytes": 42834,
+      "expected_git_blob_sha1": "e8676179692ee6c8ad34f8bdca74b1463f8bf6cc",
+      "local_path": "tidb-troubleshooting-map.md",
+      "bytes": 42834,
+      "characters": 27068,
+      "sha256": "e5d541b1becba7f1c469366a539367e1fab195448fbcbfeb06d8d724bc523f60",
+      "git_blob_verified": true,
+      "title": "TiDB 集群问题导图",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/tidb-troubleshooting-map.md"
+    },
+    {
+      "path": "identify-slow-queries.md",
+      "category": "性能与事务",
+      "expected_bytes": 44401,
+      "expected_git_blob_sha1": "deaf3a370f0c4b0b5809ffd5b0cb61b02e032603",
+      "local_path": "identify-slow-queries.md",
+      "bytes": 44401,
+      "characters": 33161,
+      "sha256": "d47e9443db4c148a2a17c41937f8746dcb91414a2bc71e40b631b5bad8ff1a78",
+      "git_blob_verified": true,
+      "title": "慢查询日志",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/identify-slow-queries.md"
+    },
+    {
+      "path": "analyze-slow-queries.md",
+      "category": "性能与事务",
+      "expected_bytes": 18885,
+      "expected_git_blob_sha1": "8005c593560e87bd55850be33ece6f3264656669",
+      "local_path": "analyze-slow-queries.md",
+      "bytes": 18885,
+      "characters": 14704,
+      "sha256": "76665aadf369529755a05ced4f76773d0977bb09799816d447ba28063679dbae",
+      "git_blob_verified": true,
+      "title": "分析慢查询",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/analyze-slow-queries.md"
+    },
+    {
+      "path": "tune-tikv-memory-performance.md",
+      "category": "性能与事务",
+      "expected_bytes": 14126,
+      "expected_git_blob_sha1": "090085450ecbf5223baab4fecee33c11c6c024a0",
+      "local_path": "tune-tikv-memory-performance.md",
+      "bytes": 14126,
+      "characters": 8740,
+      "sha256": "3a8bff14165c2e22a489c0d65186abb665a7fbc578c8064069f7c5d852012cd3",
+      "git_blob_verified": true,
+      "title": "TiKV 内存参数性能调优",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/tune-tikv-memory-performance.md"
+    },
+    {
+      "path": "optimistic-transaction.md",
+      "category": "性能与事务",
+      "expected_bytes": 9128,
+      "expected_git_blob_sha1": "b5a523689cc751ca9d510c175905ebd9deb6d1e9",
+      "local_path": "optimistic-transaction.md",
+      "bytes": 9128,
+      "characters": 5284,
+      "sha256": "185993f153ee311a9b38505911308f9c1224eae77a70996b9a2e46a1cb4504a2",
+      "git_blob_verified": true,
+      "title": "TiDB 乐观事务模型",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/optimistic-transaction.md"
+    },
+    {
+      "path": "pessimistic-transaction.md",
+      "category": "性能与事务",
+      "expected_bytes": 15386,
+      "expected_git_blob_sha1": "19c383ce3f1d7abeb5569eb0106f778280e281b8",
+      "local_path": "pessimistic-transaction.md",
+      "bytes": 15386,
+      "characters": 10084,
+      "sha256": "fc8a2108a0ec24d88f3b2e90dac156c687a84e8afe951750a3b618f9079685f1",
+      "git_blob_verified": true,
+      "title": "TiDB 悲观事务模式",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/pessimistic-transaction.md"
+    },
+    {
+      "path": "faq/manage-cluster-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 30540,
+      "expected_git_blob_sha1": "bb104ac9d29a8ba40a6e744f6c38f281cd1bc8d8",
+      "local_path": "faq/manage-cluster-faq.md",
+      "bytes": 30540,
+      "characters": 16584,
+      "sha256": "3b933b2257c178a67f736d9aa40dbae40ba4d2e9054d9133e1f6439b34f924ee",
+      "git_blob_verified": true,
+      "title": "TiDB 集群管理常见问题",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/manage-cluster-faq.md"
+    },
+    {
+      "path": "faq/sql-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 33598,
+      "expected_git_blob_sha1": "6ace394faf6f66983b407298f20435a28c6d6b56",
+      "local_path": "faq/sql-faq.md",
+      "bytes": 33598,
+      "characters": 20336,
+      "sha256": "37e38cdbbe5c2ec78abe0b0f525cd7afe5887d52c71c9c5a17f047d36dc2831b",
+      "git_blob_verified": true,
+      "title": "SQL 操作常见问题",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/sql-faq.md"
+    },
+    {
+      "path": "faq/migration-tidb-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 9848,
+      "expected_git_blob_sha1": "30971df34867a66017bbfb0b247fc8726acc5480",
+      "local_path": "faq/migration-tidb-faq.md",
+      "bytes": 9848,
+      "characters": 5816,
+      "sha256": "79847beeb170794cb316937f53ba08056f800a031a38deb507222bbcb7df0bcf",
+      "git_blob_verified": true,
+      "title": "迁移常见问题",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/migration-tidb-faq.md"
+    },
+    {
+      "path": "faq/deploy-and-maintain-faq.md",
+      "category": "企业操作FAQ",
+      "expected_bytes": 5819,
+      "expected_git_blob_sha1": "45d3f8249ac598faa96d1309ae4784bbcacb5c6d",
+      "local_path": "faq/deploy-and-maintain-faq.md",
+      "bytes": 5819,
+      "characters": 3369,
+      "sha256": "35237b0a6866b7dceb86f1013ba6d4857784d4c994a922a525fc111fb3411af0",
+      "git_blob_verified": true,
+      "title": "TiDB 安装部署常见问题",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/faq/deploy-and-maintain-faq.md"
+    },
+    {
+      "path": "README.md",
+      "category": "出处与许可",
+      "expected_bytes": 6134,
+      "expected_git_blob_sha1": "f5ee9bd345a07d880bc7872e4fad5954cb810e43",
+      "local_path": "_source/README.md",
+      "bytes": 6134,
+      "characters": 4698,
+      "sha256": "45746674d50564eadaa8c4b9864afd2a127af613ff05e24bcc6dccdcba5e8d47",
+      "git_blob_verified": true,
+      "title": "README.md",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/README.md"
+    },
+    {
+      "path": "LICENSE",
+      "category": "出处与许可",
+      "expected_bytes": 22201,
+      "expected_git_blob_sha1": "fd767ba662aff7168348ac125cdcdfd5092d2e3f",
+      "local_path": "_source/LICENSE",
+      "bytes": 22201,
+      "characters": 22201,
+      "sha256": "4b80dc0a167e3e8699f973c3989fbca088bbfae9e53514d4f8b5377cfb5b312f",
+      "git_blob_verified": true,
+      "title": "LICENSE",
+      "source_url": "https://github.com/pingcap/docs-cn/blob/d99710dea88eac5f7437ec27acfa63aaa535b436/LICENSE"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "README.md",
+      "category": "出处与许可",
+      "expected_bytes": 6134,
+      "expected_git_blob_sha1": "f5ee9bd345a07d880bc7872e4fad5954cb810e43"
+    },
+    {
+      "path": "LICENSE",
+      "category": "出处与许可",
+      "expected_bytes": 22201,
+      "expected_git_blob_sha1": "fd767ba662aff7168348ac125cdcdfd5092d2e3f"
+    }
+  ],
+  "business_document_count": 20,
+  "business_total_bytes": 349920,
+  "business_total_characters": 223842,
+  "category_counts": {
+    "基础与对照": 3,
+    "故障诊断": 8,
+    "性能与事务": 5,
+    "企业操作FAQ": 4
+  },
+  "source_license": "CC BY-SA 3.0, as stated in the pinned README; upstream LICENSE preserved",
+  "source_final_newline_restored": [
+    "troubleshoot-high-disk-io.md",
+    "faq/sql-faq.md"
+  ],
+  "business_cases": [
+    {
+      "case_id": "C01",
+      "business_task": "查询断连与内存故障确认",
+      "question_example": "业务查询突然断开，报 2013；监控中内存升高后归零。怎样确认是否发生 OOM？",
+      "question_provenance": "AI 根据官方资料拟定的业务问题示意，不是企业客户记录或冻结评测题",
+      "anchors": [
+        {
+          "file": "troubleshoot-tidb-oom.md",
+          "quote": "Lost connection to MySQL server during query",
+          "line": 14
+        },
+        {
+          "file": "troubleshoot-tidb-oom.md",
+          "quote": "dmesg -T | grep tidb-server",
+          "line": 34
+        },
+        {
+          "file": "troubleshoot-tidb-oom.md",
+          "quote": "oom-killer",
+          "line": 31
+        }
+      ],
+      "exact_signals": [
+        "2013",
+        "英文报错"
+      ],
+      "semantic_intent": "断连、监控变化与故障确认步骤",
+      "rrf_advantage": "hypothesis_not_measured"
+    },
+    {
+      "case_id": "C02",
+      "business_task": "长连接与预处理语句资源管理",
+      "question_example": "应用使用长连接，反复创建 PreparedStatement 且没有释放，内存只涨不降。可以从哪些方面排查和限制？",
+      "question_provenance": "AI 根据官方资料拟定的业务问题示意，不是企业客户记录或冻结评测题",
+      "anchors": [
+        {
+          "file": "troubleshoot-tidb-oom.md",
+          "quote": "deallocate prepare stmt",
+          "line": 124
+        },
+        {
+          "file": "troubleshoot-tidb-oom.md",
+          "quote": "session 关闭后才会释放",
+          "line": 124
+        },
+        {
+          "file": "troubleshoot-tidb-oom.md",
+          "quote": "max_prepared_stmt_count",
+          "line": 130
+        }
+      ],
+      "exact_signals": [
+        "PreparedStatement"
+      ],
+      "semantic_intent": "长期连接、资源不释放与内存持续上涨",
+      "rrf_advantage": "hypothesis_not_measured"
+    },
+    {
+      "case_id": "C03",
+      "business_task": "定位锁等待中的阻塞事务",
+      "question_example": "业务报 Lock wait timeout exceeded，事务长时间卡住。哪个系统表能看到谁阻塞了谁？",
+      "question_provenance": "AI 根据官方资料拟定的业务问题示意，不是企业客户记录或冻结评测题",
+      "anchors": [
+        {
+          "file": "troubleshoot-lock-conflicts.md",
+          "quote": "Lock wait timeout exceeded",
+          "line": 319
+        },
+        {
+          "file": "troubleshoot-lock-conflicts.md",
+          "quote": "DATA_LOCK_WAITS",
+          "line": 21
+        },
+        {
+          "file": "troubleshoot-lock-conflicts.md",
+          "quote": "阻塞和被阻塞的事务的 `start_ts`",
+          "line": 21
+        }
+      ],
+      "exact_signals": [
+        "Lock wait timeout exceeded"
+      ],
+      "semantic_intent": "业务卡住、寻找阻塞关系",
+      "rrf_advantage": "hypothesis_not_measured"
+    },
+    {
+      "case_id": "C04",
+      "business_task": "并发写入冲突定位",
+      "question_example": "并发修改同一批数据，日志出现 [kv:9007]Write conflict，怎样从日志定位冲突的表和索引？",
+      "question_provenance": "AI 根据官方资料拟定的业务问题示意，不是企业客户记录或冻结评测题",
+      "anchors": [
+        {
+          "file": "troubleshoot-write-conflicts.md",
+          "quote": "[kv:9007]Write conflict",
+          "line": 49
+        },
+        {
+          "file": "troubleshoot-write-conflicts.md",
+          "quote": "tableID 表示发生冲突的表的 ID",
+          "line": 65
+        },
+        {
+          "file": "troubleshoot-write-conflicts.md",
+          "quote": "indexID 表示是索引数据发生了冲突",
+          "line": 65
+        }
+      ],
+      "exact_signals": [
+        "9007",
+        "Write conflict"
+      ],
+      "semantic_intent": "并发修改、定位冲突对象",
+      "rrf_advantage": "hypothesis_not_measured"
+    },
+    {
+      "case_id": "C05",
+      "business_task": "用慢日志定位查询瓶颈",
+      "question_example": "慢日志 Query_time 约 0.18 秒，Cop_process 约 170ms、Cop_wait 约 1ms，优先定位哪一侧的处理瓶颈？",
+      "question_provenance": "AI 根据官方资料拟定的业务问题示意，不是企业客户记录或冻结评测题",
+      "anchors": [
+        {
+          "file": "analyze-slow-queries.md",
+          "quote": "Query_time: 0.18085",
+          "line": 78
+        },
+        {
+          "file": "analyze-slow-queries.md",
+          "quote": "Cop_process: Avg_time: 170ms",
+          "line": 81
+        },
+        {
+          "file": "analyze-slow-queries.md",
+          "quote": "瓶颈在 TiKV 侧",
+          "line": 73
+        }
+      ],
+      "exact_signals": [
+        "Query_time",
+        "Cop_process",
+        "Cop_wait",
+        "数值"
+      ],
+      "semantic_intent": "接口慢、区分数据库不同组件的处理耗时",
+      "rrf_advantage": "hypothesis_not_measured"
+    },
+    {
+      "case_id": "C06",
+      "business_task": "写入热点与改动生效范围",
+      "question_example": "没有主键的表，大量 INSERT 总集中在一个 Region，如何把后续写入打散？这会重排已有数据吗？",
+      "question_provenance": "AI 根据官方资料拟定的业务问题示意，不是企业客户记录或冻结评测题",
+      "anchors": [
+        {
+          "file": "troubleshoot-hot-spot-issues.md",
+          "quote": "对于非聚簇索引主键或没有主键的表",
+          "line": 85
+        },
+        {
+          "file": "troubleshoot-hot-spot-issues.md",
+          "quote": "SHARD_ROW_ID_BITS",
+          "line": 3
+        },
+        {
+          "file": "troubleshoot-hot-spot-issues.md",
+          "quote": "每次修改之后，只对新写入的数据生效",
+          "line": 102
+        }
+      ],
+      "exact_signals": [
+        "INSERT",
+        "Region"
+      ],
+      "semantic_intent": "局部热点、打散写入与已有数据的边界",
+      "rrf_advantage": "hypothesis_not_measured"
+    }
+  ],
+  "markdown_syntax_observations": [
+    {
+      "file": "identify-slow-queries.md",
+      "code_lines_resembling_headings": [
+        {
+          "line": 15,
+          "text": "# Time: 2019-08-14T09:26:59.487776265+08:00"
+        },
+        {
+          "line": 16,
+          "text": "# Txn_start_ts: 410450924122144769"
+        },
+        {
+          "line": 17,
+          "text": "# User@Host: root[root] @ localhost [127.0.0.1]"
+        },
+        {
+          "line": 18,
+          "text": "# Conn_ID: 3086"
+        },
+        {
+          "line": 19,
+          "text": "# Exec_retry_time: 5.1 Exec_retry_count: 3"
+        },
+        {
+          "line": 20,
+          "text": "# Query_time: 1.527627037"
+        },
+        {
+          "line": 21,
+          "text": "# Parse_time: 0.000054933"
+        },
+        {
+          "line": 22,
+          "text": "# Compile_time: 0.000129729"
+        },
+        {
+          "line": 23,
+          "text": "# Rewrite_time: 0.000000003 Preproc_subqueries: 2 Preproc_subqueries_time: 0.000000002"
+        },
+        {
+          "line": 24,
+          "text": "# Optimize_time: 0.00000001"
+        },
+        {
+          "line": 25,
+          "text": "# Wait_TS: 0.00001078"
+        },
+        {
+          "line": 26,
+          "text": "# Process_time: 0.07 Request_count: 1 Total_keys: 131073 Process_keys: 131072 Prewrite_time: 0.33541"
+        },
+        {
+          "line": 27,
+          "text": "# DB: test"
+        },
+        {
+          "line": 28,
+          "text": "# Is_internal: false"
+        },
+        {
+          "line": 29,
+          "text": "# Digest: 50a2e32d2abbd6c1764b1b7f2058d428ef2712b029282b776beb9506a365c0f1"
+        },
+        {
+          "line": 30,
+          "text": "# Stats: t:pseudo"
+        },
+        {
+          "line": 31,
+          "text": "# Num_cop_tasks: 1"
+        },
+        {
+          "line": 32,
+          "text": "# Cop_proc_avg: 0.07 Cop_proc_p90: 0.07 Cop_proc_max: 0.07 Cop_proc_addr: 172.16.5.87:20171"
+        },
+        {
+          "line": 33,
+          "text": "# Cop_wait_avg: 0 Cop_wait_p90: 0 Cop_wait_max: 0 Cop_wait_addr: 172.16.5.87:20171"
+        },
+        {
+          "line": 34,
+          "text": "# Cop_backoff_regionMiss_total_times: 200 Cop_backoff_regionMiss_total_time: 0.2 Cop_backoff_regionM"
+        },
+        {
+          "line": 35,
+          "text": "# Cop_backoff_rpcPD_total_times: 200 Cop_backoff_rpcPD_total_time: 0.2 Cop_backoff_rpcPD_max_time: 0"
+        },
+        {
+          "line": 36,
+          "text": "# Cop_backoff_rpcTiKV_total_times: 200 Cop_backoff_rpcTiKV_total_time: 0.2 Cop_backoff_rpcTiKV_max_t"
+        },
+        {
+          "line": 37,
+          "text": "# Mem_max: 525211"
+        },
+        {
+          "line": 38,
+          "text": "# Disk_max: 65536"
+        },
+        {
+          "line": 39,
+          "text": "# Prepared: false"
+        },
+        {
+          "line": 40,
+          "text": "# Plan_from_cache: false"
+        },
+        {
+          "line": 41,
+          "text": "# Succ: true"
+        },
+        {
+          "line": 42,
+          "text": "# Plan: tidb_decode_plan('ZJAwCTMyXzcJMAkyMAlkYXRhOlRhYmxlU2Nhbl82CjEJMTBfNgkxAR0AdAEY1Dp0LCByYW5nZT"
+        },
+        {
+          "line": 688,
+          "text": "# 320ms user time, 20ms system time, 27.00M rss, 221.32M vsz"
+        },
+        {
+          "line": 689,
+          "text": "# Current date: Mon Mar 18 13:18:51 2019"
+        },
+        {
+          "line": 690,
+          "text": "# Hostname: localhost.localdomain"
+        },
+        {
+          "line": 691,
+          "text": "# Files: tidb-slow.log"
+        },
+        {
+          "line": 692,
+          "text": "# Overall: 1.02k total, 21 unique, 0 QPS, 0x concurrency _________________"
+        },
+        {
+          "line": 693,
+          "text": "# Time range: 2019-03-18-12:22:16 to 2019-03-18-13:08:52"
+        },
+        {
+          "line": 694,
+          "text": "# Attribute          total     min     max     avg     95%  stddev  median"
+        },
+        {
+          "line": 695,
+          "text": "# ============     ======= ======= ======= ======= ======= ======= ======="
+        },
+        {
+          "line": 696,
+          "text": "# Exec time           218s    10ms     13s   213ms    30ms      1s    19ms"
+        },
+        {
+          "line": 697,
+          "text": "# Query size       175.37k       9   2.01k  175.89  158.58  122.36  158.58"
+        },
+        {
+          "line": 698,
+          "text": "# Commit time         46ms     2ms     7ms     3ms     7ms     1ms     3ms"
+        },
+        {
+          "line": 699,
+          "text": "# Conn ID               71       1      16    8.88   15.25    4.06    9.83"
+        },
+        {
+          "line": 700,
+          "text": "# Process keys     581.87k       2 103.15k  596.43  400.73   3.91k  400.73"
+        },
+        {
+          "line": 701,
+          "text": "# Process time         31s     1ms     10s    32ms    19ms   334ms    16ms"
+        },
+        {
+          "line": 702,
+          "text": "# Request coun       1.97k       1      10    2.02    1.96    0.33    1.96"
+        },
+        {
+          "line": 703,
+          "text": "# Total keys       636.43k       2 103.16k  652.35  793.42   3.97k  400.73"
+        },
+        {
+          "line": 704,
+          "text": "# Txn start ts     374.38E       0  16.00E 375.48P   1.25P  89.05T   1.25P"
+        },
+        {
+          "line": 705,
+          "text": "# Wait time          943ms     1ms    19ms     1ms     2ms     1ms   972us"
+        }
+      ]
+    },
+    {
+      "file": "analyze-slow-queries.md",
+      "code_lines_resembling_headings": [
+        {
+          "line": 78,
+          "text": "# Query_time: 0.18085"
+        },
+        {
+          "line": 80,
+          "text": "# Num_cop_tasks: 1"
+        },
+        {
+          "line": 81,
+          "text": "# Cop_process: Avg_time: 170ms P90_time: 170ms Max_time: 170ms Max_addr: 10.6.131.78"
+        },
+        {
+          "line": 82,
+          "text": "# Cop_wait: Avg_time: 1ms P90_time: 1ms Max_time: 1ms Max_Addr: 10.6.131.78"
+        },
+        {
+          "line": 94,
+          "text": "# Cop_wait: Avg_time: 1ms P90_time: 2ms Max_time: 110ms Max_Addr: 10.6.131.78"
+        },
+        {
+          "line": 107,
+          "text": "# Total_keys: 2215187529 Processed_keys: 1108056368"
+        },
+        {
+          "line": 120,
+          "text": "# Query_time: 0.0300000"
+        },
+        {
+          "line": 122,
+          "text": "# Wait_TS: 0.02500000"
+        },
+        {
+          "line": 130,
+          "text": "# Cop_backoff_regionMiss_total_times: 200 Cop_backoff_regionMiss_total_time: 0.2 Cop_backoff_regionM"
+        },
+        {
+          "line": 131,
+          "text": "# Cop_backoff_rpcPD_total_times: 200 Cop_backoff_rpcPD_total_time: 0.2 Cop_backoff_rpcPD_max_time: 0"
+        },
+        {
+          "line": 155,
+          "text": "# Query_time: 7.770634843"
+        },
+        {
+          "line": 157,
+          "text": "# Rewrite_time: 7.765673663 Preproc_subqueries: 1 Preproc_subqueries_time: 7.765231874"
+        },
+        {
+          "line": 210,
+          "text": "# Disk_max: 229974016"
+        }
+      ]
+    },
+    {
+      "file": "tune-tikv-memory-performance.md",
+      "code_lines_resembling_headings": [
+        {
+          "line": 35,
+          "text": "# 日志级别，可选值为：trace，debug，warn，error，info，off"
+        },
+        {
+          "line": 39,
+          "text": "# 监听地址"
+        },
+        {
+          "line": 40,
+          "text": "# addr = \"127.0.0.1:20160\""
+        },
+        {
+          "line": 42,
+          "text": "# gRPC 线程池大小"
+        },
+        {
+          "line": 43,
+          "text": "# grpc-concurrency = 4"
+        },
+        {
+          "line": 44,
+          "text": "# TiKV 每个实例之间的 gRPC 连接数"
+        },
+        {
+          "line": 45,
+          "text": "# grpc-raft-conn-num = 1"
+        },
+        {
+          "line": 47,
+          "text": "# TiDB 过来的大部分读请求都会发送到 TiKV 的 Coprocessor 进行处理，该参数用于设置"
+        },
+        {
+          "line": 48,
+          "text": "# coprocessor 线程的个数，如果业务是读请求比较多，增加 coprocessor 的线程数，但应比系统的"
+        },
+        {
+          "line": 49,
+          "text": "# CPU 核数小。例如：TiKV 所在的机器有 32 core，在重读的场景下甚至可以将该参数设置为 30。在没有"
+        },
+        {
+          "line": 50,
+          "text": "# 设置该参数的情况下，TiKV 会自动将该值设置为 CPU 总核数乘以 0.8。"
+        },
+        {
+          "line": 51,
+          "text": "# end-point-concurrency = 8"
+        },
+        {
+          "line": 53,
+          "text": "# 可以给 TiKV 实例打标签，用于副本的调度"
+        },
+        {
+          "line": 54,
+          "text": "# labels = {zone = \"cn-east-1\", host = \"118\", disk = \"ssd\"}"
+        },
+        {
+          "line": 57,
+          "text": "# 数据目录"
+        },
+        {
+          "line": 58,
+          "text": "# data-dir = \"/tmp/tikv/store\""
+        },
+        {
+          "line": 60,
+          "text": "# 通常情况下使用默认值就可以了。在导数据的情况下建议将该参数设置为 1024000。"
+        },
+        {
+          "line": 61,
+          "text": "# scheduler-concurrency = 102400"
+        },
+        {
+          "line": 62,
+          "text": "# 该参数控制写入线程的个数，当写入操作比较频繁的时候，需要把该参数调大。使用 top -H -p tikv-pid"
+        },
+        {
+          "line": 63,
+          "text": "# 发现名称为 sched-worker-pool 的线程都特别忙，这个时候就需要将 scheduler-worker-pool-size"
+        },
+        {
+          "line": 64,
+          "text": "# 参数调大，增加写线程的个数。"
+        },
+        {
+          "line": 65,
+          "text": "# scheduler-worker-pool-size = 4"
+        },
+        {
+          "line": 68,
+          "text": "## 是否为 RocksDB 的所有 CF 都创建一个 `shared block cache`。"
+        },
+        {
+          "line": 70,
+          "text": "## RocksDB 使用 block cache 来缓存未压缩的数据块。较大的 block cache 可以加快读取速度。"
+        },
+        {
+          "line": 71,
+          "text": "## 推荐开启 `shared block cache` 参数。这样只需要设置全部缓存大小，使配置过程更加方便。"
+        },
+        {
+          "line": 72,
+          "text": "## 在大多数情况下，可以通过 LRU 算法在各 CF 间自动平衡缓存用量。"
+        },
+        {
+          "line": 74,
+          "text": "## `storage.block-cache` 会话中的其余配置仅在开启 `shared block cache` 时起作用。"
+        },
+        {
+          "line": 75,
+          "text": "## 从 v6.6.0 开始，该选项永远开启且无法关闭。"
+        },
+        {
+          "line": 76,
+          "text": "# shared = true"
+        },
+        {
+          "line": 77,
+          "text": "## `shared block cache` 的大小。正常情况下应设置为系统全部内存的 30%-50%。"
+        },
+        {
+          "line": 78,
+          "text": "## 如果未设置该参数，则由以下字段或其默认值的总和决定。"
+        },
+        {
+          "line": 80,
+          "text": "##   * rocksdb.defaultcf.block-cache-size 或系统全部内存的 25%"
+        },
+        {
+          "line": 81,
+          "text": "##   * rocksdb.writecf.block-cache-size 或系统全部内存的 15%"
+        },
+        {
+          "line": 82,
+          "text": "##   * rocksdb.lockcf.block-cache-size 或系统全部内存的 2%"
+        },
+        {
+          "line": 83,
+          "text": "##   * raftdb.defaultcf.block-cache-size 或系统全部内存的 2%"
+        },
+        {
+          "line": 85,
+          "text": "## 要在单个物理机上部署多个 TiKV 节点，需要显式配置该参数。"
+        },
+        {
+          "line": 86,
+          "text": "## 否则，TiKV 中可能会出现 OOM 错误。"
+        },
+        {
+          "line": 87,
+          "text": "# capacity = \"1GB\""
+        },
+        {
+          "line": 90,
+          "text": "# pd 的地址"
+        },
+        {
+          "line": 91,
+          "text": "# endpoints = [\"127.0.0.1:2379\",\"127.0.0.2:2379\",\"127.0.0.3:2379\"]"
+        },
+        {
+          "line": 94,
+          "text": "# 将 metrics 推送给 Prometheus pushgateway 的时间间隔"
+        },
+        {
+          "line": 96,
+          "text": "# Prometheus pushgateway 的地址"
+        },
+        {
+          "line": 101,
+          "text": "# Raft RocksDB 目录。默认值是 [storage.data-dir] 的 raft 子目录。"
+        },
+        {
+          "line": 102,
+          "text": "# 如果机器上有多块磁盘，可以将 Raft RocksDB 的数据放在不同的盘上，提高 TiKV 的性能。"
+        },
+        {
+          "line": 103,
+          "text": "# raftdb-path = \"/tmp/tikv/store/raft\""
+        },
+        {
+          "line": 105,
+          "text": "# 当 Region 写入的数据量超过该阈值的时候，TiKV 会检查该 Region 是否需要分裂。为了减少检查过程"
+        },
+        {
+          "line": 106,
+          "text": "# 中扫描数据的成本，导入数据过程中可以将该值设置为 32 MB，正常运行状态下使用默认值即可。"
+        },
+        {
+          "line": 111,
+          "text": "## 当区间为 [a,e) 的 Region 的大小超过 `region_max_size`，TiKV 会尝试分裂该 Region，例如分裂成 [a,b)、[b,c)、[c,d)、[d,e) 等区间的"
+        },
+        {
+          "line": 112,
+          "text": "## 这些 Region [a,b), [b,c), [c,d) 的大小为 `region_split_size` (或者稍大于 `region_split_size`）"
+        },
+        {
+          "line": 113,
+          "text": "# region-max-size = \"384MiB\""
+        },
+        {
+          "line": 114,
+          "text": "# region-split-size = \"256MiB\""
+        },
+        {
+          "line": 117,
+          "text": "# RocksDB 进行后台任务的最大线程数，后台任务包括 compaction 和 flush。具体 RocksDB 为什么需要进行 compaction，"
+        },
+        {
+          "line": 118,
+          "text": "# 请参考 RocksDB 的相关资料。在写流量比较大的时候（例如导数据），建议开启更多的线程，"
+        },
+        {
+          "line": 119,
+          "text": "# 但应小于 CPU 的核数。例如在导数据的时候，32 核 CPU 的机器，可以设置成 28。"
+        },
+        {
+          "line": 120,
+          "text": "# max-background-jobs = 8"
+        },
+        {
+          "line": 122,
+          "text": "# RocksDB 能够打开的最大文件句柄数。"
+        },
+        {
+          "line": 123,
+          "text": "# max-open-files = 40960"
+        },
+        {
+          "line": 125,
+          "text": "# RocksDB MANIFEST 文件的大小限制.# 更详细的信息请参考：https://github.com/facebook/rocksdb/wiki/MANIFEST"
+        },
+        {
+          "line": 128,
+          "text": "# RocksDB write-ahead logs 目录。如果机器上有两块盘，可以将 RocksDB 的数据和 WAL 日志放在"
+        },
+        {
+          "line": 129,
+          "text": "# 不同的盘上，提高 TiKV 的性能。"
+        },
+        {
+          "line": 130,
+          "text": "# wal-dir = \"/tmp/tikv/store\""
+        },
+        {
+          "line": 132,
+          "text": "# 下面两个参数用于怎样处理 RocksDB 归档 WAL。"
+        },
+        {
+          "line": 133,
+          "text": "# 更多详细信息请参考：https://github.com/facebook/rocksdb/wiki/How-to-persist-in-memory-RocksDB-database%3F"
+        },
+        {
+          "line": 134,
+          "text": "# wal-ttl-seconds = 0"
+        },
+        {
+          "line": 135,
+          "text": "# wal-size-limit = 0"
+        },
+        {
+          "line": 137,
+          "text": "# RocksDB WAL 日志的最大总大小，通常情况下使用默认值就可以了。"
+        },
+        {
+          "line": 138,
+          "text": "# max-total-wal-size = \"4GB\""
+        },
+        {
+          "line": 140,
+          "text": "# 开启 RocksDB compaction 过程中的预读功能，如果使用的是机械磁盘，建议该值至少为2MiB。"
+        },
+        {
+          "line": 141,
+          "text": "# compaction-readahead-size = \"2MiB\""
+        },
+        {
+          "line": 144,
+          "text": "# 数据块大小。RocksDB 是按照 block 为单元对数据进行压缩的，同时 block 也是缓存在 block-cache"
+        },
+        {
+          "line": 145,
+          "text": "# 中的最小单元（类似其他数据库的 page 概念）。"
+        },
+        {
+          "line": 148,
+          "text": "# RocksDB 每一层数据的压缩方式，可选的值为：no,snappy,zlib,bzip2,lz4,lz4hc,zstd。注意 Snappy 压缩文件必须遵循[官方 Snappy 格式](http"
+        },
+        {
+          "line": 149,
+          "text": "# no:no:lz4:lz4:lz4:zstd:zstd 表示 level0 和 level1 不压缩，level2 到 level4 采用 lz4 压缩算法,"
+        },
+        {
+          "line": 150,
+          "text": "# level5 和 level6 采用 zstd 压缩算法,。"
+        },
+        {
+          "line": 151,
+          "text": "# no 表示没有压缩，lz4 是速度和压缩比较为中庸的压缩算法，zlib 的压缩比很高，对存储空间比较友"
+        },
+        {
+          "line": 152,
+          "text": "# 好，但是压缩速度比较慢，压缩的时候需要占用较多的 CPU 资源。不同的机器需要根据 CPU 以及 I/O 资"
+        },
+        {
+          "line": 153,
+          "text": "# 源情况来配置怎样的压缩方式。例如：如果采用的压缩方式为\"no:no:lz4:lz4:lz4:zstd:zstd\"，在大量"
+        },
+        {
+          "line": 154,
+          "text": "# 写入数据的情况下（导数据），发现系统的 I/O 压力很大（使用 iostat 发现 %util 持续 100% 或者使"
+        },
+        {
+          "line": 155,
+          "text": "# 用 top 命令发现 iowait 特别多），而 CPU 的资源还比较充裕，这个时候可以考虑将 level0 和"
+        },
+        {
+          "line": 156,
+          "text": "# level1 开启压缩，用 CPU 资源换取 I/O 资源。如果采用的压缩方式"
+        },
+        {
+          "line": 157,
+          "text": "# 为\"no:no:lz4:lz4:lz4:zstd:zstd\"，在大量写入数据的情况下，发现系统的 I/O 压力不大，但是 CPU"
+        },
+        {
+          "line": 158,
+          "text": "# 资源已经吃光了，top -H 发现有大量的 bg 开头的线程（RocksDB 的 compaction 线程）在运行，这"
+        },
+        {
+          "line": 159,
+          "text": "# 个时候可以考虑用 I/O 资源换取 CPU 资源，将压缩方式改成\"no:no:no:lz4:lz4:zstd:zstd\"。总之，目"
+        },
+        {
+          "line": 160,
+          "text": "# 的是为了最大限度地利用系统的现有资源，使 TiKV 的性能在现有的资源情况下充分发挥。"
+        },
+        {
+          "line": 163,
+          "text": "# RocksDB memtable 的大小。"
+        },
+        {
+          "line": 166,
+          "text": "# 最多允许几个 memtable 存在。写入到 RocksDB 的数据首先会记录到 WAL 日志里面，然后会插入到"
+        },
+        {
+          "line": 167,
+          "text": "# memtable 里面，当 memtable 的大小到达了 write-buffer-size 限定的大小的时候，当前的"
+        },
+        {
+          "line": 168,
+          "text": "# memtable 会变成只读的，然后生成一个新的 memtable 接收新的写入。只读的 memtable 会被"
+        },
+        {
+          "line": 169,
+          "text": "# RocksDB 的 flush 线程（max-background-flushes 参数能够控制 flush 线程的最大个数）"
+        },
+        {
+          "line": 170,
+          "text": "# flush 到磁盘，成为 level0 的一个 sst 文件。当 flush 线程忙不过来，导致等待 flush 到磁盘的"
+        },
+        {
+          "line": 171,
+          "text": "# memtable 的数量到达 max-write-buffer-number 限定的个数的时候，RocksDB 会将新的写入"
+        },
+        {
+          "line": 172,
+          "text": "# stall 住，stall 是 RocksDB 的一种流控机制。在导数据的时候可以将 max-write-buffer-number"
+        },
+        {
+          "line": 173,
+          "text": "# 的值设置的更大一点，例如 10。"
+        },
+        {
+          "line": 176,
+          "text": "# 当 level0 的 sst 文件个数到达 level0-slowdown-writes-trigger 指定的限度的时候，"
+        },
+        {
+          "line": 177,
+          "text": "# RocksDB 会尝试减慢写入的速度。因为 level0 的 sst 太多会导致 RocksDB 的读放大上升。"
+        },
+        {
+          "line": 178,
+          "text": "# level0-slowdown-writes-trigger 和 level0-stop-writes-trigger 是 RocksDB 进行流控的"
+        },
+        {
+          "line": 179,
+          "text": "# 另一个表现。当 level0 的 sst 的文件个数到达 4（默认值），level0 的 sst 文件会和 level1 中"
+        },
+        {
+          "line": 180,
+          "text": "# 有 overlap 的 sst 文件进行 compaction，缓解读放大的问题。"
+        },
+        {
+          "line": 183,
+          "text": "# 当 level0 的 sst 文件个数到达 level0-stop-writes-trigger 指定的限度的时候，RocksDB 会"
+        },
+        {
+          "line": 184,
+          "text": "# stall 住新的写入。"
+        },
+        {
+          "line": 187,
+          "text": "# 当 level1 的数据量大小达到 max-bytes-for-level-base 限定的值的时候，会触发 level1 的"
+        },
+        {
+          "line": 188,
+          "text": "# sst 和 level2 中有 overlap 的 sst 进行 compaction。"
+        },
+        {
+          "line": 189,
+          "text": "# 黄金定律：max-bytes-for-level-base 的设置的第一参考原则就是保证和 level0 的数据量大致相"
+        },
+        {
+          "line": 190,
+          "text": "# 等，这样能够减少不必要的 compaction。例如压缩方式为\"no:no:lz4:lz4:lz4:lz4:lz4\"，那么"
+        },
+        {
+          "line": 191,
+          "text": "# max-bytes-for-level-base 的值应该是 write-buffer-size 的大小乘以 4，因为 level0 和"
+        },
+        {
+          "line": 192,
+          "text": "# level1 都没有压缩，而且 level0 触发 compaction 的条件是 sst 的个数到达 4（默认值）。在"
+        },
+        {
+          "line": 193,
+          "text": "# level0 和 level1 都采取了压缩的情况下，就需要分析下 RocksDB 的日志，看一个 memtable 的压"
+        },
+        {
+          "line": 194,
+          "text": "# 缩成一个 sst 文件的大小大概是多少，例如 32MB，那么 max-bytes-for-level-base 的建议值就应"
+        },
+        {
+          "line": 195,
+          "text": "# 该是 32MiB * 4 = 128MiB。"
+        },
+        {
+          "line": 198,
+          "text": "# sst 文件的大小。level0 的 sst 文件的大小受 write-buffer-size 和 level0 采用的压缩算法的"
+        },
+        {
+          "line": 199,
+          "text": "# 影响，target-file-size-base 参数用于控制 level1-level6 单个 sst 文件的大小。"
+        },
+        {
+          "line": 203,
+          "text": "# 保持和 rocksdb.defaultcf.compression-per-level 一致。"
+        },
+        {
+          "line": 206,
+          "text": "# 保持和 rocksdb.defaultcf.write-buffer-size 一致。"
+        },
+        {
+          "line": 211,
+          "text": "# 保持和 rocksdb.defaultcf.max-bytes-for-level-base 一致。"
+        },
+        {
+          "line": 216,
+          "text": "# RaftDB 能够打开的最大文件句柄数。"
+        },
+        {
+          "line": 217,
+          "text": "# max-open-files = 40960"
+        },
+        {
+          "line": 219,
+          "text": "# 开启 RaftDB compaction 过程中的预读功能，如果使用的是机械磁盘，建议该值至少为2MiB。"
+        },
+        {
+          "line": 220,
+          "text": "# compaction-readahead-size = \"2MiB\""
+        },
+        {
+          "line": 223,
+          "text": "# 保持和 rocksdb.defaultcf.compression-per-level 一致。"
+        },
+        {
+          "line": 226,
+          "text": "# 保持和 rocksdb.defaultcf.write-buffer-size 一致。"
+        },
+        {
+          "line": 231,
+          "text": "# 保持和 rocksdb.defaultcf.max-bytes-for-level-base 一致。"
+        }
+      ]
+    },
+    {
+      "file": "optimistic-transaction.md",
+      "code_lines_resembling_headings": [
+        {
+          "line": 132,
+          "text": "# 设置是否禁用自动重试，默认为 “on”，即不重试。"
+        },
+        {
+          "line": 134,
+          "text": "# 控制重试次数，默认为 “10”。只有自动重试启用时该参数才会生效。"
+        },
+        {
+          "line": 135,
+          "text": "# 当 “tidb_retry_limit = 0” 时，也会禁用自动重试。"
+        },
+        {
+          "line": 194,
+          "text": "# scheduler 内置一个内存锁机制，防止同时对一个 Key 进行操作。"
+        },
+        {
+          "line": 195,
+          "text": "# 每个 Key hash 到不同的 slot。（默认为 2048000）"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    "公开企业产品资料构成模拟运维／技术支持知识库；不声称企业内部部署或真实用户验证。",
+    "固定 Git 提交中仍含历史版本说明，标注时保留版本、事务模式和组件条件。",
+    "同时保存口语症状和精确日志，作为两路互补的待验证场景；不承诺融合获胜。",
+    "代码块中的 # 日志或配置注释不能作为真正的文档标题，入库前检查当前解析器的处理。",
+    "业务问题示意尚未冻结，不作为已经建立的开发题／正式题或实际效果。"
+  ],
+  "paid_model_calls": 0
+}

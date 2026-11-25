@@ -1,0 +1,440 @@
+{
+  "scope": "offline candidate IDs, not indexed database IDs",
+  "contract_sha256": "418f7464d0c0dbd7a054e06e33268ed2f4ee800e1f69953d962422efde764b33",
+  "mappings": [
+    {
+      "id": "ED01",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:tidb-troubleshooting-map.md:17",
+          "offline:troubleshoot-tidb-oom.md:4"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:tidb-troubleshooting-map.md:17",
+        "offline:troubleshoot-tidb-oom.md:4"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED02",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-oom.md:14"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-oom.md:14"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED03",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-lock-conflicts.md:3"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-lock-conflicts.md:3"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED04",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-hot-spot-issues.md:3",
+          "offline:troubleshoot-write-conflicts.md:9"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-hot-spot-issues.md:3",
+        "offline:troubleshoot-write-conflicts.md:9"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED05",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:analyze-slow-queries.md:8"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:analyze-slow-queries.md:8"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED06",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-hot-spot-issues.md:10"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-hot-spot-issues.md:10"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED07",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-cluster.md:4"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-cluster.md:4"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "ED08",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:tidb-troubleshooting-map.md:34"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:tidb-troubleshooting-map.md:34"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV01",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-oom.md:10"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-oom.md:10"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV02",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-oom.md:12"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-oom.md:12"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV03",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-oom.md:16"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-oom.md:16"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV04",
+      "required_unit_gold_chunk_ids": {
+        "mode_scope": [
+          "offline:troubleshoot-lock-conflicts.md:2"
+        ],
+        "sql_visibility": [
+          "offline:troubleshoot-lock-conflicts.md:4"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV05",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-lock-conflicts.md:34"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-lock-conflicts.md:34"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV06",
+      "required_unit_gold_chunk_ids": {
+        "ttl_limit": [
+          "offline:pessimistic-transaction.md:12",
+          "offline:troubleshoot-lock-conflicts.md:36"
+        ],
+        "business_action": [
+          "offline:troubleshoot-lock-conflicts.md:37",
+          "offline:troubleshoot-tidb-oom.md:12"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV07",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:analyze-slow-queries.md:12",
+          "offline:identify-slow-queries.md:9"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:analyze-slow-queries.md:12",
+        "offline:identify-slow-queries.md:9"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV08",
+      "required_unit_gold_chunk_ids": {
+        "preexecution_explanation": [
+          "offline:analyze-slow-queries.md:15"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {
+        "numeric_example": [
+          "offline:analyze-slow-queries.md:17"
+        ]
+      },
+      "single_chunk_full_evidence_ids": [
+        "offline:analyze-slow-queries.md:15"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV09",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:analyze-slow-queries.md:9",
+          "offline:identify-slow-queries.md:13"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:analyze-slow-queries.md:9",
+        "offline:identify-slow-queries.md:13"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV10",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-cpu-issues.md:11"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-cpu-issues.md:11"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV11",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-cluster.md:12"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-cluster.md:12"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV12",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-tidb-cluster.md:6"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-tidb-cluster.md:6"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV13",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/deploy-and-maintain-faq.md:9"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/deploy-and-maintain-faq.md:9"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV14",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/deploy-and-maintain-faq.md:14"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/deploy-and-maintain-faq.md:14"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV15",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/deploy-and-maintain-faq.md:11"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/deploy-and-maintain-faq.md:11"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV16",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/sql-faq.md:10"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/sql-faq.md:10"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV17",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/migration-tidb-faq.md:21",
+          "offline:faq/sql-faq.md:22"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/migration-tidb-faq.md:21",
+        "offline:faq/sql-faq.md:22"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV18",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/sql-faq.md:3"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/sql-faq.md:3"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV19",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/manage-cluster-faq.md:51"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/manage-cluster-faq.md:51"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV20",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/manage-cluster-faq.md:78"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/manage-cluster-faq.md:78"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV21",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:faq/migration-tidb-faq.md:17"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:faq/migration-tidb-faq.md:17"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV22",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-high-disk-io.md:4"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-high-disk-io.md:4"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV23",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:troubleshoot-hot-spot-issues.md:13"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:troubleshoot-hot-spot-issues.md:13"
+      ],
+      "missing_required_units": []
+    },
+    {
+      "id": "EV24",
+      "required_unit_gold_chunk_ids": {
+        "answer": [
+          "offline:pessimistic-transaction.md:2"
+        ]
+      },
+      "optional_unit_gold_chunk_ids": {},
+      "single_chunk_full_evidence_ids": [
+        "offline:pessimistic-transaction.md:2"
+      ],
+      "missing_required_units": []
+    }
+  ]
+}

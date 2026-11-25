@@ -1,0 +1,12 @@
+{
+  "question_pairs": 24,
+  "parent_sha256": "1c1f063b0056c5246adbfeed04f5ad7f388f9088de1163dd4f3d59da497709eb",
+  "semantic_sha256": "4f4549d7002d07371f31e474e5869f807183cdde52a41fbea4ebb8f3c54aa10f",
+  "answers_and_gold_ids_unchanged": true,
+  "all_pairs_retained": true,
+  "reindexing_required": false,
+  "new_question_rankings_seen_during_authoring": false,
+  "ranking_based_filtering": false,
+  "interpretation": "Targeted paraphrase robustness set, adapted from already exposed tasks; not independent holdout or corpus optimization",
+  "paid_model_calls": 0
+}

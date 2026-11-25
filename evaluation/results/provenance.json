@@ -1,0 +1,26 @@
+[
+  {
+    "public_file": "evaluation/results/retrieval.json",
+    "local_run_reference": "enterprise_rewrite_rerank_concise_max_20261123_222306_536057/comparison_report.json",
+    "original_report_sha256": "53d9775f24b5fa5bda869daaad5b3a1674ba0a5182b2f8ab5ab4b641f64450d6",
+    "transformation": "none"
+  },
+  {
+    "public_file": "evaluation/results/faithfulness.json",
+    "local_run_reference": "answer_quality_v4_extractive/comparison_report.json",
+    "original_report_sha256": "6efee06183f54cf0334ff9f6512c689f0c6cddeb6304af721e2e752c59f78e3c",
+    "transformation": "none"
+  },
+  {
+    "public_file": "evaluation/results/relevancy.json",
+    "local_run_reference": "answer_quality_faq_contextual_v2/comparison_report.json",
+    "original_report_sha256": "25948cc5427026a768dca1155301b1b23fee17c5d45cb25a19e21740b9d64a1c",
+    "transformation": "none"
+  },
+  {
+    "public_file": "evaluation/results/ingestion.json",
+    "local_run_reference": "complex_document_comparison_v2.json",
+    "original_report_sha256": "916fff709738591f6bc9c0425f1f622f6e4f129586250be65ce3a2dda889c25e",
+    "transformation": "remove missing_cells text only"
+  }
+]

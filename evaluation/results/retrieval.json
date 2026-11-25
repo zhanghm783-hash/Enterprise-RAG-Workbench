@@ -1,0 +1,200 @@
+{
+  "status": "passed",
+  "dataset": "enterprise_semantic_paraphrase_v1",
+  "dataset_sha256": "4f4549d7002d07371f31e474e5869f807183cdde52a41fbea4ebb8f3c54aa10f",
+  "questions": 24,
+  "top_k": 5,
+  "totals": {
+    "vector": 11,
+    "bm25": 8,
+    "rrf": 14,
+    "improved": 22
+  },
+  "rates": {
+    "vector": 0.4583333333333333,
+    "bm25": 0.3333333333333333,
+    "rrf": 0.5833333333333334,
+    "improved": 0.9166666666666666
+  },
+  "vector_to_improved_percentage_points": 45.83333333333333,
+  "rrf_to_improved_percentage_points": 33.33333333333333,
+  "target": 0.9,
+  "target_met": true,
+  "rows": [
+    {
+      "question_id": "EV01",
+      "vector": false,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV02",
+      "vector": true,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV03",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV04",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV05",
+      "vector": true,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV06",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV07",
+      "vector": false,
+      "bm25": true,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV08",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": false
+    },
+    {
+      "question_id": "EV09",
+      "vector": true,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV10",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV11",
+      "vector": true,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV12",
+      "vector": false,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV13",
+      "vector": false,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV14",
+      "vector": false,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV15",
+      "vector": true,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV16",
+      "vector": true,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV17",
+      "vector": true,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV18",
+      "vector": false,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV19",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": true
+    },
+    {
+      "question_id": "EV20",
+      "vector": true,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV21",
+      "vector": true,
+      "bm25": false,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV22",
+      "vector": true,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV23",
+      "vector": true,
+      "bm25": true,
+      "rrf": true,
+      "improved": true
+    },
+    {
+      "question_id": "EV24",
+      "vector": false,
+      "bm25": false,
+      "rrf": false,
+      "improved": false
+    }
+  ],
+  "source_sha256": {
+    "dataset": "4f4549d7002d07371f31e474e5869f807183cdde52a41fbea4ebb8f3c54aa10f",
+    "baseline": "16c91e912182e86b156cee4be0bd0a82d43e60a8daca56649192007f633fded7",
+    "improved": "0de58dd2a0320ab5402a7768d2482019a76e924379ce67fe79a347ca4a50bf39"
+  },
+  "scope": "fixed previously exposed development tasks; full query-rewrite/hybrid/rerank pipeline, not pure RRF or production distribution",
+  "auditor_model_calls": 0
+}

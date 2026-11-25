@@ -1,0 +1,8 @@
+{
+  "questions": 32,
+  "all_existing_required_gold_candidates_preserved": true,
+  "metric_semantics_unchanged": true,
+  "old_40_sha256": "8168f74ebb963e3494cd1258e12136338369c549249b3fd0eef412f42914cdf3",
+  "source_search_entries": 32,
+  "paid_model_calls": 0
+}

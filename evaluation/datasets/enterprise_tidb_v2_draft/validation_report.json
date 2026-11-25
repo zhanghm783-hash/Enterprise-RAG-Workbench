@@ -1,0 +1,32 @@
+{
+  "dataset_id": "enterprise_tidb_v2",
+  "status": "draft_not_frozen",
+  "counts": {
+    "dev": 8,
+    "test": 24
+  },
+  "question_count": 32,
+  "source_documents_in_index_plan": 20,
+  "source_documents_with_questions": 14,
+  "topic_counts": {
+    "内存故障": 5,
+    "事务与锁": 6,
+    "慢查询": 4,
+    "写入热点": 2,
+    "连接与启动": 5,
+    "容量与流控": 2,
+    "部署与配置": 3,
+    "SQL 与业务迁移": 3,
+    "备份与迁移": 2
+  },
+  "kind_counts": {
+    "现象与精确标识": 19,
+    "口语现象": 12,
+    "准确报错": 1
+  },
+  "paid_model_calls": 0,
+  "retrieval_executed": false,
+  "source_hash_checks": 20,
+  "anchor_checks": 65,
+  "dataset_sha256": "3f024b87c7ac08c87d6bdc0b56cc0a15b75137a32990ce0a161427fd79299ff9"
+}

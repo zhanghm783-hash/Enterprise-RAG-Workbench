@@ -1,0 +1,166 @@
+{
+  "status": "passed",
+  "questions": 24,
+  "before": 0.35096348339769395,
+  "after": 0.9652777777777778,
+  "delta": 0.6143142943800839,
+  "metric": "Ragas Faithfulness, fixed Chinese prompt zh2",
+  "before_scheme": "vector retrieval + free-form qwen-plus answers",
+  "after_scheme": "query rewrite + hybrid retrieval + rerank + qwen3.7-max evidence selection + verbatim quotation rendering",
+  "score_errors": 0,
+  "undefined": 0,
+  "verified_quotations": 38,
+  "refusals": [
+    "EV24"
+  ],
+  "after_with_refusals_zero": 0.9236111111111112,
+  "nonrefusal_fraction": 0.9583333333333334,
+  "target": 0.9,
+  "target_met": true,
+  "baseline_technical_repairs": [
+    {
+      "question_id": "EV04",
+      "path": "evaluation\\artifacts\\answer_quality_v1\\faithfulness_qwen37max_v1_zh2_vector_idsEV04_max8192",
+      "original_error": "LLMDidNotFinishException",
+      "change": "judge output capacity 3072 -> 8192 only"
+    },
+    {
+      "question_id": "EV23",
+      "path": "evaluation\\artifacts\\answer_quality_v1\\faithfulness_qwen37max_v1_zh2_vector_idsEV23_max8192",
+      "original_error": "LLMDidNotFinishException",
+      "change": "judge output capacity 3072 -> 8192 only"
+    }
+  ],
+  "source_sha256": {
+    "baseline_raw_scores": "1b1ed9f6c7acf9bdb6ed3ab7337c1d71de21c43761384c267b53b0a3c3fa7e01",
+    "improved_scores": "c91a369e76c2c2e75c4493bac6c34f648d0d590e610f446f2dceffb2f12c54a2",
+    "improved_answers": "9b32fd94a1d6668b02a9b5e8fbc1e878a45ad7227bcb6f1fd7b859e38761a524"
+  },
+  "paired_rows": [
+    {
+      "question_id": "EV01",
+      "before": 0.14285714285714285,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV02",
+      "before": 0.7368421052631579,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV03",
+      "before": 0.0,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV04",
+      "before": 0.4583333333333333,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV05",
+      "before": 0.45454545454545453,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV06",
+      "before": 0.3333333333333333,
+      "after": 0.6666666666666666
+    },
+    {
+      "question_id": "EV07",
+      "before": 0.10714285714285714,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV08",
+      "before": 0.16666666666666666,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV09",
+      "before": 0.375,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV10",
+      "before": 0.14285714285714285,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV11",
+      "before": 1.0,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV12",
+      "before": 0.05555555555555555,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV13",
+      "before": 0.6,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV14",
+      "before": 0.0,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV15",
+      "before": 0.18181818181818182,
+      "after": 0.5
+    },
+    {
+      "question_id": "EV16",
+      "before": 0.44,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV17",
+      "before": 0.16666666666666666,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV18",
+      "before": 0.2857142857142857,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV19",
+      "before": 0.23076923076923078,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV20",
+      "before": 0.45454545454545453,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV21",
+      "before": 0.6666666666666666,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV22",
+      "before": 0.5238095238095238,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV23",
+      "before": 0.65,
+      "after": 1.0
+    },
+    {
+      "question_id": "EV24",
+      "before": 0.25,
+      "after": 1.0
+    }
+  ],
+  "scope": "24 previously exposed semantic development tasks; extractive-answer fidelity, not complete-answer or production accuracy",
+  "human_semantic_review": "pending",
+  "application_integration": "not yet implemented",
+  "offline_auditor_model_calls": 0,
+  "prior_default_English_prompt_scores_mixed_in": false
+}

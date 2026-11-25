@@ -1,0 +1,173 @@
+{
+  "status": "passed",
+  "samples": 24,
+  "comparison": "same FAQ tasks: short grounded answer v1 → contextual grounded answer v2",
+  "before": 0.8527327955464888,
+  "after": 0.917558799994,
+  "delta": 0.06482600444751119,
+  "relative_gain": 0.07602147447133922,
+  "original_vector_reference": 0.9055482764023579,
+  "change": "restore real section titles and require object/trigger/conclusion in answer expression",
+  "judge_model": "qwen3.7-max",
+  "embedding_model": "text-embedding-v4",
+  "language": "zh2",
+  "strictness": 3,
+  "errors": 0,
+  "target_value_met": true,
+  "positive_version_delta": true,
+  "scope": "development FAQ cohort; expression optimization, not large improvement over raw vector or production accuracy",
+  "previous_semantic_v1_scores_not_comparable": true,
+  "rows": [
+    {
+      "question_id": "EV01",
+      "before": 0.9189534468298911,
+      "after": 0.9064827452692227,
+      "original_vector_reference": 0.9318780288800687
+    },
+    {
+      "question_id": "EV02",
+      "before": 0.9002731412800319,
+      "after": 0.9065627073590221,
+      "original_vector_reference": 0.9927845879684621
+    },
+    {
+      "question_id": "EV03",
+      "before": 0.7487058393459916,
+      "after": 0.9937039987437428,
+      "original_vector_reference": 0.8158046020594228
+    },
+    {
+      "question_id": "EV04",
+      "before": 0.9313765286015196,
+      "after": 0.8979681779719986,
+      "original_vector_reference": 0.9865484668082803
+    },
+    {
+      "question_id": "EV05",
+      "before": 0.9125332885616763,
+      "after": 0.9681500307802852,
+      "original_vector_reference": 0.9265078622453973
+    },
+    {
+      "question_id": "EV06",
+      "before": 0.8276845342561274,
+      "after": 0.8413965088058601,
+      "original_vector_reference": 0.8791549065843904
+    },
+    {
+      "question_id": "EV07",
+      "before": 0.9335943848710614,
+      "after": 0.9495330942850089,
+      "original_vector_reference": 0.8685131710995204
+    },
+    {
+      "question_id": "EV08",
+      "before": 0.8270463714794714,
+      "after": 0.8247540035183486,
+      "original_vector_reference": 0.8382440858630763
+    },
+    {
+      "question_id": "EV09",
+      "before": 0.6600263763293587,
+      "after": 0.9488792395305709,
+      "original_vector_reference": 0.9674455900686846
+    },
+    {
+      "question_id": "EV10",
+      "before": 0.6733809803947489,
+      "after": 0.8825253839295208,
+      "original_vector_reference": 0.8232250735574743
+    },
+    {
+      "question_id": "EV11",
+      "before": 0.6238314031540365,
+      "after": 0.9534230264071764,
+      "original_vector_reference": 0.9214956412021883
+    },
+    {
+      "question_id": "EV12",
+      "before": 0.913794027300852,
+      "after": 0.9981744628340151,
+      "original_vector_reference": 0.9478581433779748
+    },
+    {
+      "question_id": "EV13",
+      "before": 0.7853185829310654,
+      "after": 0.9620416788794809,
+      "original_vector_reference": 0.9664838241571726
+    },
+    {
+      "question_id": "EV14",
+      "before": 0.7703410436792207,
+      "after": 0.8096460533129773,
+      "original_vector_reference": 0.8867776759291757
+    },
+    {
+      "question_id": "EV15",
+      "before": 0.7968196926616492,
+      "after": 0.9422176566172418,
+      "original_vector_reference": 0.9117227676106102
+    },
+    {
+      "question_id": "EV16",
+      "before": 0.976916535699491,
+      "after": 0.9651488181751869,
+      "original_vector_reference": 0.9463489898713324
+    },
+    {
+      "question_id": "EV17",
+      "before": 0.8630184398229618,
+      "after": 0.8198744457946109,
+      "original_vector_reference": 0.9276094990923646
+    },
+    {
+      "question_id": "EV18",
+      "before": 0.9594029851616583,
+      "after": 0.9842444199896244,
+      "original_vector_reference": 0.9336919947974492
+    },
+    {
+      "question_id": "EV19",
+      "before": 0.8339681309224608,
+      "after": 0.9856658498013925,
+      "original_vector_reference": 0.8318648793906633
+    },
+    {
+      "question_id": "EV20",
+      "before": 0.9405983302320822,
+      "after": 0.9678179273073853,
+      "original_vector_reference": 0.9624956625507205
+    },
+    {
+      "question_id": "EV21",
+      "before": 0.9531728255340424,
+      "after": 0.9093612908739274,
+      "original_vector_reference": 0.916307757426018
+    },
+    {
+      "question_id": "EV22",
+      "before": 0.77347928437995,
+      "after": 0.7595925757479497,
+      "original_vector_reference": 0.7697829090699716
+    },
+    {
+      "question_id": "EV23",
+      "before": 0.9671186807869455,
+      "after": 0.8700148650220121,
+      "original_vector_reference": 0.8407219812456425
+    },
+    {
+      "question_id": "EV24",
+      "before": 0.9742322388994386,
+      "after": 0.9742322388994386,
+      "original_vector_reference": 0.9398905328005297
+    }
+  ],
+  "source_sha256": {
+    "before_answers": "0ca9ea073b8c33ca8369d3fa435addc9926c54cc62fd8b70edb6c18741ced967",
+    "after_answers": "4104cb5e1a0ec42ec24a344c40fb40115a021f6d3976ee010affba034ab1ba11",
+    "before_scores": "b9b35225d231bbf44e2ddc7f0944fc1bb9e4d2a70e3df153d449b15b5fb3a5ca",
+    "after_scores": "2535923095d0f3c8c7854e8a26dcedd4389058e142cbd3f34e44fe8876e414c7"
+  },
+  "auditor_model_calls": 0
+}

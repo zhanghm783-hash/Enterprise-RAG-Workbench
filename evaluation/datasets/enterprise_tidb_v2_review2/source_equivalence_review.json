@@ -1,0 +1,298 @@
+{
+  "scope": "source-only AI equivalence review; no ranked retrieval, model call or database write",
+  "scoring_contract_sha256": "418f7464d0c0dbd7a054e06e33268ed2f4ee800e1f69953d962422efde764b33",
+  "parent_contract_sha256": "89ce7cbba6002e1dbd3188e0e27e26d7edc848c54ef7b7a807d6774ab1535873",
+  "parent_draft_sha256": "3f024b87c7ac08c87d6bdc0b56cc0a15b75137a32990ce0a161427fd79299ff9",
+  "source_integrity_checks": 22,
+  "reviewed_questions": 32,
+  "source_documents": 20,
+  "offline_chunks": 677,
+  "added_options": 9,
+  "questions_with_added_options": [
+    "ED01",
+    "ED04",
+    "EV06",
+    "EV07",
+    "EV09",
+    "EV17"
+  ],
+  "questions_with_more_gold_candidates": [
+    "ED01",
+    "ED04",
+    "EV06",
+    "EV07",
+    "EV09",
+    "EV17"
+  ],
+  "required_units": 34,
+  "optional_units": 1,
+  "single_chunk_full_evidence_questions": 30,
+  "multiple_chunks_required_by_current_mapping": [
+    "EV04",
+    "EV06"
+  ],
+  "questions_answers_and_metric_semantics_changed": false,
+  "accepted": [
+    {
+      "id": "ED01",
+      "unit": "answer",
+      "filename": "tidb-troubleshooting-map.md",
+      "anchors": [
+        {
+          "quote": "`dmesg -T | grep tidb-server` 结果中有事故发生附近时间点的 OOM-killer 的日志。",
+          "start_char": 4544,
+          "end_char": 4604,
+          "line": 103
+        }
+      ],
+      "reason": "同样提供故障时间附近的 OS OOM-killer 证据和命令，可回答确认方法；不把重启日志单独当确认。",
+      "offline_candidate_ids": [
+        "offline:tidb-troubleshooting-map.md:17"
+      ]
+    },
+    {
+      "id": "ED04",
+      "unit": "answer",
+      "filename": "troubleshoot-write-conflicts.md",
+      "anchors": [
+        {
+          "quote": "tableID 表示发生冲突的表的 ID，indexID 表示是索引数据发生了冲突。",
+          "start_char": 2660,
+          "end_char": 2702,
+          "line": 65
+        }
+      ],
+      "reason": "题目要求解释已给出的 tableID/indexID；handle=x 是补充说明，不是问题另问的必要字段。",
+      "offline_candidate_ids": [
+        "offline:troubleshoot-write-conflicts.md:9"
+      ]
+    },
+    {
+      "id": "ED04",
+      "unit": "answer",
+      "filename": "troubleshoot-hot-spot-issues.md",
+      "anchors": [
+        {
+          "quote": "TiDB 对每个表分配一个 TableID，每一个索引都会分配一个 IndexID",
+          "start_char": 421,
+          "end_char": 462,
+          "line": 18
+        }
+      ],
+      "reason": "字段定义足以解释题目已给出的表与索引标识；不要求再次召回 9007 报错字符串。",
+      "offline_candidate_ids": [
+        "offline:troubleshoot-hot-spot-issues.md:3"
+      ]
+    },
+    {
+      "id": "EV06",
+      "unit": "ttl_limit",
+      "filename": "pessimistic-transaction.md",
+      "anchors": [
+        {
+          "quote": "悲观事务的执行时间仍有上限，默认为 1 小时",
+          "start_char": 4538,
+          "end_char": 4560,
+          "line": 131
+        },
+        {
+          "quote": "`[performance]` 类别下的 `max-txn-ttl` 修改。",
+          "start_char": 4575,
+          "end_char": 4613,
+          "line": 131
+        }
+      ],
+      "reason": "同为悲观事务时限与配置位置；只覆盖限制单元，不替代业务处理建议，也不据此推断 GC 完全相同。",
+      "offline_candidate_ids": [
+        "offline:pessimistic-transaction.md:12"
+      ]
+    },
+    {
+      "id": "EV06",
+      "unit": "business_action",
+      "filename": "troubleshoot-tidb-oom.md",
+      "anchors": [
+        {
+          "quote": "针对单个大事务，可以通过拆分的方式调小事务大小。",
+          "start_char": 3807,
+          "end_char": 3831,
+          "line": 110
+        }
+      ],
+      "reason": "提供拆分大事务这一通用业务动作，仅覆盖动作单元；仍须另有悲观事务超时依据，不声称保证解决超时。",
+      "offline_candidate_ids": [
+        "offline:troubleshoot-tidb-oom.md:12"
+      ]
+    },
+    {
+      "id": "EV07",
+      "unit": "answer",
+      "filename": "analyze-slow-queries.md",
+      "anchors": [
+        {
+          "quote": "可以对比慢日志中的 `Wait_TS` 和 `Query_time`，因为 TS 有预取操作，通常来说 `Wait_TS` 应该很低。",
+          "start_char": 4464,
+          "end_char": 4531,
+          "line": 117
+        }
+      ],
+      "reason": "题目已提供两个耗时数值，取 TS 阶段的解释足够，不必再次召回相同数值示例。",
+      "offline_candidate_ids": [
+        "offline:analyze-slow-queries.md:12"
+      ]
+    },
+    {
+      "id": "EV07",
+      "unit": "answer",
+      "filename": "identify-slow-queries.md",
+      "anchors": [
+        {
+          "quote": "`Query_time`：表示执行这个语句花费的时间。",
+          "start_char": 2621,
+          "end_char": 2648,
+          "line": 56
+        },
+        {
+          "quote": "`Wait_TS`：表示这个语句在等待获取事务 TS 阶段花费的时间。",
+          "start_char": 2763,
+          "end_char": 2798,
+          "line": 60
+        }
+      ],
+      "reason": "字段定义加上题目给出的 25ms/30ms 可推断取 TS 等待占主导；不额外声称该段解释了 TS 预取机制。",
+      "offline_candidate_ids": [
+        "offline:identify-slow-queries.md:9"
+      ]
+    },
+    {
+      "id": "EV09",
+      "unit": "answer",
+      "filename": "identify-slow-queries.md",
+      "anchors": [
+        {
+          "quote": "`Cop_wait_avg`：cop-task 的平均等待时间，包括请求排队和获取 snapshot 时间。",
+          "start_char": 6562,
+          "end_char": 6616,
+          "line": 133
+        },
+        {
+          "quote": "`Cop_wait_max`：cop-task 的最大等待时间。",
+          "start_char": 6659,
+          "end_char": 6691,
+          "line": 135
+        },
+        {
+          "quote": "`Cop_wait_addr`：等待时间最长的 cop-task 所在地址。",
+          "start_char": 6694,
+          "end_char": 6732,
+          "line": 136
+        }
+      ],
+      "reason": "字段定义支持结合题目定位长尾等待所在实例；该段不证明唯一原因是 CPU 忙，也不作为 CPU 故障结论。",
+      "offline_candidate_ids": [
+        "offline:identify-slow-queries.md:13"
+      ]
+    },
+    {
+      "id": "EV17",
+      "unit": "answer",
+      "filename": "faq/migration-tidb-faq.md",
+      "anchors": [
+        {
+          "quote": "对于 DELETE 操作 TiDB 的 GC 机制会删除数据，但不会释放空间，而是当后续数据写入 RocksDB 且进行 compact 时对空间重新利用。",
+          "start_char": 4662,
+          "end_char": 4740,
+          "line": 156
+        }
+      ],
+      "reason": "同样解释 DELETE 后 GC 不等于立即回收，后续 compact 才重用空间；不将空间重用说成马上返还操作系统。",
+      "offline_candidate_ids": [
+        "offline:faq/migration-tidb-faq.md:21"
+      ]
+    }
+  ],
+  "rejected_partial_or_different_context": [
+    {
+      "id": "ED01",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "signal": "dmesg 中 TiDB 组件相关的问题",
+      "reason": "笼统收集 dmesg 不足以确认是 TiDB OOM；TiKV 被杀也不是该题的服务对象。"
+    },
+    {
+      "id": "ED03",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "signal": "少数热点 key 造成锁排队",
+      "reason": "只按 key 聚合的片段不一定包含阻塞双方事务 ID，不能机械视作完整字段解释。"
+    },
+    {
+      "id": "ED06",
+      "filename": "faq/sql-faq.md",
+      "signal": "设置该属性后，行 ID 会被打散并写入多个 Region",
+      "reason": "仅介绍打散写入，缺少对旧数据是否生效这一必答条件。"
+    },
+    {
+      "id": "ED07",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "signal": "检查 tikv-server 机器和 pd-server 对应端口之间的连通性",
+      "reason": "这是 TiKV 到 PD，问题问 TiDB 入口到 PD，不能混为相同的网络边。"
+    },
+    {
+      "id": "EV03",
+      "filename": "faq/sql-faq.md",
+      "signal": "defaultFetchSize=-2147483648",
+      "reason": "连接串示例出现同名参数，但没有解释客户端缓存／OOM，不能单凭字符串算完整依据。"
+    },
+    {
+      "id": "EV06",
+      "filename": "tidb-troubleshooting-map.md",
+      "signal": "TTL 默认时间为 3 秒",
+      "reason": "这是特定小事务乐观锁 TTL，不是本题悲观长事务默认 1 小时限制。"
+    },
+    {
+      "id": "EV17",
+      "filename": "faq/sql-faq.md",
+      "signal": "tidb_gc_life_time",
+      "reason": "只说明 GC 保留时间的片段未必回答 DELETE 后还需 compaction，不因同一文档就自动纳入。"
+    },
+    {
+      "id": "EV18",
+      "filename": "troubleshoot-cpu-issues.md",
+      "signal": "创建索引在扫表回填索引的时候会消耗大量资源",
+      "reason": "覆盖回填与资源影响，但没有同时说明在线 DDL 不阻塞 DML，不能单独覆盖整题。"
+    },
+    {
+      "id": "EV19",
+      "filename": "faq/manage-cluster-faq.md",
+      "signal": "PD 启动报错：etcd cluster ID mismatch",
+      "reason": "PD 的 etcd 成员归属错误与本题旧 TiKV 数据连到新 PD 的错误不同。"
+    },
+    {
+      "id": "EV19",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "signal": "集群 ID 是由 pd-server 在集群初始化时随机分配",
+      "reason": "可解释重建后集群 ID 变化，但未完整说明 TiKV 本地 ID 的启动检查；保留为部分相关，不自动放宽整题标签。"
+    },
+    {
+      "id": "EV21",
+      "filename": "tidb-troubleshooting-map.md",
+      "signal": "TiDB Data Migration (DM)",
+      "reason": "只解释迁移工具，缺少读写流量分阶段切换及稳定 LB 入口，不能独自回答完整问题。"
+    },
+    {
+      "id": "EV23",
+      "filename": "faq/sql-faq.md",
+      "signal": "AUTO_RANDOM",
+      "reason": "只介绍缓解热点，缺少主键不再递增和取得新主键的方法。"
+    },
+    {
+      "id": "EV24",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "signal": "autocommit 事务仍然会优先尝试使用乐观事务模式",
+      "reason": "这是自动提交的策略，不是显式 BEGIN 与系统变量的优先级。"
+    }
+  ],
+  "review_limit": "全部 32 题都有固定关键词源文扫描；AI 复核找到的候选，未做独立外部标注，不宣称穷尽所有措辞。",
+  "actual_index_mapping": "pending",
+  "retrieval_calls": 0,
+  "paid_model_calls": 0
+}

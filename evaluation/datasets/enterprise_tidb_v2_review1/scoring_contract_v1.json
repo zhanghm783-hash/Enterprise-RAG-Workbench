@@ -1,0 +1,701 @@
+{
+  "schema_version": 1,
+  "contract_id": "enterprise_tidb_v2_evidence_v1",
+  "status": "scoring_semantics_fixed_before_retrieval; actual_index_mapping_pending",
+  "parent_draft_sha256": "3f024b87c7ac08c87d6bdc0b56cc0a15b75137a32990ce0a161427fd79299ff9",
+  "counts": {
+    "dev": 8,
+    "test": 24
+  },
+  "reviewer": "AI source review under user authorization; not user independent or external review",
+  "questions_and_reference_answers_changed": false,
+  "metrics": {
+    "primary": "CompleteEvidence@5：每题的全部必要依据单元均被前五条覆盖才记 1，可由多条合起来覆盖。",
+    "secondary": "AnyEvidenceHit@5：前五条至少覆盖一个必要单元，不能等同完整命中。",
+    "diagnostic": "SingleChunkCompleteHit@5：前五条内存在一条独自覆盖全部必要单元的片段。",
+    "aggregation": "分别对开发 8 题、正式 24 题求平均；保留所有题，失败留在分母，未映射金标先阻止评分。",
+    "optional": "可选佐证单独记录，不影响主指标或部分命中；各检索方案共用同一标签和 Top K。",
+    "comparison_limit": "原 40 题采用单条完整依据的 Hit Rate@5；新主指标允许多块组合，不能将两组成绩当作同口径前后优化。"
+  },
+  "mapping_policy": "本次原文摘录选项仍需补齐语义等价来源。实际入库后映射真实 ID，正式检索前冻结标签；不依据排名回写答案或删除失败题。",
+  "questions": [
+    {
+      "id": "ED01",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-oom.md",
+              "quotes": [
+                "如果故障发生的时间点附近存在 `oom-killer` 的日志，则可以确定是 OOM 问题。",
+                "dmesg -T | grep tidb-server"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED02",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-oom.md",
+              "quotes": [
+                "客户端不断创建预处理语句但未执行",
+                "调整 session 的生命周期。",
+                "`max_prepared_stmt_count`"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED03",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-lock-conflicts.md",
+              "quotes": [
+                "[`DATA_LOCK_WAITS`]",
+                "包括阻塞和被阻塞的事务的 `start_ts`"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED04",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-write-conflicts.md",
+              "quotes": [
+                "tableID 表示发生冲突的表的 ID，indexID 表示是索引数据发生了冲突。",
+                "会打印 `handle=x` 表示对应哪行数据发生了冲突"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED05",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "analyze-slow-queries.md",
+              "quotes": [
+                "查询整个耗时是 180.85ms 左右",
+                "瓶颈在 TiKV 侧。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED06",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-hot-spot-issues.md",
+              "quotes": [
+                "通过设置 [`SHARD_ROW_ID_BITS`]",
+                "每次修改之后，只对新写入的数据生效。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED07",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-cluster.md",
+              "quotes": [
+                "首先检查 pd-server 的进程状态和日志，确保 pd-server 成功启动",
+                "检查 tidb-server 机器和 pd-server 对应端口之间的连通性",
+                "可通过 nc 或 curl 工具检查。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "ED08",
+      "split": "dev",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "tidb-troubleshooting-map.md",
+              "quotes": [
+                "**Grafana** -> **TiKV** -> **errors** 确认具体 busy 原因。",
+                "`server is busy` 是 TiKV 自身的流控机制"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV01",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-oom.md",
+              "quotes": [
+                "HashAgg 是多线程并发执行",
+                "可以尝试使用 `STREAM_AGG()` 替代。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV02",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-oom.md",
+              "quotes": [
+                "最大可能达到提交事务大小的 2 到 3 倍以上。",
+                "通过拆分的方式调小事务大小。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV03",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-oom.md",
+              "quotes": [
+                "流式读取的相关参数 `defaultFetchSize` 配置有误，会造成数据在客户端大量缓存。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV04",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "mode_scope",
+          "description": "Lock View 仅提供悲观锁冲突和等待信息",
+          "options": [
+            {
+              "filename": "troubleshoot-lock-conflicts.md",
+              "quotes": [
+                "Lock View 功能目前仅提供悲观锁的冲突和等待信息。"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sql_visibility",
+          "description": "不能恢复含格式和参数的完整 SQL",
+          "options": [
+            {
+              "filename": "troubleshoot-lock-conflicts.md",
+              "quotes": [
+                "因而无法获取包括格式和参数在内的完整语句。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": [],
+      "review_reason": "问题明确问两个预期，范围限制与 SQL 可见性均是必答项；允许前五条分开覆盖。"
+    },
+    {
+      "id": "EV05",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-lock-conflicts.md",
+              "quotes": [
+                "tidb_pessimistic_txn_fair_locking",
+                "吞吐下降（平均延迟上升）的代价。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV06",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "ttl_limit",
+          "description": "悲观锁默认 TTL 上限及配置参数",
+          "options": [
+            {
+              "filename": "troubleshoot-lock-conflicts.md",
+              "quotes": [
+                "悲观锁的 TTL 有上限，默认为 1 小时",
+                "performance.max-txn-ttl"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "business_action",
+          "description": "优化业务并考虑拆分大事务",
+          "options": [
+            {
+              "filename": "troubleshoot-lock-conflicts.md",
+              "quotes": [
+                "如将大事务拆分为小事务。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": [],
+      "review_reason": "问题同时问时间限制和业务调整；仅返回错误名称或参数不足以回答处理办法。"
+    },
+    {
+      "id": "EV07",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "analyze-slow-queries.md",
+              "quotes": [
+                "因为 TS 有预取操作，通常来说 `Wait_TS` 应该很低。",
+                "# Query_time: 0.0300000",
+                "# Wait_TS: 0.02500000"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV08",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "preexecution_explanation",
+          "description": "子查询可能提前执行，算子耗时不包含该阶段",
+          "options": [
+            {
+              "filename": "analyze-slow-queries.md",
+              "quotes": [
+                "子查询部分可能被提前执行",
+                "这种查询用 `explain analyze` 看不到对应的耗时"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": [
+        {
+          "id": "numeric_example",
+          "description": "说明相同现象的慢日志数值示例",
+          "options": [
+            {
+              "filename": "analyze-slow-queries.md",
+              "quotes": [
+                "# Rewrite_time: 7.765673663 Preproc_subqueries: 1 Preproc_subqueries_time: 7.765231874"
+              ]
+            }
+          ]
+        }
+      ],
+      "review_reason": "题目已给出数值，询问原因；解释是必要依据，重复给出的示例数值不是必答项。"
+    },
+    {
+      "id": "EV09",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "analyze-slow-queries.md",
+              "quotes": [
+                "# Cop_wait: Avg_time: 1ms P90_time: 2ms Max_time: 110ms",
+                "此时可以打开当时的 CPU 监控辅助判断。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV10",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-cpu-issues.md",
+              "quotes": [
+                "gRPC duration 很短但是 TiDB 的 KV duration 显示很长",
+                "TiDB 和 TiKV 之间网络延迟可能很高，或者 TiDB 和 TiKV 之间的网卡带宽被占满。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV11",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-cluster.md",
+              "quotes": [
+                "`ulimit -n` 的结果足够大，推荐设为 unlimited 或者是大于 1000000。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV12",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-tidb-cluster.md",
+              "quotes": [
+                "不要在一个数据库文件目录上打开两个 tikv。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV13",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/deploy-and-maintain-faq.md",
+              "quotes": [
+                "没有使用 `--config` 参数来指定配置文件",
+                "对于 PD 组件，只会在第一次启动时读取配置文件"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV14",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/deploy-and-maintain-faq.md",
+              "quotes": [
+                "这样是为了绕开文件系统的缓存，可以直接测试磁盘的真实的 I/O 读写能力。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV15",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/deploy-and-maintain-faq.md",
+              "quotes": [
+                "查看访问监控的机器时间跟集群内机器的时间差，如果比较大，更正时间后即可显示正常。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV16",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/sql-faq.md",
+              "quotes": [
+                "返回结果的顺序视不同情况而定，不保证顺序统一。",
+                "都推荐使用 `ORDER BY` 条件。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV17",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/sql-faq.md",
+              "quotes": [
+                "对于 DELETE 操作，TiDB 的 GC 机制会删除数据，但不会立即释放空间，而是等到后续进行 compaction 时释放空间。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV18",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/sql-faq.md",
+              "quotes": [
+                "这些 DDL 操作不会阻塞 DML 操作。",
+                "TiDB 需要进行回填 (backfill) 操作",
+                "额外的资源消耗。对在线业务的影响可调节。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV19",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/manage-cluster-faq.md",
+              "quotes": [
+                "TiKV 本地存储的 cluster ID 和指定的 PD 的 cluster ID 不一致。",
+                "PD 会随机生成一个 cluster ID"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV20",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/manage-cluster-faq.md",
+              "quotes": [
+                "大于 1 TB）推荐使用 [Backup & Restore (BR)]",
+                "`mysqldump` 备份和恢复大量数据的耗费更长。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV21",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "faq/migration-tidb-faq.md",
+              "quotes": [
+                "进行 MySQL -> TiDB 的业务数据的迁移",
+                "业务读写可以按照需求分阶段通过修改网络配置进行流量迁移",
+                "建议 DB 上层部署一个稳定的网络 LB"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV22",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-high-disk-io.md",
+              "quotes": [
+                "只有一台机器的 I/O 高，那么可以辅助判断当前有读写热点。",
+                "大部分机器的 I/O 都高，那么集群现在有高 I/O 负载存在。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV23",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "troubleshoot-hot-spot-issues.md",
+              "quotes": [
+                "TiDB 生成的主键不再是自增的主键",
+                "`LAST_INSERT_ID()` 获取上次分配的主键值。",
+                "适用于主键只需要保证唯一，不包含业务意义的场景。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    },
+    {
+      "id": "EV24",
+      "split": "test",
+      "required_units": [
+        {
+          "id": "answer",
+          "description": "问题所需的完整解释／处理依据",
+          "options": [
+            {
+              "filename": "pessimistic-transaction.md",
+              "quotes": [
+                "`BEGIN PESSIMISTIC;` 和 `BEGIN OPTIMISTIC;` 等语句的优先级高于 `tidb_txn_mode` 系统变量。"
+              ]
+            }
+          ]
+        }
+      ],
+      "optional_units": []
+    }
+  ]
+}

@@ -1,0 +1,1232 @@
+{
+  "searches": [
+    {
+      "id": "ED01",
+      "pattern": "oom-killer|dmesg.*tidb",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 31,
+          "text": "    执行以下命令查看操作系统日志。如果故障发生的时间点附近存在 `oom-killer` 的日志，则可以确定是 OOM 问题。"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 34,
+          "text": "    dmesg -T | grep tidb-server"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 37,
+          "text": "    下面是包含 `oom-killer` 的日志输出示例："
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 41,
+          "text": "    Mar 14 16:55:03 localhost kernel: tidb-server invoked oom-killer: gfp_mask=0x201da, order=0, oom_score_adj=0"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 76,
+          "text": "- 在混合部署的情况下（指 TiDB 和其他应用程序部署在同一台服务器上），其他应用程序抢占资源导致 TiDB 被 `oom-killer` 关闭。"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 3,
+          "text": "summary: TiDB 集群故障诊断包括收集出错信息、组件状态、日志信息、机器配置和 dmesg 中的问题。解决数据库连接问题需要确认服务是否启动，查看 tidb-server 日志并清空数据重新部署服务。解决 tidb-server 启动报错需检查参数、端口占用和 pd-server 连接。解决 tikv-server 启动报错需检查参数、端口占用和 pd-server 连接。解决 pd-server 启动报错需检查参数和端口占用。进程异常退出需检查是否在前台启动，使用 nohup+& 方式运行或写在脚本中。TiKV 进程异常重启需检查 OOM 信息和 panic log。连接被拒绝需确保网络参数正确。解决文件打开过多问题需确保 ulimit -n 足够大。数据库访问超时需检查拓扑结构、硬件配置、其他服务、操作、CPU 线程、网络 /IO 监控数据。"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 14,
+          "text": "+ dmesg 中 TiDB 组件相关的问题"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 103,
+          "text": "        - `dmesg -T | grep tidb-server` 结果中有事故发生附近时间点的 OOM-killer 的日志。"
+        }
+      ]
+    },
+    {
+      "id": "ED02",
+      "pattern": "prepared.*statement|max_prepared_stmt_count|session.*生命周期",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 122,
+          "text": "#### 预处理语句 (Prepared Statement) 使用过量"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 128,
+          "text": "- 调整 session 的生命周期。"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 130,
+          "text": "- 使用系统变量 [`max_prepared_stmt_count`](/system-variables.md#max_prepared_stmt_count) 进行限制。"
+        }
+      ]
+    },
+    {
+      "id": "ED03",
+      "pattern": "data_lock_waits|阻塞和被阻塞",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 21,
+          "text": "* [`DATA_LOCK_WAITS`](/information-schema/information-schema-data-lock-waits.md)：提供关于 TiKV 内的悲观锁等锁信息，包括阻塞和被阻塞的事务的 `start_ts`、被阻塞的 SQL 语句的 Digest 和发生等待的 key。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 59,
+          "text": "`DATA_LOCK_WAITS` 系统表提供 TiKV 节点上的等锁情况。查询该表时，TiDB 将自动从所有 TiKV 节点上获取当前时刻的等锁信息。当少数热点 key 频繁被上锁并阻塞较多事务时，你可以查询 `DATA_LOCK_WAITS` 表并按 key 对结果进行聚合，以尝试找出经常发生问题的 key："
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 64,
+          "text": "select `key`, count(*) as `count` from information_schema.data_lock_waits group by `key` order by `count` desc;"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 89,
+          "text": "select trx.* from information_schema.data_lock_waits as l left join information_schema.cluster_tidb_trx as trx on l.trx_id = trx.id where l.key = \"7480000000000000415F728000000000000001\"\\G"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 133,
+          "text": "select l.key, trx.*, tidb_decode_sql_digests(trx.all_sql_digests) as sqls from information_schema.data_lock_waits as l join information_schema.cluster_tidb_trx as trx on l.current_holding_trx_id = trx.id where l.trx_id = 426831965449355272\\G"
+        }
+      ]
+    },
+    {
+      "id": "ED04",
+      "pattern": "tableID|indexID|handle=x",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 56,
+          "text": "[2020/05/12 15:17:01.568 +08:00] [WARN] [session.go:446] [\"commit failed\"] [conn=3] [\"finished txn\"=\"Txn{state=invalid}\"] [error=\"[kv:9007]Write conflict, txnStartTS=416617006551793665, conflictStartTS=416617018650001409, conflictCommitTS=416617023093080065, key={tableID=47, indexID=1, indexValues={string, }} primary={tableID=47, indexID=1, indexValues={string, }} [try again later]\"]"
+        },
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 65,
+          "text": "* `key={tableID=47, indexID=1, indexValues={string, }}`：表示当前事务中冲突的数据，tableID 表示发生冲突的表的 ID，indexID 表示是索引数据发生了冲突。如果是数据发生了冲突，会打印 `handle=x` 表示对应哪行数据发生了冲突，indexValues 表示发生冲突的索引数据"
+        },
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 66,
+          "text": "* `primary={tableID=47, indexID=1, indexValues={string, }}`：表示当前事务中的 Primary Key 信息"
+        },
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 76,
+          "text": "通过 tableID 查找具体的表名："
+        },
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 81,
+          "text": "curl http://{TiDBIP}:10080/db-table/{TableID}"
+        },
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 84,
+          "text": "通过 indexID 查找具体的索引名："
+        },
+        {
+          "filename": "troubleshoot-write-conflicts.md",
+          "line": 89,
+          "text": "SELECT * FROM INFORMATION_SCHEMA.TIDB_INDEXES WHERE TABLE_SCHEMA='{db_name}' AND TABLE_NAME='{table_name}' AND INDEX_ID={indexID};"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 18,
+          "text": "TiDB 对每个表分配一个 TableID，每一个索引都会分配一个 IndexID，每一行分配一个 RowID（默认情况下，如果表使用整数型的 Primary Key，那么会用 Primary Key 的值当做 RowID）。其中 TableID 在整个集群内唯一，IndexID/RowID 在表内唯一，这些 ID 都是 int64 类型。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 23,
+          "text": "Key: tablePrefix{TableID}_recordPrefixSep{RowID}"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 32,
+          "text": "Key: tablePrefix{TableID}_indexPrefixSep{IndexID}_indexedColumnsValue"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 36,
+          "text": "Index 数据还需要考虑 Unique Index 和非 Unique Index 两种情况，对于 Unique Index，可以按照上述编码规则。但是对于非 Unique Index，通过这种编码并不能构造出唯一的 Key，因为同一个 Index 的 `tablePrefix{TableID}_indexPrefixSep{IndexID}` 都一样，可能有多行数据的 `ColumnsValue` 是一样的，所以对于非 Unique Index 的编码做了一点调整："
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 39,
+          "text": "Key: tablePrefix{TableID}_indexPrefixSep{IndexID}_indexedColumnsValue_rowID"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 429,
+          "text": "RUNNING_JOBS: ID:121, Type:add index, State:running, SchemaState:write reorganization, SchemaID:1, TableID:118, RowCount:77312, ArgLen:0, start time: 2018-12-05 16:26:10.652 +0800 CST, Err:<nil>, ErrCount:0, SnapshotVersion:404749908941733890"
+        }
+      ]
+    },
+    {
+      "id": "ED05",
+      "pattern": "Cop_process|瓶颈在 TiKV|170ms",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 196,
+          "text": "        [INFO] [coprocessor.go:743] [\"[TIME_COP_PROCESS] resp_time:406.038899ms txnStartTS:416643508703592451 region_id:8297 store_addr:10.8.1.208:20160 backoff_ms:255 backoff_types:[txnLockFast,txnLockFast] kv_process_ms:333 scan_total_write:0 scan_processed_write:0 scan_total_data:0 scan_processed_data:0 scan_total_lock:0 scan_processed_lock:0\"]"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 60,
+          "text": "如果是 TiKV 处理慢，可以很明显的通过 `explain analyze` 中看出来。例如下面这个例子，可以看到 `StreamAgg_8` 和 `TableFullScan_15` 这两个 `tikv-task` （在 `task` 列可以看出这两个任务类型是 `cop[tikv]`）花费了 `170ms`，而 TiDB 部分的算子耗时，减去这 `170ms` 后，耗时占比非常小，说明瓶颈在 TiKV。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 68,
+          "text": "|   └─StreamAgg_8            | 1.00    | 1       | cop[tikv] |               | time:170ms, loops:29                                                          | funcs:count(1)->Column#5        | N/A       | N/A  |"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 69,
+          "text": "|     └─TableFullScan_15     | 7.00    | 28672   | cop[tikv] | table:t       | time:170ms, loops:29                                                          | keep order:false, stats:pseudo  | N/A       | N/A  |"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 73,
+          "text": "另外在慢日志中，`Cop_process` 和 `Cop_wait` 字段也可以帮助判断，如下面这个例子，查询整个耗时是 180.85ms 左右，而最大的那个 `coptask` 就消耗了 `171ms`，可以说明对这个查询而言，瓶颈在 TiKV 侧。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 81,
+          "text": "# Cop_process: Avg_time: 170ms P90_time: 170ms Max_time: 170ms Max_addr: 10.6.131.78"
+        }
+      ]
+    },
+    {
+      "id": "ED06",
+      "pattern": "SHARD_ROW_ID_BITS|只对新写入",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 3,
+          "text": "summary: TiDB 热点问题处理：介绍定位和解决读写热点问题，包括常见热点场景、确定存在热点问题的方法、使用 TiDB Dashboard 定位热点表、使用 SHARD_ROW_ID_BITS 处理热点表、使用 AUTO_RANDOM 处理自增主键热点表、小表热点的优化、打散读热点。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 83,
+          "text": "## 使用 SHARD_ROW_ID_BITS 处理热点表"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 87,
+          "text": "通过设置 [`SHARD_ROW_ID_BITS`](/shard-row-id-bits.md)，可以把 RowID 打散写入多个不同的 Region，缓解写入热点问题。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 90,
+          "text": "SHARD_ROW_ID_BITS = 4 表示 16 个分片"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 91,
+          "text": "SHARD_ROW_ID_BITS = 6 表示 64 个分片"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 92,
+          "text": "SHARD_ROW_ID_BITS = 0 表示默认值 1 个分片"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 98,
+          "text": "CREATE TABLE：CREATE TABLE t (c int) SHARD_ROW_ID_BITS = 4;"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 99,
+          "text": "ALTER TABLE：ALTER TABLE t SHARD_ROW_ID_BITS = 4;"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 102,
+          "text": "`SHARD_ROW_ID_BITS` 的值可以动态修改，每次修改之后，只对新写入的数据生效。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 104,
+          "text": "对于含有 `CLUSTERED` 主键的表，TiDB 会使用表的主键作为 RowID，因为 `SHARD_ROW_ID_BITS` 会改变 RowID 生成规则，所以此时无法使用 `SHARD_ROW_ID_BITS` 选项。而对于使用 `NONCLUSTERED` 主键的表，TiDB 会使用自动分配的 64 位整数作为 RowID，此时也可以使用 `SHARD_ROW_ID_BITS` 特性。要了解关于 `CLUSTERED` 主键的详细信息，请参考[聚簇索引](/clustered-indexes.md)。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 106,
+          "text": "以下是两张无主键情况下使用 `SHARD_ROW_ID_BITS` 打散热点后的流量图，第一张展示了打散前的情况，第二张展示了打散后的情况。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 112,
+          "text": "从流量图可见，设置 `SHARD_ROW_ID_BITS` 后，流量热点由之前的只在一个 Region 上变得很分散。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 472,
+          "text": "- [`SHARD_ROW_ID_BITS`](/troubleshoot-hot-spot-issues.md#使用-shard_row_id_bits-处理热点表) 属性。设置该属性后，行 ID 会被打散并写入多个 Region，以缓解写入热点问题。"
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "line": 117,
+          "text": "- 数据库主键分布不均匀，例如启用了 [SHARD_ROW_ID_BITS](/shard-row-id-bits.md)"
+        }
+      ]
+    },
+    {
+      "id": "ED07",
+      "pattern": "pd-server.*连通|防火墙白名单|nc.*curl",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 56,
+          "text": "    若 pd-server 正常，则需要检查 tidb-server 机器和 pd-server 对应端口之间的连通性，确保网段连通且对应服务端口已添加到防火墙白名单中，可通过 nc 或 curl 工具检查。"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 58,
+          "text": "    例如，假设 tidb 服务位于 `192.168.1.100`，无法连接的 pd 位于 `192.168.1.101`，且 2379 为其 client port，则可以在 tidb 机器上执行 `nc -v -z 192.168.1.101 2379`，测试是否可以访问端口。或使用 `curl -v 192.168.1.101:2379/pd/api/v1/leader` 直接检查 pd 是否正常服务。"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 74,
+          "text": "    若 pd-server 正常，则需要检查 tikv-server 机器和 pd-server 对应端口之间的连通性，确保网段连通且对应服务端口已添加到防火墙白名单中，可通过 nc 或 curl 工具检查。具体命令参考上一节。"
+        }
+      ]
+    },
+    {
+      "id": "ED08",
+      "pattern": "server is busy|busy.*原因",
+      "matched_lines": [
+        {
+          "filename": "error-codes.md",
+          "line": 466,
+          "text": "    完整的报错信息为 `ERROR 9003 (HY000) : TiKV Server is Busy`。"
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 67,
+          "text": "- 如果客户端报 `server is busy` 错误，特别是 `raftstore is busy` 的错误信息，会和 I/O 有相关性。"
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 69,
+          "text": "    可以通过查看监控：grafana -> TiKV -> errors 监控确认具体 busy 原因。其中，`server is busy` 是 TiKV 自身的流控机制，TiKV 通过这种方式告知 `tidb/ti-client` 当前 TiKV 的压力过大，过一会儿再尝试。"
+        },
+        {
+          "filename": "troubleshoot-cpu-issues.md",
+          "line": 85,
+          "text": "* 查看监控：Grafana -> **TiKV-details** -> **errors** 面板 `server is busy` 看到 TiKV RocksDB 出现 write stall 导致发生重新选举。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 14,
+          "text": "- 1.1.1 `Region is Unavailable` 一般是由于 Region 在一段时间不可用（可能会遇到 `TiKV server is busy`；或者发送给 TiKV 的请求由于 `not leader` 或者 `epoch not match` 等原因被打回；又或者请求 TiKV 超时等），TiDB 内部会进行 `backoff` 重试。`backoff` 的时间超过一定阈值（默认 20s）后就会报错给客户端。如果 `backoff` 在阈值内，客户端对该错误无感知。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 18,
+          "text": "- 1.1.3 TiKV 报 `TiKV server is busy` 错误，超过 `backoff` 时间，参考 [4.3 客户端报 `server is busy` 错误](#43-客户端报-server-is-busy-错误)。`TiKV server is busy` 属于内部流控机制，后续可能不计入 `backoff` 时间。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 218,
+          "text": "### 4.3 客户端报 `server is busy` 错误"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 220,
+          "text": "通过查看监控：**Grafana** -> **TiKV** -> **errors** 确认具体 busy 原因。`server is busy` 是 TiKV 自身的流控机制，TiKV 通过这种方式告知 `tidb/ti-client` 当前 TiKV 的压力过大，稍后再尝试。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 222,
+          "text": "- 4.3.1 TiKV RocksDB 出现 `write stall`。一个 TiKV 包含两个 RocksDB 实例，一个用于存储 Raft 日志，位于 `data/raft`。另一个用于存储真正的数据，位于 `data/db`。通过 `grep \"Stalling\" RocksDB` 日志可以查看 stall 的具体原因，RocksDB 日志是 `LOG` 开头的文件，`LOG` 为当前日志。`write stall` 是一个 RocksDB 原生内建的性能降级机制。当 RocksDB 发生 `write stall` 时，系统的整体性能会急剧下降。在 v5.2.0 之前，当发生 `write stall` 时，TiDB 通过直接给客户端返回 `ServerIsBusy` 错误来阻挡所有的写请求，但这容易导致 QPS 性能急剧下降。自 v5.2.0 起，TiKV 引入了新的流控机制，通过前置在调度层实现动态延迟写请求来抑制写入，以替代之前遇到 `write stall` 时就给客户端返回 `server is busy` 来抑制写入的机制。新的流控机制默认配置开启，TiKV 会自动关闭 `KvDB` 和 `RaftDB` (memtable 除外) 的 `write stall` 机制。但是，当 pending 的请求量超过一定阈值时，流控机制仍然会生效，开始拒绝部分或所有的写入请求，并返回客户端 `server is busy` 报错，表现如下。详细的说明和阈值可参考[流控配置说明](/tikv-configuration-file.md#storageflow-control)。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 224,
+          "text": "    - 如果 pending compaction bytes 太多触发 `server is busy` 报错，可以通过调大 [`soft-pending-compaction-bytes-limit`](/tikv-configuration-file.md#soft-pending-compaction-bytes-limit) 和 [`hard-pending-compaction-bytes-limit`](/tikv-configuration-file.md#hard-pending-compaction-bytes-limit) 参数的值来缓解。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 245,
+          "text": "    - `append log` 遇到了 stall，参考 [4.3.1 客户端报 `server is busy` 错误](#43-客户端报-server-is-busy-错误)。"
+        },
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 260,
+          "text": "- 4.4.2 查看监控：**Grafana** -> **TiKV-details** -> **errors** 面板 `server is busy`，看到 TiKV RocksDB 出现 write stall 导致发生重新选举，请参考 [4.3.1](#43-客户端报-server-is-busy-错误)。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 74,
+          "text": "* `Backoff_time`：表示语句遇到需要重试的错误时在重试前等待的时间。常见的需要重试的错误有以下几种：遇到了 lock、Region 分裂、`tikv server is busy`。"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 204,
+          "text": "TiDB-server 与 TiKV-server 随时进行通信，在进行大量数据操作过程中，会出现 `Server is busy` 或者 `backoff.maxsleep 20000ms` 的日志提示信息，这是由于 TiKV-server 在处理过程中系统比较忙而出现的提示信息，通常这时候可以通过系统资源监控到 TiKV 主机系统资源使用率比较高的情况出现。如果这种情况出现，可以根据资源使用情况进行相应的扩容操作。"
+        }
+      ]
+    },
+    {
+      "id": "EV01",
+      "pattern": "HashAgg|STREAM_AGG",
+      "matched_lines": [
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 151,
+          "text": "TiDB 支持对执行算子的数据落盘功能。当 SQL 的内存使用超过 Memory Quota 时，tidb-server 可以通过落盘执行算子的中间数据，缓解内存压力。支持落盘的算子有：Sort、MergeJoin、HashJoin、HashAgg。"
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 155,
+          "text": "- Sort、MergeJoin、HashJoin 落盘是从 v4.0.0 版本开始引入的，非并行 HashAgg 的落盘是从 v5.2.0 版本开始引入的，并行 HashAgg 的落盘在 v8.0.0 版本以实验特性引入，在 v8.2.0 版本成为正式功能 (GA)。TopN 的落盘从 v8.3.0 版本开始引入。"
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 156,
+          "text": "- 你可以通过系统变量 [`tidb_enable_parallel_hashagg_spill`](/system-variables.md#tidb_enable_parallel_hashagg_spill-从-v800-版本开始引入) 控制是否启用支持落盘的并行 HashAgg 算法。该变量将在未来版本中废弃。"
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 157,
+          "text": "- 当包含 Sort、MergeJoin、HashJoin、HashAgg 或 TopN 的 SQL 语句引起内存 OOM 时，TiDB 默认会触发落盘。"
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 161,
+          "text": "> + HashAgg 落盘功能目前不支持 distinct 聚合函数。使用 distinct 函数且内存占用过大时，无法进行落盘。"
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 163,
+          "text": "本示例通过构造一个占用大量内存的 SQL 语句，对 HashAgg 落盘功能进行演示："
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 189,
+          "text": "4. 执行相同的 SQL 语句，不再返回错误，可以执行成功。从详细的执行计划可以看出，HashAgg 使用了 600MB 的硬盘空间。"
+        },
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 201,
+          "text": "    | HashAgg_11                      | 204.80      | 16777216 | root      |               | time:1m37.4s, loops:16385                                                                                                                                           | group by:test.t.a, test.t.a, test.t.a, funcs:count(1)->Column#7 | 1.13 GB   | 600.0 MB |"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 98,
+          "text": "- 执行计划中存在算子 HashAgg。HashAgg 是多线程并发执行，虽然执行速度较快，但会消耗较多内存。可以尝试使用 `STREAM_AGG()` 替代。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 575,
+          "text": "        └─HashAgg_10            root    100.00131380758702      group by:sbtest.sbtest25.c, funcs:firstrow(sbtest.sbtest25.c)->sbtest.sbtest25.c"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 581,
+          "text": "        └─HashAgg_12            root    1                       group by:sbtest.sbtest25.c, funcs:firstrow(sbtest.sbtest25.c)->sbtest.sbtest25.c"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 582,
+          "text": "          └─TableReader_13      root    1                       data:HashAgg_8"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 583,
+          "text": "            └─HashAgg_8         cop     1                       group by:sbtest.sbtest25.c,"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 177,
+          "text": "| HashAgg_11                       | 1.00         | 1         | root      |               | time:9.666832189s, loops:2, PartialConcurrency:4, FinalConcurrency:4                | funcs:sum(Column#6)->Column#5                  | 322.125 KB       | N/A     |"
+        }
+      ]
+    },
+    {
+      "id": "EV02",
+      "pattern": "2 到 3 倍|事务.*内存.*放大|大事务.*拆分",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 108,
+          "text": "需要提前进行内存的容量规划，这是因为执行事务时 TiDB 进程的内存消耗相对于事务大小会存在一定程度的放大，最大可能达到提交事务大小的 2 到 3 倍以上。"
+        },
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 110,
+          "text": "针对单个大事务，可以通过拆分的方式调小事务大小。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 349,
+          "text": "* 当遇到该报错时，建议确认下业务逻辑是否可以进行优化，如将大事务拆分为小事务。在未使用[大事务](/tidb-configuration-file.md#txn-total-size-limit)的前提下，大事务可能会触发 TiDB 的事务限制。"
+        }
+      ]
+    },
+    {
+      "id": "EV03",
+      "pattern": "defaultFetchSize|客户端.*缓存|JDBC.*OOM",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 143,
+          "text": "- 检查是否存在错误的 JDBC 配置参数导致的应用 OOM。例如流式读取的相关参数 `defaultFetchSize` 配置有误，会造成数据在客户端大量缓存。"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 208,
+          "text": "TiClient Region Error 该指标描述的是在 TiDB-server 作为客户端通过 KV 接口访问 TiKV-server 进行数据操作过程中，TiDB-server 操作 TiKV-server 中的 Region 数据出现的错误类型与 metric 指标，错误类型包括 not_leader、stale_epoch。出现这些错误的情况是当 TiDB-server 根据自己的缓存信息去操作 Region leader 数据的时候，Region leader 发生了迁移或者 TiKV 当前的 Region 信息与 TiDB 缓存的路由信息不一致而出现的错误提示。一般这种情况下，TiDB-server 都会自动重新从 PD 获取最新的路由数据，重做之前的操作。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 357,
+          "text": "spring.datasource.url=JDBC:mysql://{TiDBIP}:{TiDBPort}/{DBName}?characterEncoding=UTF-8&useSSL=false&useServerPrepStmts=true&cachePrepStmts=true&prepStmtCacheSqlLimit=10000&prepStmtCacheSize=1000&useConfigs=maxPerformance&rewriteBatchedStatements=true&defaultFetchSize=-2147483648&allowMultiQueries=true"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 363,
+          "text": "spring.datasource.url=JDBC:mysql://{TiDBIP}:{TiDBPort}/{DBName}?characterEncoding=UTF-8&connectionCollation=utf8mb4_bin&useSSL=false&useServerPrepStmts=true&cachePrepStmts=true&prepStmtCacheSqlLimit=10000&prepStmtCacheSize=1000&useConfigs=maxPerformance&rewriteBatchedStatements=true&defaultFetchSize=-2147483648&allowMultiQueries=true"
+        }
+      ]
+    },
+    {
+      "id": "EV04",
+      "pattern": "Lock View|归一化|完整语句",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 8,
+          "text": "TiDB 支持完整的分布式事务，自 v3.0 版本起，提供[乐观事务](/optimistic-transaction.md)与[悲观事务](/pessimistic-transaction.md)两种事务模式。本文介绍如何使用 Lock View 排查锁相关的问题，以及如何处理使用乐观事务或者悲观事务的过程中常见的锁冲突问题。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 10,
+          "text": "## 使用 Lock View 排查锁相关的问题"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 12,
+          "text": "自 v5.1 版本起，TiDB 支持 Lock View 功能。该功能在 `information_schema` 中内置了若干系统表，用于提供更多关于锁冲突和锁等待的信息。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 16,
+          "text": "> Lock View 功能目前仅提供悲观锁的冲突和等待信息。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 26,
+          "text": "> Lock View 所属的系统表中展示的 SQL 语句为归一化的 SQL 语句（即去除了格式和参数的 SQL 语句），通过内部查询从 SQL Digest 获得，因而无法获取包括格式和参数在内的完整语句。有关 SQL Digest 和归一化 SQL 语句的详细介绍，请参阅 [Statement Summary Tables](/statement-summary-tables.md)。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 53,
+          "text": "查询结果会显示死锁错误中多个事务之间的等待关系和各个事务当前正在执行的 SQL 语句的归一化形式（即去掉参数和格式的形式），以及发生冲突的 key 及其从 key 中解读出的一些信息。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 82,
+          "text": "需要注意 `TIDB_TRX` 和 `CLUSTER_TIDB_TRX` 表所展示的信息也是对其进行查询的时刻正在运行的事务的信息，并不展示已经结束的事务。如果并发的事务数量很大，该查询的结果集也可能很大，可以考虑添加 limit 子句，或用 where 子句筛选出等锁时间较长的事务。需要注意，对 Lock View 中的多张表进行 join 时，不同表之间的数据并不保证在同一时刻获取，因而不同表中的信息可能并不同步。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 128,
+          "text": "如果已知一个事务被另一事务（或多个事务）阻塞，且已知当前事务的 `start_ts`（即事务 ID），则可使用如下方式获取导致该事务阻塞的事务的信息。注意对 Lock View 中的多张表进行 join 时，不同表之间的数据并不保证在同一时刻获取，因而可能不同表中的信息可能并不同步。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 158,
+          "text": "上述查询中，对 `CLUSTER_TIDB_TRX` 表的 `ALL_SQL_DIGESTS` 列使用了 [`TIDB_DECODE_SQL_DIGESTS`](/functions-and-operators/tidb-functions.md#tidb_decode_sql_digests) 函数，目的是将该列（内容为一组 SQL Digest）转换为其对应的归一化 SQL 语句，便于阅读。"
+        }
+      ]
+    },
+    {
+      "id": "EV05",
+      "pattern": "fair_locking|pessimistic lock retry|公平.*锁",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 302,
+          "text": "### pessimistic lock retry limit reached"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 311,
+          "text": "err=\"pessimistic lock retry limit reached\""
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 317,
+          "text": "* 如果业务中包含对同一行（同一个 key）的高并发上锁而频繁冲突，可以尝试启用系统变量 [`tidb_pessimistic_txn_fair_locking`](/system-variables.md#tidb_pessimistic_txn_fair_locking-从-v700-版本开始引入)。需要注意启用该选项可能对存在锁冲突的事务带来一定程度的吞吐下降（平均延迟上升）的代价。对于新部署的集群，该选项默认启用 (`ON`) 。"
+        }
+      ]
+    },
+    {
+      "id": "EV06",
+      "pattern": "max-txn-ttl|TTL.*小时|大事务.*拆分|拆分.*事务",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-oom.md",
+          "line": 110,
+          "text": "针对单个大事务，可以通过拆分的方式调小事务大小。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 337,
+          "text": "除了有不能超出 GC 时间的限制外，悲观锁的 TTL 有上限，默认为 1 小时，所以执行时间超过 1 小时的悲观事务有可能提交失败。这个超时时间由 TiDB 参数 [`performance.max-txn-ttl`](https://github.com/pingcap/tidb/blob/release-8.5/pkg/config/config.toml.example) 指定。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 349,
+          "text": "* 当遇到该报错时，建议确认下业务逻辑是否可以进行优化，如将大事务拆分为小事务。在未使用[大事务](/tidb-configuration-file.md#txn-total-size-limit)的前提下，大事务可能会触发 TiDB 的事务限制。"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 131,
+          "text": "7. 垃圾回收 (GC) 不会影响到正在执行的事务，但悲观事务的执行时间仍有上限，默认为 1 小时，可通过 TiDB 配置文件 `[performance]` 类别下的 `max-txn-ttl` 修改。"
+        }
+      ]
+    },
+    {
+      "id": "EV07",
+      "pattern": "Wait_TS|等待获取事务 TS",
+      "matched_lines": [
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 25,
+          "text": "# Wait_TS: 0.00001078"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 60,
+          "text": "* `Wait_TS`：表示这个语句在等待获取事务 TS 阶段花费的时间。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 223,
+          "text": "| `Wait_TS`                             | `float`  | 秒     | -                              |"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 117,
+          "text": "可以对比慢日志中的 `Wait_TS` 和 `Query_time`，因为 TS 有预取操作，通常来说 `Wait_TS` 应该很低。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 122,
+          "text": "# Wait_TS: 0.02500000"
+        }
+      ]
+    },
+    {
+      "id": "EV08",
+      "pattern": "Preproc_subqueries|子查询.*提前|优化阶段.*执行",
+      "matched_lines": [
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 23,
+          "text": "# Rewrite_time: 0.000000003 Preproc_subqueries: 2 Preproc_subqueries_time: 0.000000002"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 82,
+          "text": "* `Preproc_subqueries`：表示这个语句中被提前执行的子查询个数，如 `where id in (select if from t)` 这个子查询就可能被提前执行。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 83,
+          "text": "* `Preproc_subqueries_time`：表示这个语句中被提前执行的子查询耗时。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 134,
+          "text": "#### 子查询被提前执行"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 136,
+          "text": "对于带有非关联子查询的语句，子查询部分可能被提前执行，如：`select * from t1 where a = (select max(a) from t2)`，`select max(a) from t2` 部分可能在优化阶段被提前执行。这种查询用 `explain analyze` 看不到对应的耗时，如下："
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 157,
+          "text": "# Rewrite_time: 7.765673663 Preproc_subqueries: 1 Preproc_subqueries_time: 7.765231874"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 160,
+          "text": "可以看到有 1 个子查询被提前执行，花费了 `7.76s`。"
+        }
+      ]
+    },
+    {
+      "id": "EV09",
+      "pattern": "Cop_wait|cop-task.*等待|实例忙",
+      "matched_lines": [
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 33,
+          "text": "# Cop_wait_avg: 0 Cop_wait_p90: 0 Cop_wait_max: 0 Cop_wait_addr: 172.16.5.87:20171"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 129,
+          "text": "* `Cop_proc_avg`：cop-task 的平均执行时间，包括一些无法统计的等待时间，如 RocksDB 内的 mutex。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 133,
+          "text": "* `Cop_wait_avg`：cop-task 的平均等待时间，包括请求排队和获取 snapshot 时间。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 134,
+          "text": "* `Cop_wait_p90`：cop-task 的 P90 分位等待时间。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 135,
+          "text": "* `Cop_wait_max`：cop-task 的最大等待时间。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 136,
+          "text": "* `Cop_wait_addr`：等待时间最长的 cop-task 所在地址。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 18,
+          "text": "- 系统性问题：将非优化器问题都归结于此类。如：某个 TiKV 实例忙导致处理请求慢，Region 信息过期导致查询变慢。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 73,
+          "text": "另外在慢日志中，`Cop_process` 和 `Cop_wait` 字段也可以帮助判断，如下面这个例子，查询整个耗时是 180.85ms 左右，而最大的那个 `coptask` 就消耗了 `171ms`，可以说明对这个查询而言，瓶颈在 TiKV 侧。"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 82,
+          "text": "# Cop_wait: Avg_time: 1ms P90_time: 1ms Max_time: 1ms Max_Addr: 10.6.131.78"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 87,
+          "text": "#### TiKV 实例忙"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 91,
+          "text": "慢日志中的 `Cop_wait` 可以帮忙判断这个问题："
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 94,
+          "text": "# Cop_wait: Avg_time: 1ms P90_time: 2ms Max_time: 110ms Max_Addr: 10.6.131.78"
+        },
+        {
+          "filename": "analyze-slow-queries.md",
+          "line": 97,
+          "text": "如上图，发给 `10.6.131.78` 的一个 `cop-task` 等待了 110ms 才被执行，可以判断是当时该实例忙，此时可以打开当时的 CPU 监控辅助判断。"
+        }
+      ]
+    },
+    {
+      "id": "EV10",
+      "pattern": "gRPC duration|KV duration|网卡带宽",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-cpu-issues.md",
+          "line": 77,
+          "text": "* 查看 gRPC duration。gRPC duration 是请求在 TiKV 端的总耗时。通过对比 TiKV 的 gRPC duration 以及 TiDB 中的 KV duration 可以发现潜在的网络问题。比如 gRPC duration 很短但是 TiDB 的 KV duration 显示很长，说明 TiDB 和 TiKV 之间网络延迟可能很高，或者 TiDB 和 TiKV 之间的网卡带宽被占满。"
+        }
+      ]
+    },
+    {
+      "id": "EV11",
+      "pattern": "ulimit|Too many open files",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 3,
+          "text": "summary: TiDB 集群故障诊断包括收集出错信息、组件状态、日志信息、机器配置和 dmesg 中的问题。解决数据库连接问题需要确认服务是否启动，查看 tidb-server 日志并清空数据重新部署服务。解决 tidb-server 启动报错需检查参数、端口占用和 pd-server 连接。解决 tikv-server 启动报错需检查参数、端口占用和 pd-server 连接。解决 pd-server 启动报错需检查参数和端口占用。进程异常退出需检查是否在前台启动，使用 nohup+& 方式运行或写在脚本中。TiKV 进程异常重启需检查 OOM 信息和 panic log。连接被拒绝需确保网络参数正确。解决文件打开过多问题需确保 ulimit -n 足够大。数据库访问超时需检查拓扑结构、硬件配置、其他服务、操作、CPU 线程、网络 /IO 监控数据。"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 122,
+          "text": "## Too many open files"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 124,
+          "text": "在启动进程之前，请确保 `ulimit -n` 的结果足够大，推荐设为 unlimited 或者是大于 1000000。"
+        }
+      ]
+    },
+    {
+      "id": "EV12",
+      "pattern": "两个 tikv|文件.*占用",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 76,
+          "text": "+ 文件被占用"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 78,
+          "text": "    不要在一个数据库文件目录上打开两个 tikv。"
+        }
+      ]
+    },
+    {
+      "id": "EV13",
+      "pattern": "--config|第一次启动.*配置|pd-ctl.*配置",
+      "matched_lines": [
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 157,
+          "text": "可以，目前只能调整全局的 replica 数量。首次启动时 PD 会读配置文件 (conf/pd.yml)，使用其中的 max-replicas 配置，之后修改需要使用 pd-ctl 配置命令 `config set max-replicas $num`，配置后可通过 `config show all` 来查看已生效的配置。调整的时候，不会影响业务，会在后台添加，注意总 TiKV 实例数总是要大于等于设置的副本数，例如 3 副本需要至少 3 个 TiKV。增加副本数量之前需要预估额外的存储需求。pd-ctl 的详细用法可参考 [PD Control 使用说明](/pd-control.md)。"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 165,
+          "text": "下线节点一般指 TiKV 节点通过 pd-ctl 或者监控判断节点是否下线完成。节点下线完成后，手动停止下线节点上相关的服务。从 Prometheus 配置文件中删除对应节点的 node_exporter 信息。"
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 42,
+          "text": "这种情况一般是因为没有使用 `--config` 参数来指定配置文件（目前只会出现在 binary 部署的场景），TiKV/PD 会按默认值来设置。如果要使用配置文件，请设置 TiKV/PD 的 `--config` 参数。对于 TiKV 组件，修改配置后重启服务即可；对于 PD 组件，只会在第一次启动时读取配置文件，之后可以使用 pd-ctl 的方式来修改配置，详情可参考 [PD 配置参数](/command-line-flags-for-pd-configuration.md)。"
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 62,
+          "text": "TiDB 的 Label 设置是与集群的部署架构相关的，是集群部署中的重要内容，是 PD 进行全局管理和调度的依据。如果集群在初期部署过程中没有设置 Label，需要在后期对部署结构进行调整，就需要手动通过 PD 的管理工具 pd-ctl 来添加 location-labels 信息，例如：`config set location-labels \"zone,rack,host\"`（根据实际的 label 层级名字配置）。"
+        }
+      ]
+    },
+    {
+      "id": "EV14",
+      "pattern": "oflag=direct|绕开文件系统|绕过文件系统",
+      "matched_lines": [
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 66,
+          "text": "### 为什么测试磁盘的 dd 命令用 `oflag=direct` 这个选项？"
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 68,
+          "text": "Direct 模式就是把写入请求直接封装成 I/O 指令发到磁盘，这样是为了绕开文件系统的缓存，可以直接测试磁盘的真实的 I/O 读写能力。"
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 72,
+          "text": "以下示例使用 `ioengine=psync`（即同步 I/O），因此 `iodepth` 通常固定为 `1`，并发主要由 `numjobs` 控制。建议使用 `direct=1` 以绕过文件系统缓存。"
+        }
+      ]
+    },
+    {
+      "id": "EV15",
+      "pattern": "时间差|时间.*显示|监控.*显示不",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 252,
+          "text": "TxnLockNotFound 错误是由于事务提交的慢了，超过了 TTL 的时间。当要提交时，发现被其他事务给 Rollback 掉了。在开启 TiDB [自动重试事务](/system-variables.md#tidb_retry_limit)的情况下，会自动在后台进行事务重试（注意显示和隐式事务的差别）。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 67,
+          "text": "[TiDB Dashboard](/dashboard/dashboard-intro.md) 中的[流量可视化](/dashboard/dashboard-key-visualizer.md)功能可帮助用户缩小热点排查范围到表级别。以下是流量可视化功能展示的一个热力图样例，该图横坐标是时间，纵坐标是各个表和索引，颜色越亮代表其流量越大。可在工具栏中切换显示读或写流量。"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 3,
+          "text": "summary: TiDB 会将执行时间超过 300 毫秒的语句输出到慢查询日志中，用于帮助用户定位慢查询语句。可以通过修改系统变量来启用或禁用慢查询日志。日志示例包括执行时间、用户信息、执行计划等字段。用户可通过查询 SLOW_QUERY 表来查询慢查询日志中的内容。还可以使用 pt-query-digest 工具分析 TiDB 慢日志。ADMIN SHOW SLOW 命令可以显示最近的慢查询记录或最慢的查询记录。"
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 48,
+          "text": "### 有一部分监控信息显示不出来？"
+        },
+        {
+          "filename": "faq/deploy-and-maintain-faq.md",
+          "line": 50,
+          "text": "查看访问监控的机器时间跟集群内机器的时间差，如果比较大，更正时间后即可显示正常。"
+        }
+      ]
+    },
+    {
+      "id": "EV16",
+      "pattern": "ORDER BY|结果.*顺序|不保证顺序",
+      "matched_lines": [
+        {
+          "filename": "configure-memory-usage.md",
+          "line": 118,
+          "text": "3. 执行 `select * from t t1 join t t2 join t t3 order by t1.a`。该 SQL 语句会输出 1000000000 条记录，占用巨大的内存，进而触发报警。"
+        },
+        {
+          "filename": "troubleshoot-lock-conflicts.md",
+          "line": 64,
+          "text": "select `key`, count(*) as `count` from information_schema.data_lock_waits group by `key` order by `count` desc;"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 413,
+          "text": "order by query_time desc"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 439,
+          "text": "order by query_time desc"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 465,
+          "text": "order by query_time desc"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 547,
+          "text": "min(query) | SELECT DISTINCT c FROM sbtest25 WHERE id BETWEEN ? AND ? ORDER BY c [arguments: (291638, 291737)];"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 551,
+          "text": "min(query) | SELECT DISTINCT c FROM sbtest22 WHERE id BETWEEN ? AND ? ORDER BY c [arguments: (215420, 215519)];"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 555,
+          "text": "min(query) | SELECT DISTINCT c FROM sbtest11 WHERE id BETWEEN ? AND ? ORDER BY c [arguments: (303359, 303458)];"
+        },
+        {
+          "filename": "identify-slow-queries.md",
+          "line": 637,
+          "text": "ORDER BY  t1.sum_query_time DESC limit 10\\G"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 63,
+          "text": "## 省略 `ORDER BY` 条件时 TiDB 中返回结果的顺序与 MySQL 中的不一致"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 65,
+          "text": "这不是 bug。返回结果的顺序视不同情况而定，不保证顺序统一。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 67,
+          "text": "MySQL 中，返回结果的顺序可能较为固定，因为查询是通过单线程执行的。但升级到新版本后，查询计划也可能变化。无论是否期待返回结果有序，都推荐使用 `ORDER BY` 条件。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 71,
+          "text": "> If an `<order by clause>` is not specified, then the table specified by the `<cursor specification>` is T and the ordering of rows in T is implementation-dependent.（如果未指定 `<order by 条件>`，通过 `<cursor specification>` 指定的表为 T，那么 T 表中的行顺序视执行情况而定。）"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 87,
+          "text": "> select * from t; -- 不确定返回结果的顺序"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 97,
+          "text": "如果 `ORDER BY` 中使用的列不是唯一列，就无法确定该语句返回结果的顺序。在以下示例中，`a` 列有重复值，因此只有 `ORDER BY a, b` 能确定返回结果的顺序。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 100,
+          "text": "> select * from t order by a;"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 111,
+          "text": "在以下示例中，`order by a` 能确定 a 列的顺序，但不能确定 b 列的顺序。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 114,
+          "text": "> select * from t order by a;"
+        }
+      ]
+    },
+    {
+      "id": "EV17",
+      "pattern": "DELETE.*空间|compact 时|compaction 时|空间回收",
+      "matched_lines": [
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 183,
+          "text": "在 TiDB 中使用 `DELETE`，`TRUNCATE` 和 `DROP` 语句删除数据都不会立即释放空间。对于 `TRUNCATE` 和 `DROP` 操作，在达到 TiDB 的 GC (garbage collection) 时间后（默认 10 分钟），TiDB 的 GC 机制会删除数据并释放空间。对于 DELETE 操作，TiDB 的 GC 机制会删除数据，但不会立即释放空间，而是等到后续进行 compaction 时释放空间。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 189,
+          "text": "## 对数据做删除操作之后，空间回收比较慢，如何处理？"
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "line": 156,
+          "text": "DELETE，TRUNCATE 和 DROP 都不会立即释放空间。对于 TRUNCATE 和 DROP 操作，在达到 TiDB 的 GC (garbage collection) 时间后（默认 10 分钟），TiDB 的 GC 机制会删除数据并释放空间。对于 DELETE 操作 TiDB 的 GC 机制会删除数据，但不会释放空间，而是当后续数据写入 RocksDB 且进行 compact 时对空间重新利用。"
+        }
+      ]
+    },
+    {
+      "id": "EV18",
+      "pattern": "在线 DDL|backfill|回填|阻塞 DML",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-cpu-issues.md",
+          "line": 123,
+          "text": "由于创建索引在扫表回填索引的时候会消耗大量资源，甚至与一些频繁更新的字段会发生冲突导致正常业务受到影响。大表创建索引的过程往往会持续很长时间，所以要尽可能地平衡执行时间和集群性能之间的关系，比如选择非高频更新时间段。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 16,
+          "text": "TiDB 在对大表执行 DDL 操作时，一般不会有什么问题。TiDB 支持在线 DDL 操作，且这些 DDL 操作不会阻塞 DML 操作。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 20,
+          "text": "对于添加索引等 DDL 操作，TiDB 需要进行回填 (backfill) 操作，这个过程需要较长的时间（取决于表的大小）和额外的资源消耗。对在线业务的影响可调节。TiDB 可以通过多线程进行 backfill，资源消耗可通过以下系统变量进行设置："
+        }
+      ]
+    },
+    {
+      "id": "EV19",
+      "pattern": "cluster ID|集群 ID|数据不匹配",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 34,
+          "text": "    tikv-server 存储具体的数据，pd-server 存储 tikv-server 中数据的元信息。如果只清空 pd-server 或只清空 tikv-server 的数据，会导致两边数据不匹配。"
+        },
+        {
+          "filename": "troubleshoot-tidb-cluster.md",
+          "line": 38,
+          "text": "    集群 ID 是由 pd-server 在集群初始化时随机分配，所以重新部署集群后，集群 ID 会发生变化。tidb-server 业务需要重启以获取新的集群 ID。"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 130,
+          "text": "### PD 启动报错：etcd cluster ID mismatch"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 281,
+          "text": "### TiKV 启动报错：cluster ID mismatch"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 283,
+          "text": "TiKV 本地存储的 cluster ID 和指定的 PD 的 cluster ID 不一致。在部署新的 PD 集群的时候，PD 会随机生成一个 cluster ID，TiKV 第一次初始化的时候会从 PD 获取 cluster ID 存储在本地，下次启动的时候会检查本地的 cluster ID 与 PD 的 cluster ID 是否一致，如果不一致则会报错并退出。出现这个错误一个常见的原因是，用户原先部署了一个集群，后来把 PD 的数据删除了并且重新部署了新的 PD，但是 TiKV 还是使用旧的数据重启连到新的 PD 上，就会报这个错误。"
+        }
+      ]
+    },
+    {
+      "id": "EV20",
+      "pattern": "1 TB|mysqldump|Backup & Restore",
+      "matched_lines": [
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 411,
+          "text": "目前，数据量大时（大于 1 TB）推荐使用 [Backup & Restore (BR)](/br/backup-and-restore-overview.md) 进行备份。其他场景推荐使用 [Dumpling](/dumpling-overview.md) 进行备份。"
+        },
+        {
+          "filename": "faq/manage-cluster-faq.md",
+          "line": 413,
+          "text": "尽管 TiDB 也支持使用 MySQL 官方工具 `mysqldump` 进行数据备份和恢复，但其性能低于 [Dumpling](/dumpling-overview.md)，并且 `mysqldump` 备份和恢复大量数据的耗费更长。"
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "line": 80,
+          "text": "- 参考 [MySQL 使用 mysqldump 导出某个表的部分数据](https://blog.csdn.net/xin_yu_xin/article/details/7574662)，使用 mysqldump 加 where 条件导出。"
+        }
+      ]
+    },
+    {
+      "id": "EV21",
+      "pattern": "Data Migration|流量迁移|网络 LB",
+      "matched_lines": [
+        {
+          "filename": "tidb-troubleshooting-map.md",
+          "line": 359,
+          "text": "- 6.1.1 TiDB Data Migration (DM) 是能将 MySQL/MariaDB 的数据迁移到 TiDB 的迁移工具，详情见 [DM 简介](/dm/dm-overview.md)。"
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "line": 14,
+          "text": "- [Data Migration 常见问题](/dm/dm-faq.md)"
+        },
+        {
+          "filename": "faq/migration-tidb-faq.md",
+          "line": 136,
+          "text": "我们建议通过 [TiDB Data Migration](/dm/dm-overview.md) 进行 MySQL -> TiDB 的业务数据的迁移；业务读写可以按照需求分阶段通过修改网络配置进行流量迁移，建议 DB 上层部署一个稳定的网络 LB（HAproxy、LVS、F5、DNS 等），这样直接修改网络配置就能实现无缝流量迁移。"
+        }
+      ]
+    },
+    {
+      "id": "EV22",
+      "pattern": "只有一台机器|大部分机器|整体 I/O|I/O.*热点",
+      "matched_lines": [
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 22,
+          "text": "- 如果监控中只有一台机器的 I/O 高，那么可以辅助判断当前有读写热点。"
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 23,
+          "text": "- 如果监控中大部分机器的 I/O 都高，那么集群现在有高 I/O 负载存在。"
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 63,
+          "text": "- raft commit log 慢。TiKV Grafana 的 Raft I/O 和 commit log duration 比较高（4.x 版本的 Grafana 才有该 metric）。每个 Region 对应一个独立的 Raft group，Raft 本身是有流控机制的，类似 TCP 的滑动窗口机制，通过参数 [raftstore] raft-max-inflight-msgs = 256 来控制滑动窗口的大小，如果有热点写入并且 commit log duration 比较高可以适度调大改参数，比如 1024。"
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 92,
+          "text": "1. 当确认为热点 I/O 问题的时候，需要参考 [TiDB 热点问题处理](/troubleshoot-hot-spot-issues.md)来消除相关的热点 I/O 情况。"
+        },
+        {
+          "filename": "troubleshoot-high-disk-io.md",
+          "line": 93,
+          "text": "2. 当确认整体 I/O 已经到达瓶颈的时候，且从业务侧能够判断 I/O 的能力会持续的跟不上，那么就可以利用分布式数据库的 scale 的能力，采用扩容 TiKV 节点数量的方案来获取更大的整体 I/O 吞吐量。"
+        }
+      ]
+    },
+    {
+      "id": "EV23",
+      "pattern": "AUTO_RANDOM|LAST_INSERT_ID|主键.*业务意义",
+      "matched_lines": [
+        {
+          "filename": "error-codes.md",
+          "line": 366,
+          "text": "    `AUTO_RANDOM` 的使用方法不正确。请参考 [`AUTO_RANDOM`](/auto-random.md) 进行修改。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 3,
+          "text": "summary: TiDB 热点问题处理：介绍定位和解决读写热点问题，包括常见热点场景、确定存在热点问题的方法、使用 TiDB Dashboard 定位热点表、使用 SHARD_ROW_ID_BITS 处理热点表、使用 AUTO_RANDOM 处理自增主键热点表、小表热点的优化、打散读热点。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 114,
+          "text": "## 使用 AUTO_RANDOM 处理自增主键热点表"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 116,
+          "text": "使用 `AUTO_RANDOM` 处理自增主键热点表，适用于代替自增主键，解决自增主键带来的写入热点。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 120,
+          "text": "注意 TiDB 生成的主键不再是自增的主键，可使用 `LAST_INSERT_ID()` 获取上次分配的主键值。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 122,
+          "text": "将建表语句中的 `AUTO_INCREMENT` 改为 `AUTO_RANDOM` 即可使用该功能，适用于主键只需要保证唯一，不包含业务意义的场景。示例如下："
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 127,
+          "text": "CREATE TABLE t (a BIGINT PRIMARY KEY AUTO_RANDOM, b varchar(255));"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 143,
+          "text": "SELECT LAST_INSERT_ID();"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 148,
+          "text": "| LAST_INSERT_ID() |"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 154,
+          "text": "以下是将 `AUTO_INCREMENT` 表改为 `AUTO_RANDOM` 打散热点后的流量图，第一张是 `AUTO_INCREMENT`，第二张是 `AUTO_RANDOM`。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 160,
+          "text": "由流量图可见，使用 `AUTO_RANDOM` 代替 `AUTO_INCREMENT` 能很好地打散热点。"
+        },
+        {
+          "filename": "troubleshoot-hot-spot-issues.md",
+          "line": 162,
+          "text": "更详细的说明参见 [`AUTO_RANDOM`](/auto-random.md) 文档。"
+        },
+        {
+          "filename": "faq/sql-faq.md",
+          "line": 473,
+          "text": "- [`AUTO_RANDOM`](/troubleshoot-hot-spot-issues.md#使用-auto_random-处理自增主键热点表) 属性，用于解决自增主键带来的热点问题。"
+        }
+      ]
+    },
+    {
+      "id": "EV24",
+      "pattern": "BEGIN.*OPTIMISTIC|BEGIN.*PESSIMISTIC|优先级高于.*txn_mode",
+      "matched_lines": [
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 29,
+          "text": "BEGIN PESSIMISTIC;"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 35,
+          "text": "BEGIN /*T! PESSIMISTIC */;"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 38,
+          "text": "`BEGIN PESSIMISTIC;` 和 `BEGIN OPTIMISTIC;` 等语句的优先级高于 `tidb_txn_mode` 系统变量。使用这两个语句开启的事务，会忽略系统变量，从而支持悲观、乐观事务混合使用。"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 55,
+          "text": "    | BEGIN PESSIMISTIC; |  |"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 57,
+          "text": "    |  | BEGIN PESSIMISTIC; |  |"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 59,
+          "text": "    |  |  | BEGIN PESSIMISTIC;"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 99,
+          "text": "    BEGIN /*T! PESSIMISTIC */;"
+        },
+        {
+          "filename": "pessimistic-transaction.md",
+          "line": 104,
+          "text": "    BEGIN /*T! PESSIMISTIC */;"
+        }
+      ]
+    }
+  ],
+  "scope": "unranked source text search, not benchmark retrieval"
+}

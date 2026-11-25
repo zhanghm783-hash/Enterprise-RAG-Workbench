@@ -1,0 +1,591 @@
+{
+  "scope": "offline literal evidence feasibility only; not retrieval or final labels",
+  "dataset_sha256": "3f024b87c7ac08c87d6bdc0b56cc0a15b75137a32990ce0a161427fd79299ff9",
+  "question_count": 32,
+  "csv_rows": 32,
+  "source_integrity_checks": 22,
+  "total_chunks": 677,
+  "questions_with_single_chunk_all_literal_anchors": 29,
+  "needs_review": [
+    "EV04",
+    "EV06",
+    "EV08"
+  ],
+  "question_checks": [
+    {
+      "id": "ED01",
+      "split": "dev",
+      "filename": "troubleshoot-tidb-oom.md",
+      "anchor_chunk_indices": [
+        [
+          4
+        ],
+        [
+          4
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        4
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED02",
+      "split": "dev",
+      "filename": "troubleshoot-tidb-oom.md",
+      "anchor_chunk_indices": [
+        [
+          14
+        ],
+        [
+          14
+        ],
+        [
+          14
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        14
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED03",
+      "split": "dev",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "anchor_chunk_indices": [
+        [
+          3
+        ],
+        [
+          3
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        3
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED04",
+      "split": "dev",
+      "filename": "troubleshoot-write-conflicts.md",
+      "anchor_chunk_indices": [
+        [
+          9
+        ],
+        [
+          9
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        9
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED05",
+      "split": "dev",
+      "filename": "analyze-slow-queries.md",
+      "anchor_chunk_indices": [
+        [
+          8
+        ],
+        [
+          8
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        8
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED06",
+      "split": "dev",
+      "filename": "troubleshoot-hot-spot-issues.md",
+      "anchor_chunk_indices": [
+        [
+          10
+        ],
+        [
+          10
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        10
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED07",
+      "split": "dev",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "anchor_chunk_indices": [
+        [
+          4
+        ],
+        [
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        4
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "ED08",
+      "split": "dev",
+      "filename": "tidb-troubleshooting-map.md",
+      "anchor_chunk_indices": [
+        [
+          34
+        ],
+        [
+          34
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        34
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV01",
+      "split": "test",
+      "filename": "troubleshoot-tidb-oom.md",
+      "anchor_chunk_indices": [
+        [
+          10
+        ],
+        [
+          10
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        10
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV02",
+      "split": "test",
+      "filename": "troubleshoot-tidb-oom.md",
+      "anchor_chunk_indices": [
+        [
+          12
+        ],
+        [
+          12
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        12
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV03",
+      "split": "test",
+      "filename": "troubleshoot-tidb-oom.md",
+      "anchor_chunk_indices": [
+        [
+          16
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        16
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV04",
+      "split": "test",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "anchor_chunk_indices": [
+        [
+          2
+        ],
+        [
+          4
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [],
+      "needs_review": true,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV05",
+      "split": "test",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "anchor_chunk_indices": [
+        [
+          34
+        ],
+        [
+          34
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        34
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV06",
+      "split": "test",
+      "filename": "troubleshoot-lock-conflicts.md",
+      "anchor_chunk_indices": [
+        [
+          36
+        ],
+        [
+          36
+        ],
+        [
+          37
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [],
+      "needs_review": true,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV07",
+      "split": "test",
+      "filename": "analyze-slow-queries.md",
+      "anchor_chunk_indices": [
+        [
+          12
+        ],
+        [
+          12
+        ],
+        [
+          12
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        12
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV08",
+      "split": "test",
+      "filename": "analyze-slow-queries.md",
+      "anchor_chunk_indices": [
+        [
+          15
+        ],
+        [
+          15
+        ],
+        [
+          17
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [],
+      "needs_review": true,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV09",
+      "split": "test",
+      "filename": "analyze-slow-queries.md",
+      "anchor_chunk_indices": [
+        [
+          9
+        ],
+        [
+          9
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        9
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV10",
+      "split": "test",
+      "filename": "troubleshoot-cpu-issues.md",
+      "anchor_chunk_indices": [
+        [
+          11
+        ],
+        [
+          11
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        11
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV11",
+      "split": "test",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "anchor_chunk_indices": [
+        [
+          12
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        12
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV12",
+      "split": "test",
+      "filename": "troubleshoot-tidb-cluster.md",
+      "anchor_chunk_indices": [
+        [
+          6
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        6
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV13",
+      "split": "test",
+      "filename": "faq/deploy-and-maintain-faq.md",
+      "anchor_chunk_indices": [
+        [
+          9
+        ],
+        [
+          9
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        9
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV14",
+      "split": "test",
+      "filename": "faq/deploy-and-maintain-faq.md",
+      "anchor_chunk_indices": [
+        [
+          14
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        14
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV15",
+      "split": "test",
+      "filename": "faq/deploy-and-maintain-faq.md",
+      "anchor_chunk_indices": [
+        [
+          11
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        11
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV16",
+      "split": "test",
+      "filename": "faq/sql-faq.md",
+      "anchor_chunk_indices": [
+        [
+          10
+        ],
+        [
+          10
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        10
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV17",
+      "split": "test",
+      "filename": "faq/sql-faq.md",
+      "anchor_chunk_indices": [
+        [
+          22
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        22
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV18",
+      "split": "test",
+      "filename": "faq/sql-faq.md",
+      "anchor_chunk_indices": [
+        [
+          3
+        ],
+        [
+          3
+        ],
+        [
+          3
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        3
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV19",
+      "split": "test",
+      "filename": "faq/manage-cluster-faq.md",
+      "anchor_chunk_indices": [
+        [
+          51
+        ],
+        [
+          51
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        51
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV20",
+      "split": "test",
+      "filename": "faq/manage-cluster-faq.md",
+      "anchor_chunk_indices": [
+        [
+          78
+        ],
+        [
+          78
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        78
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV21",
+      "split": "test",
+      "filename": "faq/migration-tidb-faq.md",
+      "anchor_chunk_indices": [
+        [
+          17
+        ],
+        [
+          17
+        ],
+        [
+          17
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        17
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV22",
+      "split": "test",
+      "filename": "troubleshoot-high-disk-io.md",
+      "anchor_chunk_indices": [
+        [
+          4
+        ],
+        [
+          4
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        4
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV23",
+      "split": "test",
+      "filename": "troubleshoot-hot-spot-issues.md",
+      "anchor_chunk_indices": [
+        [
+          13
+        ],
+        [
+          13
+        ],
+        [
+          13
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        13
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    },
+    {
+      "id": "EV24",
+      "split": "test",
+      "filename": "pessimistic-transaction.md",
+      "anchor_chunk_indices": [
+        [
+          2
+        ]
+      ],
+      "single_chunk_contains_all_literal_anchors": [
+        2
+      ],
+      "needs_review": false,
+      "note": "文本摘录匹配仅作可用性诊断；不等于语义金标、检索结果或已入库 ID"
+    }
+  ],
+  "paid_model_calls": 0
+}
